@@ -1,10 +1,11 @@
-
-let processingorgDocs = 'https://processing.org/reference/';
-let processingorgSearchGoogle = 'https://www.google.com/search?as_sitesearch=processing.org&as_q=';
-let processingorgSearchDuckDuckGo = 'https://duckduckgo.com/?q=!processing+%5C';
-let p5jsDocs = 'https://p5js.org/reference/';
-let p5jsSearchGoogle = 'https://www.google.com/search?as_sitesearch=p5js.org&as_q=';
-let p5jsSearchDuckDuckGo = 'https://duckduckgo.com/?q=!p5+';
+const enum Urls {
+    ProcessingorgDocs = 'https://processing.org/reference/',
+    ProcessingorgSearchGoogle = 'https://www.google.com/search?as_sitesearch=processing.org&as_q=',
+    ProcessingorgSearchDuckDuckGo = 'https://duckduckgo.com/?q=!processing+%5C',
+    P5jsDocs = 'https://p5js.org/reference/',
+    P5jsSearchGoogle = 'https://www.google.com/search?as_sitesearch=p5js.org&as_q=',
+    P5jsSearchDuckDuckGo = 'https://duckduckgo.com/?q=!p5+',
+}
 
 import * as vscode from 'vscode';
 
@@ -15,10 +16,10 @@ export async function openURL(search_base?: string, s?: string) {
 
 		if (!s) {
 			if (processingDocs === 'p5js.org') {
-				s = p5jsDocs;
+				s = Urls.P5jsDocs;
 			}
 			else {
-				s = processingorgDocs;
+				s = Urls.ProcessingorgDocs;
 			}
 		}
 		else {
@@ -26,18 +27,18 @@ export async function openURL(search_base?: string, s?: string) {
 
 			if (searchEngine === 'DuckDuckGo') {
 				if (processingDocs === 'p5js.org') {
-					s = p5jsSearchDuckDuckGo + s;
+					s = Urls.P5jsSearchDuckDuckGo + s;
 				}
 				else {
-					s = processingorgSearchDuckDuckGo + s;
+					s = Urls.ProcessingorgSearchDuckDuckGo + s;
 				}
 			}
 			else {
 				if (processingDocs === 'p5js.org') {
-					s = p5jsSearchGoogle + s;
+					s = Urls.P5jsSearchGoogle + s;
 				}
 				else {
-					s = processingorgSearchGoogle + s;
+					s = Urls.ProcessingorgSearchGoogle + s;
 				}
 			}
 		}
