@@ -7,16 +7,16 @@
   "engines": {
     "vscode": "^1.48.0"
   },
-  "homepage": "https://github.com/TobiahZ/processing-vscode",
+  "homepage": "https://github.com/Luke-zhang-04/processing-vscode",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TobiahZ/processing-vscode.git"
+    "url": "https://github.com/Luke-zhang-04/processing-vscode.git"
   },
   "categories": [
     "Programming Languages",
     "Snippets"
   ],
-  "bugs": "https://github.com/TobiahZ/processing-vscode/issues",
+  "bugs": "https://github.com/Luke-zhang-04/processing-vscode/issues",
   "license": "MIT",
   "keywords": [
     "processing",
