@@ -75,7 +75,9 @@ function openDocErrorMessage(str: string) {
 
 export function activate(context: vscode.ExtensionContext) {
 
-    console.log('Processing language extension is now active!');
+    const log = vscode.window.createOutputChannel('Processing')
+
+    log.appendLine('Processing language extension is now active!');
 
     let create_task_file = vscode.commands.registerCommand('processing.CreateTaskFile', () => {
 
@@ -87,7 +89,7 @@ export function activate(context: vscode.ExtensionContext) {
             function copyTaskFile(destination: string) {
                 copyFile(pdeTaskFile, destination, function (err: Error) {
                     if (err) {
-                        return console.log(err);
+                        return log.appendLine(err.toString());
                     }
                     remindAddToPath();
                 });
@@ -136,7 +138,7 @@ export function activate(context: vscode.ExtensionContext) {
                     console.error(err);
                     return;
                 }
-                console.log(stdout);
+                log.appendLine(stdout);
             });
         });
     });
