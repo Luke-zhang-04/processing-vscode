@@ -18,15 +18,15 @@ const getDocLinks = async () => {
     const {document} = window
 
     return Array.from(document.querySelectorAll("div.category a")) // Get all the build in function links
-        .filter(({innerHTML}) => (
-            (/[A-z]\(\)/u).test(innerHTML)
-        ))
+        .filter(({innerHTML}) => /[A-z]\(\)/u.test(innerHTML))
         .map((item) => item.getAttribute("href"))
 }
 
-const escapeHTML = (html) => html.replace(/<(\/)?(b|pre)>/gu, "`")
-    .replace(/<br(\/)?>/gu, "")
-    .replace(/<[^>]*>/gu, "")
+const escapeHTML = (html) =>
+    html
+        .replace(/<(\/)?(b|pre)>/gu, "`")
+        .replace(/<br(\/)?>/gu, "")
+        .replace(/<[^>]*>/gu, "")
 
 /**
  * Gets the documentation for a single link
@@ -67,11 +67,20 @@ const documentLink = async (link) => {
 
             if (property) {
                 if (property === "parameters") {
-                    Array.from(item.querySelectorAll("td table tr"))
-                        .forEach((item) => {
-                            documentation.parameters[item.querySelector("th").innerHTML] =
-                                escapeHTML(item.querySelector("td").innerHTML)
-                        })
+                    Array.from(item.querySelectorAll("td table tr")).forEach((item) => {
+                        documentation.parameters[item.querySelector("th").innerHTML] = escapeHTML(
+                            item.querySelector("td").innerHTML,
+                        )
+                    })
+                } else if (property === "syntax") {
+                    documentation.syntax = escapeHTML(item.querySelector("td").innerHTML).replace(
+                        /`/gu,
+                        "",
+                    )
+                } else if (property === "description") {
+                    documentation.description = escapeHTML(
+                        item.querySelector("td").innerHTML,
+                    ).replace(/\\n/gu, "\n\n")
                 } else {
                     documentation[property] = escapeHTML(item.querySelector("td").innerHTML)
                 }
@@ -86,7 +95,6 @@ const documentLink = async (link) => {
  * @param {string[]} links - links go get documenttion from
  */
 const documentLinks = async (links) => {
-
     /**
      * @type {{[key: string]: {
      *  description: string,
@@ -104,7 +112,7 @@ const documentLinks = async (links) => {
         const job = (async () => {
             const doc = await documentLink(link)
 
-            documentation[(doc.name.replace(/\(\)/gu, ""))] = {
+            documentation[doc.name.replace(/\(\)/gu, "")] = {
                 ...doc,
                 name: undefined,
             }
@@ -118,9 +126,9 @@ const documentLinks = async (links) => {
     return documentation
 }
 
-(async () => {
+;(async () => {
     const links = await getDocLinks()
     const docs = await documentLinks(links)
 
-    await fs.writeFile("./src/documentation.json", JSON.stringify(docs, null, 2), "utf8")
+    await fs.writeFile("./src/documentation-data.json", JSON.stringify(docs, null, 2), "utf8")
 })()

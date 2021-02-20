@@ -76,6 +76,7 @@ export function activate(context: vscode.ExtensionContext) {
     const log = vscode.window.createOutputChannel("Processing")
 
     log.appendLine("Activating Processing language extension...")
+    console.log("Activating Processing language extension...")
 
     import("./documentation")
 
@@ -88,7 +89,10 @@ export function activate(context: vscode.ExtensionContext) {
             function copyTaskFile(destination: string) {
                 copyFile(pdeTaskFile, destination, function (err: Error) {
                     if (err) {
-                        return log.appendLine(err.toString())
+                        log.appendLine(err.toString())
+                        console.log(err)
+
+                        return
                     }
                     remindAddToPath()
                 })
@@ -143,6 +147,7 @@ export function activate(context: vscode.ExtensionContext) {
                     return
                 }
                 log.appendLine(stdout)
+                console.log(stdout)
             })
         })
     })
@@ -209,6 +214,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(searchUnityDocs)
 
     log.appendLine("Processing language extension is now active!")
+    console.log("Processing language extension is now active!")
 }
 
 // this method is called when your extension is deactivated

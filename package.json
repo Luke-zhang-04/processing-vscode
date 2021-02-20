@@ -31,7 +31,8 @@
     "onCommand:processing.RunTaskFile",
     "onCommand:processing.OpenExtensionDocumentation",
     "onCommand:processing.OpenDocs",
-    "onCommand:processing.SearchWebsite"
+    "onCommand:processing.SearchWebsite",
+    "onLanguage:pde"
   ],
   "main": "./out/extension",
   "contributes": {
