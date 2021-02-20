@@ -1,5 +1,5 @@
 /**
- * processing - Processing Language Support for VSCode
+ * processing-vscode - Processing Language Support for VSCode
  * @version 1.5.0
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
@@ -41,15 +41,136 @@ const getHoveredItem = (line: string, position: number): string => {
     return line.slice(itemStart, itemEnd)
 }
 
-/* prettier-ignore */
+interface DocumentationVariable {
+    description: string
+    examples?: string
+    docUrl: string
+    type: "var" | "const"
+}
 
-type DocumentationItem = {
+interface DocumentationClass {
+    description: string
+    syntax: string
+    parameters: {[key: string]: string}
+    docUrl: string
+    type: "class"
+}
+
+interface DocumentationFunction {
     description: string
     syntax: string
     parameters: {[key: string]: string}
     returns: string
     docUrl: string
+    type: "function"
+}
+
+/* prettier-ignore */
+export type Documentation = {
+    [key: string]: DocumentationFunction | DocumentationVariable | DocumentationClass
 };
+
+const documentVariable = (
+    info: DocumentationVariable,
+    item: keyof typeof documentation,
+): vscode.Hover =>
+    new vscode.Hover([
+        info.examples
+            ? `\`\`\`js
+${info.type} ${item}
+\`\`\`
+\`\`\`processing
+// Examples
+${info.examples}
+\`\`\``
+            : `\`\`\`js
+${info.type} ${item}
+\`\`\``,
+        `**${item}**
+
+${info.description}
+
+@see {@link [${info.docUrl}](${info.docUrl})}
+`,
+    ])
+
+const documentFuntion = (
+    info: DocumentationFunction,
+    item: keyof typeof documentation,
+): vscode.Hover => {
+    const params = Object.entries(info.parameters).map(([name, desc]) => {
+        const typeDefs = desc.indexOf(":")
+
+        if (typeDefs === -1) {
+            return `@param \`${name}\` — ${desc}`
+        }
+
+        const formattedDesc = `\`${desc.slice(0, typeDefs)}\`${desc.slice(typeDefs)}`
+
+        return `@param \`${name}\` — ${formattedDesc}`
+    })
+    const {returns} = info
+
+    // Prepare yourself
+    return new vscode.Hover([
+        ...(info.syntax
+            ? [
+                  `\`\`\`js
+${info.type} ${item}
+\`\`\`
+\`\`\`processing
+${info.syntax}
+\`\`\``,
+              ]
+            : []),
+        `**${item}**
+
+${info.description}
+
+@see {@link [${info.docUrl}](${info.docUrl})}
+
+${params.join("\n\n")}
+
+${returns ? `@returns ${returns === "void" ? "`void`" : returns}` : ""}
+`,
+    ])
+}
+
+const documentClass = (info: DocumentationClass, item: keyof typeof documentation): vscode.Hover => {
+    const params = Object.entries(info.parameters).map(([name, desc]) => {
+        const typeDefs = desc.indexOf(":")
+
+        if (typeDefs === -1) {
+            return `@param \`${name}\` — ${desc}`
+        }
+
+        const formattedDesc = `\`${desc.slice(0, typeDefs)}\`${desc.slice(typeDefs)}`
+
+        return `@param \`${name}\` — ${formattedDesc}`
+    })
+
+    // Prepare yourself
+    return new vscode.Hover([
+        ...(info.syntax
+            ? [
+                  `\`\`\`js
+${info.type} ${item}
+\`\`\`
+\`\`\`processing
+${info.syntax}
+\`\`\``,
+              ]
+            : []),
+        `**${item}**
+
+${info.description}
+
+@see {@link [${info.docUrl}](${info.docUrl})}
+
+${params.join("\n\n")}
+`,
+    ])
+}
 
 vscode.languages.registerHoverProvider(
     {scheme: "file", language: "pde"},
@@ -66,44 +187,18 @@ vscode.languages.registerHoverProvider(
             }
 
             const item = getHoveredItem(line, position.character) as keyof typeof documentation
-            const info = documentation[item] as DocumentationItem | undefined
+            const info = (documentation as Documentation)[item]
 
             if (!info) {
                 return
+            } else if (info.type === "function") {
+                return documentFuntion(info, item)
+            } else if (info.type === "class") {
+                return documentClass(info, item)
             }
 
-            const params = Object.entries(info.parameters).map(([name, desc]) => {
-                const typeDefs = desc.indexOf(":")
-
-                if (typeDefs === -1) {
-                    return `@param \`${name}\` — ${desc}`
-                }
-
-                const formattedDesc = `\`${desc.slice(0, typeDefs)}\`${desc.slice(typeDefs)}`
-
-                return `@param \`${name}\` — ${formattedDesc}`
-            })
-            const {returns} = info
-
-            return new vscode.Hover([
-                ...(info.syntax
-                    ? [
-                          `\`\`\`processing
-${info.syntax}
-\`\`\``,
-                      ]
-                    : []),
-                `**${item}**
-
-${info.description.length > 750 ? info.description.slice(0, 751) + ". . ." : info.description}
-
-@see {@link [${info.docUrl}](${info.docUrl})}
-
-${params.join("\n\n")}
-
-${returns ? `@returns ${returns === "void" ? "`void`" : returns}` : ""}
-`,
-            ])
+            // Not a function or class, therefore a variable
+            return documentVariable(info, item)
         },
     },
 )
