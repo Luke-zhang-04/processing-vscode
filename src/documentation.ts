@@ -95,7 +95,7 @@ ${info.syntax}
                     : []),
                 `**${item}**
 
-${info.description}
+${info.description.length > 750 ? info.description.slice(0, 751) + ". . ." : info.description}
 
 @see {@link [${info.docUrl}](${info.docUrl})}
 
