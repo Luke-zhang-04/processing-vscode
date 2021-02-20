@@ -1,6 +1,6 @@
 out
 node_modules
-.vscode-test
 *.log
 .idea
 *.vsix
+lib

@@ -1,10 +1,11 @@
+.github
 .vscode/**
-.vscode-test/**
-out/test/**
 src/**
+.editorconfig
 .gitignore
-vsc-extension-quickstart.md
-**/tsconfig.json
-**/tslint.json
+.prettierrc.yml
+fetchDocs.mjs
+tsconfig.json
+tslint.json
 **/*.map
-**/*.ts
+yarn.lock

@@ -2,10 +2,11 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "ES6",
-    "outDir": "out",
+    "outDir": "lib",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "rootDir": "src",
     "strict": true,   /* enable all strict type-checking options */

@@ -1,7 +1,12 @@
-import * as vscode from "vscode"
-import * as documentation from "./documentation-data.json"
+/**
+ * processing - Processing Language Support for VSCode
+ * @version 1.0.0
+ * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
+ */
+
+import documentation from "./documentation-data.json"
 import {promises as fs} from "fs"
-import {type} from "os"
+import vscode from "vscode"
 
 /**
  * Gets the hovered "thing" and returns it

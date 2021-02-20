@@ -1,10 +1,15 @@
-"use strict"
-import * as vscode from "vscode"
-import * as fs from "fs"
-import * as path from "path"
-import * as child_process from "child_process"
-import {processingCommand, buildProcessingArgs, processingTaskFilename} from "./processing-tasks"
+/**
+ * processing - Processing Language Support for VSCode
+ * @version 1.0.0
+ * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
+ */
+
 import * as search from "./search"
+import {processingCommand, buildProcessingArgs, processingTaskFilename} from "./processing-tasks"
+import childProcess from "child_process"
+import fs from "fs"
+import path from "path"
+import vscode from "vscode"
 
 function remindAddToPath() {
     return vscode.window
@@ -141,7 +146,7 @@ export function activate(context: vscode.ExtensionContext) {
     let run_task_file = vscode.commands.registerCommand("processing.RunTaskFile", () => {
         checkIfProjectOpen((root: vscode.WorkspaceFolder) => {
             const cmd = `${processingCommand} ${buildProcessingArgs(root.uri.fsPath).join(" ")}`
-            child_process.exec(cmd, (err, stdout, stderr) => {
+            childProcess.exec(cmd, (err, stdout, stderr) => {
                 if (err) {
                     console.error(err)
                     return
