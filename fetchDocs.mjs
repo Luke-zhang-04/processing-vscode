@@ -1,5 +1,9 @@
 #!/bin/node
 
+/**
+ * @file fetched documentation from https://processing.org/reference and dumps it into src/documentation-data.json
+ */
+
 import fetch from "node-fetch"
 import {promises as fs} from "fs"
 import {JSDOM} from "jsdom"
