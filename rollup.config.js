@@ -6,7 +6,7 @@ import typescript from "@rollup/plugin-typescript"
 
 const banner = `/**
  * processing-vscode - Processing Language Support for VSCode
- * @version 2.0.0
+ * @version 1.5.0
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  * @preserve
  */

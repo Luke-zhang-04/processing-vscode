@@ -1,8 +1,8 @@
 {
   "name": "processing-vscode",
-  "displayName": "Processing Language",
+  "displayName": "Processing VSCode",
   "description": "Processing Language Support for VSCode",
-  "version": "2.0.0",
+  "version": "1.5.0",
   "publisher": "Luke-zhang-04",
   "engines": {
     "vscode": "^1.48.0"
