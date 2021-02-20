@@ -1,8 +1,10 @@
 /**
- * processing - Processing Language Support for VSCode
+ * processing-vscode - Processing Language Support for VSCode
  * @version 1.5.0
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
+
+import vscode from "vscode"
 
 const enum Urls {
     ProcessingorgDocs = "https://processing.org/reference/",
@@ -12,8 +14,6 @@ const enum Urls {
     P5jsSearchGoogle = "https://www.google.com/search?as_sitesearch=p5js.org&as_q=",
     P5jsSearchDuckDuckGo = "https://duckduckgo.com/?q=!p5+",
 }
-
-import vscode from "vscode"
 
 export const openURL = async (search_base?: string, s?: string) => {
     if (search_base === "open") {
