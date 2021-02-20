@@ -3,7 +3,7 @@
   "displayName": "Processing Language",
   "description": "Processing Language Support for VSCode",
   "version": "1.0.0",
-  "publisher": "Luke Zhang",
+  "publisher": "Luke-zhang-04",
   "engines": {
     "vscode": "^1.48.0"
   },
