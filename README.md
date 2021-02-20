@@ -1,29 +1,12 @@
 # Processing for Visual Studio Code
 
-[![.github/workflows/main.yml](https://github.com/TobiahZ/processing-vscode/workflows/.github/workflows/main.yml/badge.svg)](https://github.com/TobiahZ/processing-vscode/actions)
-
-[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/Tobiah.language-pde.svg)](https://marketplace.visualstudio.com/items?itemName=Tobiah.language-pde)
-[![Installs](https://vsmarketplacebadge.apphb.com/installs/Tobiah.language-pde.svg)](https://marketplace.visualstudio.com/items?itemName=Tobiah.language-pde)
-[![Rating](https://vsmarketplacebadge.apphb.com/rating/Tobiah.language-pde.svg)](https://marketplace.visualstudio.com/items?itemName=Tobiah.language-pde)
-
 ## What this extension is
 
-This is a Visual Studio Code extension created by Tobiah Zarlez to add Processing language support.
+This is a fork of a Visual Studio Code extension created by Tobiah Zarlez to add Processing language support, with added documentation on hover, error alerts, and more.
 
 ## What this extension isn't
 
-This extension does not allow you to debug Java or Processing projects.
-
-### Can you add a feature I want?
-
-Possibly! [Let us know](https://github.com/TobiahZ/processing-vscode/issues), we'd love to hear your suggestions.
-
-## Installation Instructions
-
-1. Open [Visual Studio Code](https://code.visualstudio.com/)
-1. Open the Command Pallet (`CTRL+SHIFT+P` for Windows/Linux or `CMD+SHIFT+P` on Mac) enter the command “Install Extension”
-1. Search for “Processing Language” and click on this extension.
-1. Restart Visual Studio Code
+This extension does not allow you to debug Java or Processing projects. It also doesn't include any sort of intellisense.
 
 ## Feature list
 
@@ -34,6 +17,10 @@ Open any .pde file, or choose "Processing" from the drop down menu in the bottom
 ### Snippets
 
 Once the language has been set, you will see code snippets pop up automatically as you type!
+
+### Documentation on hover
+
+When you hover over a function such as `square`, documentation for this function will appear!
 
 ### Commands
 
@@ -180,10 +167,6 @@ For example, if you are running Windows and want the task file to use Command Pr
         ]
       }
 ```
-
-## To Do List
-
-* Take nice looking (Animated?) screen shots for README/Instructions
 
 ## Credits
 
