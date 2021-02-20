@@ -149,6 +149,7 @@
     "jsdom": "^16.4.0",
     "mocha": "^6.2.3",
     "node-fetch": "^2.6.1",
+    "prettier": "^2.2.1",
     "tslint": "^5.20.1",
     "typescript": "^3.9.7",
     "vsce": "^1.79.5",
