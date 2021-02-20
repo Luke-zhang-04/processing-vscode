@@ -1,4 +1,4 @@
-import * as path from 'path';
+import * as path from "path"
 
 /**
  * Dynamically build the args to pass to the `processing-java` command.
@@ -6,14 +6,9 @@ import * as path from 'path';
  * @param base the base directory of the sketch
  */
 export function buildProcessingArgs(base: string) {
-    return [
-        '--force',
-        `--sketch=${base}`,
-        path.join(`--output=${base}`, 'out'),
-        '--run'
-    ];
+    return ["--force", `--sketch=${base}`, path.join(`--output=${base}`, "out"), "--run"]
 }
 
-export const processingCommand = 'processing-java';
+export const processingCommand = "processing-java"
 
-export const processingTaskFilename = 'ProcessingTasks.json';
+export const processingTaskFilename = "ProcessingTasks.json"
