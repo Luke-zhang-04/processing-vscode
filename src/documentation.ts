@@ -5,7 +5,6 @@
  */
 
 import documentation from "./documentation-data.json"
-import {promises as fs} from "fs"
 import vscode from "vscode"
 
 /**
@@ -18,7 +17,7 @@ const getHoveredItem = (line: string, position: number): string => {
         let index = position
 
         for (; index >= 0 && index < line.length; index--) {
-            if (!/[A-z]|[0-9]/u.test(line[index])) {
+            if (!/[A-z]|[0-9]|_/u.test(line[index])) {
                 break
             }
         }
@@ -178,15 +177,8 @@ vscode.languages.registerHoverProvider(
         provideHover: async (document, position) => {
             console.log(documentation)
 
-            const contents = (await fs.readFile(document.uri.fsPath)).toString()
-
-            const line = contents.split("\n")[position.line]
-
-            if (!line) {
-                return
-            }
-
-            const item = getHoveredItem(line, position.character) as keyof typeof documentation
+            const line = document.lineAt(position.line)
+            const item = getHoveredItem(line.text, position.character) as keyof typeof documentation
             const info = (documentation as Documentation)[item]
 
             if (!info) {
