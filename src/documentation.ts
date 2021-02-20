@@ -86,9 +86,13 @@ vscode.languages.registerHoverProvider(
             const {returns} = info
 
             return new vscode.Hover([
-                `\`\`\`processing
+                ...(info.syntax
+                    ? [
+                          `\`\`\`processing
 ${info.syntax}
 \`\`\``,
+                      ]
+                    : []),
                 `**${item}**
 
 ${info.description}
@@ -97,7 +101,7 @@ ${info.description}
 
 ${params.join("\n\n")}
 
-@returns ${returns === "void" ? "`void`" : returns}
+${returns ? `@returns ${returns === "void" ? "`void`" : returns}` : ""}
 `,
             ])
         },

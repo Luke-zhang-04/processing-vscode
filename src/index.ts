@@ -136,6 +136,8 @@ export function activate(context: vscode.ExtensionContext) {
                                     }
                                 })
                         }
+
+                        return
                     })
                 }
             })
@@ -146,7 +148,7 @@ export function activate(context: vscode.ExtensionContext) {
     let run_task_file = vscode.commands.registerCommand("processing.RunTaskFile", () => {
         checkIfProjectOpen((root: vscode.WorkspaceFolder) => {
             const cmd = `${processingCommand} ${buildProcessingArgs(root.uri.fsPath).join(" ")}`
-            childProcess.exec(cmd, (err, stdout, stderr) => {
+            childProcess.exec(cmd, (err, stdout) => {
                 if (err) {
                     console.error(err)
                     return
@@ -171,7 +173,7 @@ export function activate(context: vscode.ExtensionContext) {
     // Open Processing Documentation, when you already have something you want to search selected
     let open_docs = vscode.commands.registerTextEditorCommand(
         "processing.OpenDocs",
-        (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) => {
+        (textEditor: vscode.TextEditor) => {
             // selection[0] is the start, and selection[1] is the end
             let selection = textEditor.selection
             if (!selection.isSingleLine) {

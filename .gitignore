@@ -4,3 +4,4 @@ node_modules
 .idea
 *.vsix
 lib
+processing-vscode.js

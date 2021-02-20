@@ -9,3 +9,5 @@ tsconfig.json
 tslint.json
 **/*.map
 yarn.lock
+rollup.config.js
+node_modules
