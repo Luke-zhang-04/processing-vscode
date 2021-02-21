@@ -11,3 +11,5 @@ tslint.json
 yarn.lock
 rollup.config.js
 node_modules
+*.log
+
