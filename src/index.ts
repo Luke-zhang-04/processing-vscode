@@ -5,6 +5,7 @@
  */
 
 import subscribeCommands from "./commands"
+import subscribeDiagnostics from "./diagnostics"
 import vscode from "vscode"
 
 export async function activate(context: vscode.ExtensionContext) {
@@ -14,6 +15,10 @@ export async function activate(context: vscode.ExtensionContext) {
     console.log("Activating Processing language extension...")
 
     subscribeCommands(context, log)
+
+    const pdeDiagnostics = vscode.languages.createDiagnosticCollection("processing")
+    context.subscriptions.push(pdeDiagnostics)
+    subscribeDiagnostics(pdeDiagnostics, context, log)
 
     await import("./documentation")
 

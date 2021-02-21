@@ -175,8 +175,6 @@ vscode.languages.registerHoverProvider(
     {scheme: "file", language: "pde"},
     {
         provideHover: async (document, position) => {
-            console.log(documentation)
-
             const line = document.lineAt(position.line)
             const item = getHoveredItem(line.text, position.character) as keyof typeof documentation
             const info = (documentation as Documentation)[item]
