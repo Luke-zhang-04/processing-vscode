@@ -14,7 +14,7 @@ export async function activate(context: vscode.ExtensionContext) {
     log.appendLine("Activating Processing language extension...")
     console.log("Activating Processing language extension...")
 
-    subscribeCommands(context, log)
+    subscribeCommands(context)
 
     const pdeDiagnostics = vscode.languages.createDiagnosticCollection("processing")
     context.subscriptions.push(pdeDiagnostics)

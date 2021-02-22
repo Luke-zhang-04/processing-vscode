@@ -26,26 +26,6 @@ When you hover over a function such as `square`, documentation for this function
 
 Installing this extension will add the following commands to your command pallette (`CTRL+SHIFT+P`, or opened by `View -> Command Pallette`). These commands can be selected and run from there, to complete the corresponding tasks.
 
-## Command: Create Task File
-
-Adds a `.vscode/tasks.json` file to your project folder, that has the contents of the `ProcessingTasks.json` located in the root folder of this project.
-
-When you run this task (Keyboard shortcut: `Ctrl+Shift+B`), it will compile and run your project!
-
-If you would like to see output from the compiler, comment out the line `"showOutput": "never",`
-
-**NOTE:** Processing must be added to your path, or you must set the "processing.path" setting!
-
-Follow [these instructions](#add-processing-to-path) to add Processing to your path, or these [alternate instructions](#alternate-method) instead to modify the path setting.
-
-See "[Requirements](#requirements)" for full details.
-
-## Command: Run Processing Project
-
-This is a shortcut for running the `.vscode/tasks.json` file. Same as pressing `Ctrl+Shift+B`
-
-**Note: Must have ran the "Create Processing Task File" command first, [see above](#command-create-task-file)!**
-
 ## Command: Open Extension Documentation
 
 Opens this documentation.
@@ -72,8 +52,7 @@ Installing the extension will give you instant access to [syntax highlighting](#
 
 However, in order to compile and run your processing project from Visual Studio Code, you will need to do three things:
 
-1. Set up your `.vscode/tasks.json` file. (See: "[Command: Create Task File](#command-create-task-file)")
-1. Add Processing to your path **OR** Modify your `.vscode/tasks.json` file. (See: "[Add Processing to path](#add-processing-to-path)" or "[alternate method](#alternate-method)")
+1. Add Processing to your path
 1. Have a `<File>.pde` whose filename matches the name of the project's folder (General Processing Requirement). Your file cannot contain any spaces or it will not run correctly.
 
 ## Add Processing to path

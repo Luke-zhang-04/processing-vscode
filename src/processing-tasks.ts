@@ -16,5 +16,3 @@ export function buildProcessingArgs(base: string) {
 }
 
 export const processingCommand = "processing-java"
-
-export const processingTaskFilename = "ProcessingTasks.json"

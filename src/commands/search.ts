@@ -1,6 +1,13 @@
 import * as search from "../search"
-import {openDocErrorMessage} from "./utils"
 import vscode from "vscode"
+
+const openDocErrorMessage = async (str: string) => {
+    const item = await vscode.window.showErrorMessage("Error: " + str, "Open Docs")
+
+    if (item === "Open Docs") {
+        search.openURL("docs")
+    }
+}
 
 export const openDocumentation = () => {
     search.openURL("https://github.com/TobiahZ/processing-vscode#processing-for-visual-studio-code")

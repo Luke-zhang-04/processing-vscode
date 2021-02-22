@@ -4,23 +4,12 @@
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
-import {createTaskFile, runTaskFile} from "./taskFile"
 import {openDocumentation, openProcessingDocs, searchUnityDocs} from "./search"
+import {run as runProject} from "./run"
 import vscode from "vscode"
 
-export const subscribeCommands = (
-    context: vscode.ExtensionContext,
-    log: vscode.OutputChannel,
-): void => {
-    context.subscriptions.push(
-        vscode.commands.registerCommand("processing.CreateTaskFile", () =>
-            createTaskFile(context, log),
-        ),
-    )
-
-    context.subscriptions.push(
-        vscode.commands.registerCommand("processing.RunTaskFile", () => runTaskFile(context, log)),
-    )
+export const subscribeCommands = (context: vscode.ExtensionContext): void => {
+    context.subscriptions.push(vscode.commands.registerCommand("processing.Run", runProject))
 
     context.subscriptions.push(
         vscode.commands.registerCommand("processing.OpenExtensionDocumentation", openDocumentation),
