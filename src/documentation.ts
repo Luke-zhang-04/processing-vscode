@@ -17,7 +17,7 @@ const getHoveredItem = (line: string, position: number): string => {
         let index = position
 
         for (; index >= 0 && index < line.length; index--) {
-            if (!/[A-z]|[0-9]|_/u.test(line[index])) {
+            if (!/[a-z]|[0-9]|_/iu.test(line[index])) {
                 break
             }
         }
@@ -29,7 +29,7 @@ const getHoveredItem = (line: string, position: number): string => {
         let index = position
 
         for (; index >= 0 && index < line.length; index++) {
-            if (!/[A-z]|[0-9]/u.test(line[index])) {
+            if (!/[a-z]|[0-9]|_/iu.test(line[index])) {
                 break
             }
         }
@@ -165,7 +165,7 @@ ${info.syntax}
 ${info.description}
 
 @see {@link [${info.docUrl}](${info.docUrl})}
-
+https://github.com/Luke-zhang-04/ICS4UI.git
 ${params.join("\n\n")}
 `,
     ])
@@ -174,7 +174,7 @@ ${params.join("\n\n")}
 vscode.languages.registerHoverProvider(
     {scheme: "file", language: "pde"},
     {
-        provideHover: async (document, position) => {
+        provideHover: (document, position) => {
             const line = document.lineAt(position.line)
             const item = getHoveredItem(line.text, position.character) as keyof typeof documentation
             const info = (documentation as Documentation)[item]
