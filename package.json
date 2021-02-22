@@ -27,23 +27,22 @@
     "multi-root ready"
   ],
   "activationEvents": [
-    "onCommand:processing.CreateTaskFile",
-    "onCommand:processing.RunTaskFile",
     "onCommand:processing.OpenExtensionDocumentation",
     "onCommand:processing.OpenDocs",
     "onCommand:processing.SearchWebsite",
+    "onCommand:processing.Run",
     "onLanguage:pde"
   ],
   "main": "./processing-vscode.js",
   "contributes": {
     "commands": [
       {
-        "command": "processing.CreateTaskFile",
-        "title": "Processing: Create Task File"
-      },
-      {
-        "command": "processing.RunTaskFile",
-        "title": "Processing: Run Processing Project"
+        "command": "processing.Run",
+        "title": "Processing: Run Open Processing Project",
+        "icon": {
+          "light": "./images/play_arrow-light.svg",
+          "dark": "./images/play_arrow-dark.svg"
+        }
       },
       {
         "command": "processing.OpenExtensionDocumentation",
@@ -90,6 +89,18 @@
           "when": "editorHasSelection && editorLangId == 'pde'",
           "command": "processing.OpenDocs",
           "group": "navigation@1"
+        },
+        {
+          "when": "resourceLangId == pde",
+          "command": "processing.Run",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "when": "resourceLangId == pde",
+          "command": "processing.Run",
+          "group": "navigation"
         }
       ]
     },
@@ -156,9 +167,9 @@
     "rollup-plugin-terser": "^7.0.2",
     "tslib": "^2.1.0",
     "tslint": "^5.20.1",
-    "typescript": "^3.9.7",
+    "typescript": "^4.1.5",
     "vsce": "^1.79.5"
   },
-  "icon": "processing.png",
+  "icon": "images/processing.png",
   "dependencies": {}
 }
