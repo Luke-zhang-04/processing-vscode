@@ -21,10 +21,11 @@ const createDiagnostic = (
     charIndex: number,
     message: string,
 ): vscode.Diagnostic => {
-    console.log(lineOfText.text)
     const range = new vscode.Range(lineIndex, charIndex, lineIndex, lineOfText.text.length)
 
     const diagnostic = new vscode.Diagnostic(range, message, vscode.DiagnosticSeverity.Error)
+
+    diagnostic.code = "processing-java"
 
     return diagnostic
 }
@@ -71,13 +72,6 @@ const refreshDiagnostics = async (
                 const splitResult = result.split(":")
                 const lineIndex = Number(splitResult[1]) - 1
                 const charIndex = Number(splitResult[2]) - 2
-
-                console.log(
-                    doc.lineAt(lineIndex).text,
-                    lineIndex,
-                    charIndex,
-                    splitResult.slice(5).join("").trim(),
-                )
 
                 foundDiagnostics.push(
                     createDiagnostic(
