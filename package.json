@@ -39,10 +39,7 @@
       {
         "command": "processing.Run",
         "title": "Processing: Run Open Processing Project",
-        "icon": {
-          "light": "./images/play_arrow-light.svg",
-          "dark": "./images/play_arrow-dark.svg"
-        }
+        "icon": "./images/play-arrow.svg"
       },
       {
         "command": "processing.OpenExtensionDocumentation",
