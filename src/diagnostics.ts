@@ -39,7 +39,7 @@ const refreshDiagnostics = async (
         const foundDiagnostics: vscode.Diagnostic[] = []
         const sketchName = doc.fileName.includes(".pde") ? dirname(doc.fileName) : undefined
 
-        if (sketchName) {
+        if (sketchName && doc.getText()) {
             const diagnostic = await new Promise<string[]>((resolve) => {
                 const processingProcess = childProcess.spawn(processingCommand, [
                     `--sketch=${dirname(doc.fileName)}`,
@@ -63,6 +63,11 @@ const refreshDiagnostics = async (
                     resolve(problems)
                 })
             })
+                .catch(() => undefined)
+
+            if (!diagnostic) {
+                return
+            }
 
             if (diagnostic.length > 0) {
                 log.appendLine(diagnostic.toString())
