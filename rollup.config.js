@@ -27,7 +27,10 @@ const config = {
     plugins: [
         progress(),
         typescript(),
-        json(),
+        json({
+            indent: "  ",
+            namedExports: false,
+        }),
         resolve({
             resolveOnly: [/^\.{0,2}\/|tslib/],
         }),
