@@ -78,16 +78,14 @@ const documentVariable = (
             ? `\`\`\`js
 ${info.type} ${item}
 \`\`\`
-\`\`\`processing
+\`\`\`java
 // Examples
 ${info.examples}
 \`\`\``
             : `\`\`\`js
 ${info.type} ${item}
 \`\`\``,
-        `**${item}**
-
-${info.description}
+        `${info.examples ? "" : item + "\n\n"}${info.description}
 
 @see {@link [${info.docUrl}](${info.docUrl})}
 `,
@@ -117,14 +115,12 @@ const documentFuntion = (
                   `\`\`\`js
 ${info.type} ${item}
 \`\`\`
-\`\`\`processing
+\`\`\`java
 ${info.syntax}
 \`\`\``,
               ]
             : []),
-        `**${item}**
-
-${info.description}
+        `${info.syntax ? "" : item + "\n\n"}${info.description}
 
 @see {@link [${info.docUrl}](${info.docUrl})}
 
@@ -155,14 +151,12 @@ const documentClass = (info: DocumentationClass, item: keyof typeof documentatio
                   `\`\`\`js
 ${info.type} ${item}
 \`\`\`
-\`\`\`processing
+\`\`\`java
 ${info.syntax}
 \`\`\``,
               ]
             : []),
-        `**${item}**
-
-${info.description}
+        `${info.syntax ? "" : item + "\n\n"}${info.description}
 
 @see {@link [${info.docUrl}](${info.docUrl})}
 https://github.com/Luke-zhang-04/ICS4UI.git
