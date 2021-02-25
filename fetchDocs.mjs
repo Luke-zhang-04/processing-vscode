@@ -5,9 +5,9 @@
  * `src/documentation-data.json` with some bootleg webscraping
  */
 
+import {JSDOM} from "jsdom"
 import fetch from "node-fetch"
 import {promises as fs} from "fs"
-import {JSDOM} from "jsdom"
 
 const docsUrl = "https://processing.org/reference"
 
@@ -97,6 +97,8 @@ const escapeHTML = (html) =>
         .replace(/<(\/)?(b|pre)>/gu, "`")
         .replace(/<br(\/)?>/gu, "")
         .replace(/<[^>]*>/gu, "")
+        .replace(/&lt;/gu, "<")
+        .replace(/&gt;/gu, ">")
 
 /**
  * Gets the documentation for a single link
@@ -146,7 +148,10 @@ const documentVariable = async (link) => {
                 documentation.description =
                     description.length > 1000 ? description.slice(0, 1000) + ". . ." : description
             } else if (property === "examples") {
-                documentation[property] = escapeHTML(item.querySelector("td").innerHTML).replace(/`/gui, "")
+                documentation[property] = escapeHTML(item.querySelector("td").innerHTML).replace(
+                    /`/giu,
+                    "",
+                )
             } else {
                 documentation[property] = escapeHTML(item.querySelector("td").innerHTML)
             }
@@ -240,7 +245,8 @@ const documentClass = async (link) => {
 
     const response = await fetch(`${docsUrl}/${link}`)
 
-    if (!response.ok) { // If response wasn't ok, return
+    if (!response.ok) {
+        // If response wasn't ok, return
         console.log(`Response for ${link} returned status ${response.status}.`)
         console.log(response)
 
@@ -260,11 +266,7 @@ const documentClass = async (link) => {
         const {innerHTML} = header
 
         const property = (() => {
-            if (
-                ["Description", "Constructor", "Parameters", "Name"].includes(
-                    innerHTML,
-                )
-            ) {
+            if (["Description", "Constructor", "Parameters", "Name"].includes(innerHTML)) {
                 return innerHTML.toLowerCase()
             }
         })()
@@ -315,7 +317,8 @@ const documentLinks = async ({classLinks, functionLinks, variableLinks}) => {
 
     const fetchPromises = [] // Get documentation asynchronously
 
-    for (const link of functionLinks) { // Document functions
+    for (const link of functionLinks) {
+        // Document functions
         const job = (async () => {
             const doc = await documentFunction(link)
 
@@ -330,7 +333,8 @@ const documentLinks = async ({classLinks, functionLinks, variableLinks}) => {
         fetchPromises.push(job)
     }
 
-    for (const link of classLinks) { // Document classes
+    for (const link of classLinks) {
+        // Document classes
         const job = (async () => {
             const doc = await documentClass(link)
 
@@ -345,7 +349,8 @@ const documentLinks = async ({classLinks, functionLinks, variableLinks}) => {
         fetchPromises.push(job)
     }
 
-    for (const link of variableLinks) { // Document variables
+    for (const link of variableLinks) {
+        // Document variables
         const job = (async () => {
             const doc = await documentVariable(link)
 
@@ -365,6 +370,16 @@ const documentLinks = async ({classLinks, functionLinks, variableLinks}) => {
     return documentation
 }
 
+const sortJsonObject = (obj) => {
+    const sortedObj = {}
+
+    for (const key of Object.keys(obj).sort()) {
+        sortedObj[key] = obj[key]
+    }
+
+    return sortedObj
+}
+
 ;(async () => {
     const links = await getDocLinks()
 
@@ -380,5 +395,9 @@ const documentLinks = async ({classLinks, functionLinks, variableLinks}) => {
 
     const docs = await documentLinks(links)
 
-    await fs.writeFile("./src/documentation-data.json", JSON.stringify(docs, null, 2), "utf8")
+    await fs.writeFile(
+        "./src/documentation-data.json",
+        JSON.stringify(sortJsonObject(docs), null, 2),
+        "utf8",
+    )
 })()
