@@ -13,3 +13,4 @@ rollup.config.js
 node_modules
 *.log
 legacy/
+media/

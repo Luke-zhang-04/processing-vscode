@@ -32,9 +32,9 @@ The [original extension](https://github.com/TobiahZ/processing-vscode) was missi
 
 See the [CHANGELOG](https://github.com/Luke-zhang-04/processing-vscode/blob/main/CHANGELOG.md) for all changes
 
-![Hover](./images/hover-1.png)
-![Hover](./images/hover-2.png)
-![Error](./images/error.png)
+![Hover](https://raw.githubusercontent.com/Luke-zhang-04/processing-vscode/main/media/hover-1.png)
+![Hover](https://raw.githubusercontent.com/Luke-zhang-04/processing-vscode/main/media/hover-2.png)
+![Error](https://raw.githubusercontent.com/Luke-zhang-04/processing-vscode/main/media/error.png)
 
 ## Feature list
 
