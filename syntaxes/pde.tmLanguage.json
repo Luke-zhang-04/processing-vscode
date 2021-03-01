@@ -3,7 +3,7 @@
         "This file has is based off https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json"
     ],
     "scopeName": "source.pde",
-    "uuid": "D3D6351E-1416-4AE7-8060-665C6108D2C5",
+    "uuid": "fa3cf963-f9b4-4e28-949d-af2b8d279f97",
     "name": "Processing",
     "fileTypes": [
         "pde",
