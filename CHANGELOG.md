@@ -1,4 +1,22 @@
 # Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.0.0] - 2021-03-01
+
+### Added
+- feat: add documentation on hover for Processing Buildtins
+- feat: add diagnostics from the `processing-java` CLI
+- feat: add a run button to the editor menu
+- feat: add quotes to `autoClosingPairs` and `surroundingPairs`
+
+### Changed
+- changed configuration `processing.path` to `processing.processingPath`
+
+### Removed
+- removed the task file feature in favour of a run button
 
 ## [1.4.6] - 2020-09-03
 
