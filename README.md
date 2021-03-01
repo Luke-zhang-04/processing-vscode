@@ -4,6 +4,8 @@
 
 This is a fork of a Visual Studio Code extension created by Tobiah Zarlez to add Processing language support, with added documentation on hover, diagnostics, and more.
 
+Note: You should probably uninstall the old extension as the syntax highlighting will conflict
+
 ## What this extension isn't
 
 This extension does not allow you to debug Java or Processing projects. It also doesn't include any sort of intellisense.
