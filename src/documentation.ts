@@ -159,7 +159,7 @@ ${info.syntax}
         `${info.syntax ? "" : item + "\n\n"}${info.description}
 
 @see {@link [${info.docUrl}](${info.docUrl})}
-https://github.com/Luke-zhang-04/ICS4UI.git
+
 ${params.join("\n\n")}
 `,
     ])
