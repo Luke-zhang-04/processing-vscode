@@ -7,6 +7,9 @@
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-star/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
 
 
+Jump to the [Feature List](#Feature-list)
+
+
 ## What this extension is
 
 This is a fork of a Visual Studio Code extension created by Tobiah Zarlez to add Processing language support, with added documentation on hover, diagnostics, and more.
@@ -28,6 +31,10 @@ The [original extension](https://github.com/TobiahZ/processing-vscode) was missi
 - Strings are auto closing and surrounding
 
 See the [CHANGELOG](https://github.com/Luke-zhang-04/processing-vscode/blob/main/CHANGELOG.md) for all changes
+
+![Hover](./images/hover-1.png)
+![Hover](./images/hover-2.png)
+![Error](./images/error.png)
 
 ## Feature list
 
@@ -71,3 +78,5 @@ By default uses Google for search. Can change to DuckDuckGo if preferred using t
 
 Snippets are based on the [Processing Sublime Text plugin](https://github.com/b-g/processing-sublime).
 Syntax highlighting is based on the [Red Hat VSCode-Java extension grammar](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json)
+
+
