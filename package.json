@@ -135,6 +135,11 @@
             "Use DuckDuckGo to search documentation"
           ],
           "description": "Which search engine should this extension use?"
+        },
+        "processing.shouldGiveDiagnostics": {
+          "type": "boolean",
+          "default": true,
+          "description": "If the extension should provide diagnostics (via processing-java)"
         }
       }
     }

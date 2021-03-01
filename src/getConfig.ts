@@ -34,3 +34,15 @@ export const getSearchConfig = (): {searchEngine: string; processingDocs: string
         processingDocs,
     }
 }
+
+export const getDiagnosticConfig = (): boolean => {
+    const config = vscode.workspace
+        .getConfiguration()
+        .get<boolean>("processing.shouldGiveDiagnostics", true)
+
+    if (typeof config !== "boolean") {
+        throw new Error("Config option processing.shouldGiveDiagnostics must be of type string")
+    }
+
+    return config
+}
