@@ -17,6 +17,18 @@ Note: You should probably uninstall the old extension as the syntax highlighting
 
 This extension does not allow you to debug Java or Processing projects. It also doesn't include any sort of intellisense.
 
+## Why the fork?
+
+The [original extension](https://github.com/TobiahZ/processing-vscode) was missing some features that I wanted and it seemed as if the repo was no longer being maintained. So, forked the extension and changed some things.
+
+- Better syntax highlighting (thanks to [Red Hat](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json))
+- Documentation on hover
+- A run button
+- Simple diagnostics
+- Strings are auto closing and surrounding
+
+See the [CHANGELOG](https://github.com/Luke-zhang-04/processing-vscode/blob/main/CHANGELOG.md) for all changes
+
 ## Feature list
 
 ### Syntax highlighting
@@ -44,6 +56,10 @@ Opens this documentation.
 Use the pallet command "Processing: Open Documentation for Selection" to open the processing documentation for the current selection.
 
 By default uses processing.org's documentation. Can change to p5js's if preferred using the `processing.docs` setting.
+
+## Command: Run
+
+Runs the current processing project (from current working directory). Also includes a run button in the editor menu
 
 ## Command: Search Processing Website
 
