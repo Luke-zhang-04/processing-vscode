@@ -10,7 +10,7 @@ const openDocErrorMessage = async (str: string) => {
 }
 
 export const openDocumentation = () => {
-    search.openURL("https://github.com/TobiahZ/processing-vscode#processing-for-visual-studio-code")
+    search.openURL("https://github.com/Luke-zhang-04/processing-vscode#processing-for-visual-studio-code")
 }
 
 export const openProcessingDocs = (textEditor: vscode.TextEditor) => {

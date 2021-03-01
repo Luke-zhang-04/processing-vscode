@@ -5,7 +5,7 @@
  */
 
 import {dirname} from "path"
-import {processingCommand} from "../processing-tasks"
+import {getProcessingCommand} from "../getConfig"
 import vscode from "vscode"
 
 class RunManager {
@@ -28,7 +28,9 @@ class RunManager {
             currentTerminal.show()
 
             // If file is a processing project file
-            const cmd = `${processingCommand} --sketch=${dirname(editor.document.fileName)} --run`
+            const cmd = `${getProcessingCommand()} --sketch=${dirname(
+                editor.document.fileName,
+            )} --run`
 
             currentTerminal.sendText(cmd)
         }

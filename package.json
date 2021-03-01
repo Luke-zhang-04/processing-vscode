@@ -105,10 +105,10 @@
       "type": "object",
       "title": "Processing",
       "properties": {
-        "processing.path": {
+        "processing.processingPath": {
           "type": "string",
           "default": "processing-java",
-          "description": "Path to Processing. Leave default if you've added processing to your path, otherwise enter the path to processing-java here. Example: 'C:\\Program Files\\processing-3.0.1\\processing-java' for Windows"
+          "description": "Path to Processing. Leave default if you've added processing to your path, otherwise enter the path to processing-java here. Example: '/usr/bin/processing-java for Unix' for Unix, or 'C:\\Program Files\\processing-3.0.1\\processing-java' for Windows."
         },
         "processing.docs": {
           "type": "string",

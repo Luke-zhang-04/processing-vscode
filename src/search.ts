@@ -4,6 +4,7 @@
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
+import {getSearchConfig} from "./getConfig"
 import vscode from "vscode"
 
 const enum Urls {
@@ -15,39 +16,32 @@ const enum Urls {
     P5jsSearchDuckDuckGo = "https://duckduckgo.com/?q=!p5+",
 }
 
-export const openURL = async (search_base?: string, s?: string) => {
+export const openURL = async (search_base?: string, url?: string) => {
     if (search_base === "open") {
-        await vscode.env.openExternal(vscode.Uri.parse(s as string))
+        await vscode.env.openExternal(vscode.Uri.parse(url as string))
     } else {
-        const config = vscode.workspace.getConfiguration("processing")
-        let processingDocs = String(config.get("docs"))
-
-        if (!s) {
-            if (processingDocs === "p5js.org") {
-                s = Urls.P5jsDocs
-            } else {
-                s = Urls.ProcessingorgDocs
-            }
-        } else {
-            let searchEngine = String(config.get("search"))
-
-            if (searchEngine === "DuckDuckGo") {
-                if (processingDocs === "p5js.org") {
-                    s = Urls.P5jsSearchDuckDuckGo + s
-                } else {
-                    s = Urls.ProcessingorgSearchDuckDuckGo + s
+        const {processingDocs, searchEngine} = getSearchConfig()
+        const searchUrl = ((): string => {
+            if (search_base === "docs") {
+                if (!url) {
+                    return processingDocs === "p5js.org" ? Urls.P5jsDocs : Urls.ProcessingorgDocs
+                } else if (searchEngine === "DuckDuckGo") {
+                    return processingDocs === "p5js.org"
+                        ? `${Urls.P5jsSearchDuckDuckGo}${url}`
+                        : `${Urls.ProcessingorgSearchDuckDuckGo}${url}`
                 }
-            } else {
-                if (processingDocs === "p5js.org") {
-                    s = Urls.P5jsSearchGoogle + s
-                } else {
-                    s = Urls.ProcessingorgSearchGoogle + s
-                }
-            }
-        }
 
-        await vscode.env.openExternal(vscode.Uri.parse(s))
+                return processingDocs === "p5js.org"
+                    ? `${Urls.P5jsSearchGoogle}${url}`
+                    : `${Urls.ProcessingorgSearchGoogle}${url}`
+            }
+
+            return search_base ?? ""
+        })()
+
+        await vscode.env.openExternal(vscode.Uri.parse(searchUrl))
     }
+
     return true
 }
 
