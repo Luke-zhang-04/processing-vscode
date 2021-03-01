@@ -1,5 +1,12 @@
 # Processing for Visual Studio Code
 
+[![.github/workflows/CI.yml](https://img.shields.io/github/workflow/status/Luke-zhang-04/processing-vscode/Node.js%20CI?label=CI&logo=github)](https://github.com/Luke-zhang-04/processing-vscode/actions)
+
+[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
+[![Installs](https://vsmarketplacebadge.apphb.com/installs-short/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
+[![Rating](https://vsmarketplacebadge.apphb.com/rating-star/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
+
+
 ## What this extension is
 
 This is a fork of a Visual Studio Code extension created by Tobiah Zarlez to add Processing language support, with added documentation on hover, diagnostics, and more.
