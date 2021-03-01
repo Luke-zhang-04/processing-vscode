@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - changed configuration `processing.path` to `processing.processingPath`
+- changed language configuration
+- changed the langauge grammar to Red Hats [Java Grammar](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json)
 
 ### Removed
 - removed the task file feature in favour of a run button
