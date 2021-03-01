@@ -1,0 +1,959 @@
+{
+    "fileTypes": [
+        "pde",
+        "java"
+    ],
+    "foldingStartMarker": "(\\{\\s*(//.*)?$|^\\s*// \\{\\{\\{)",
+    "foldingStopMarker": "^\\s*(\\}|// \\}\\}\\}$)",
+    "name": "Processing",
+    "patterns": [
+        {
+            "captures": {
+                "1": {
+                    "name": "keyword.other.package.java"
+                },
+                "2": {
+                    "name": "storage.modifier.package.java"
+                },
+                "3": {
+                    "name": "punctuation.terminator.java"
+                }
+            },
+            "match": "^\\s*(package)\\b(?:\\s*([^ ;$]+)\\s*(;)?)?",
+            "name": "meta.package.java"
+        },
+        {
+            "captures": {
+                "1": {
+                    "name": "keyword.other.import.processing"
+                },
+                "2": {
+                    "name": "storage.modifier.import.processing"
+                },
+                "3": {
+                    "name": "punctuation.terminator.processing"
+                }
+            },
+            "match": "^\\s*(import)\\b(?:\\s*([^ ;$]+)\\s*(;)?)?",
+            "name": "meta.import.processing"
+        },
+        {
+            "include": "#class-body"
+        }
+    ],
+    "repository": {
+        "all-types": {
+            "patterns": [
+                {
+                    "include": "#simple-arrays"
+                },
+                {
+                    "include": "#simple-types"
+                },
+                {
+                    "include": "#object-types"
+                }
+            ]
+        },
+        "annotations": {
+            "patterns": [
+                {
+                    "begin": "(@[^ (]+)(\\()",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.annotation.processing"
+                        },
+                        "2": {
+                            "name": "punctuation.definition.annotation-arguments.begin.processing"
+                        }
+                    },
+                    "end": "(\\))",
+                    "endCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.annotation-arguments.end.processing"
+                        }
+                    },
+                    "name": "meta.declaration.annotation.processing",
+                    "patterns": [
+                        {
+                            "captures": {
+                                "1": {
+                                    "name": "constant.other.key.processing"
+                                },
+                                "2": {
+                                    "name": "keyword.operator.assignment.processing"
+                                }
+                            },
+                            "match": "(\\w*)\\s*(=)"
+                        },
+                        {
+                            "include": "#code"
+                        },
+                        {
+                            "match": ",",
+                            "name": "punctuation.seperator.property.processing"
+                        }
+                    ]
+                },
+                {
+                    "match": "@\\w*",
+                    "name": "storage.type.annotation.processing"
+                }
+            ]
+        },
+        "anonymous-classes-and-new": {
+            "begin": "\\bnew\\b",
+            "beginCaptures": {
+                "0": {
+                    "name": "keyword.control.new.processing"
+                }
+            },
+            "end": "(?<=\\)|\\])(?!\\s*{)|(?<=})|(?=;)",
+            "patterns": [
+                {
+                    "begin": "(\\w+)\\s*(?=\\[)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.type.processing"
+                        }
+                    },
+                    "end": "}|(?=;|\\))",
+                    "patterns": [
+                        {
+                            "begin": "\\[",
+                            "end": "\\]",
+                            "patterns": [
+                                {
+                                    "include": "#inner-code"
+                                }
+                            ]
+                        },
+                        {
+                            "begin": "{",
+                            "end": "(?=})",
+                            "patterns": [
+                                {
+                                    "include": "#code"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "begin": "(?=\\w.*\\()",
+                    "end": "(?<=\\))",
+                    "patterns": [
+                        {
+                            "include": "#object-types"
+                        },
+                        {
+                            "begin": "\\(",
+                            "beginCaptures": {
+                                "1": {
+                                    "name": "storage.type.processing"
+                                }
+                            },
+                            "end": "\\)",
+                            "patterns": [
+                                {
+                                    "include": "#inner-code"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "begin": "{",
+                    "end": "}",
+                    "name": "meta.inner-class.processing",
+                    "patterns": [
+                        {
+                            "include": "#class-body"
+                        }
+                    ]
+                }
+            ]
+        },
+        "assertions": {
+            "patterns": [
+                {
+                    "begin": "\\b(assert)\\s",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "keyword.control.assert.processing"
+                        }
+                    },
+                    "end": "$",
+                    "name": "meta.declaration.assertion.processing",
+                    "patterns": [
+                        {
+                            "match": ":",
+                            "name": "keyword.operator.assert.expression-seperator.processing"
+                        },
+                        {
+                            "include": "#code"
+                        }
+                    ]
+                }
+            ]
+        },
+        "class": {
+            "begin": "(?=\\w?[\\w\\s]*(?:class|(?:@)?interface)\\s+\\w+)",
+            "end": "}",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.class.end.processing"
+                }
+            },
+            "name": "meta.class.processing",
+            "patterns": [
+                {
+                    "include": "#storage-modifiers"
+                },
+                {
+                    "include": "#comments"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "storage.modifier.processing"
+                        },
+                        "2": {
+                            "name": "entity.name.type.class.processing"
+                        }
+                    },
+                    "match": "(class|(?:@)?interface)\\s+(\\w+)",
+                    "name": "meta.class.identifier.processing"
+                },
+                {
+                    "begin": "extends",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "storage.modifier.extends.processing"
+                        }
+                    },
+                    "end": "(?={|implements)",
+                    "name": "meta.definition.class.inherited.classes.processing",
+                    "patterns": [
+                        {
+                            "include": "#object-types-inherited"
+                        },
+                        {
+                            "include": "#comments"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(implements)\\s",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.modifier.implements.processing"
+                        }
+                    },
+                    "end": "(?=\\s*extends|\\{)",
+                    "name": "meta.definition.class.implemented.interfaces.processing",
+                    "patterns": [
+                        {
+                            "include": "#object-types-inherited"
+                        },
+                        {
+                            "include": "#comments"
+                        }
+                    ]
+                },
+                {
+                    "begin": "{",
+                    "end": "(?=})",
+                    "name": "meta.class.body.processing",
+                    "patterns": [
+                        {
+                            "include": "#class-body"
+                        }
+                    ]
+                }
+            ]
+        },
+        "enum": {
+            "begin": "(?=\\w?[\\w\\s]*(?:enum)\\s+\\w+)",
+            "end": "}",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.class.end.processing"
+                }
+            },
+            "name": "meta.class.processing",
+            "patterns": [
+                {
+                    "include": "#storage-modifiers"
+                },
+                {
+                    "include": "#comments"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "storage.modifier.processing"
+                        },
+                        "2": {
+                            "name": "entity.name.type.class.processing"
+                        }
+                    },
+                    "match": "(enum)\\s+(\\w+)",
+                    "name": "meta.class.identifier.processing"
+                },
+                {
+                    "begin": "extends",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "storage.modifier.extends.processing"
+                        }
+                    },
+                    "end": "(?={|implements)",
+                    "name": "meta.definition.class.inherited.classes.processing",
+                    "patterns": [
+                        {
+                            "include": "#object-types-inherited"
+                        },
+                        {
+                            "include": "#comments"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(implements)\\s",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "storage.modifier.implements.processing"
+                        }
+                    },
+                    "end": "(?=\\s*extends|\\{)",
+                    "name": "meta.definition.class.implemented.interfaces.processing",
+                    "patterns": [
+                        {
+                            "include": "#object-types-inherited"
+                        },
+                        {
+                            "include": "#comments"
+                        }
+                    ]
+                },
+                {
+                    "begin": "{",
+                    "end": "(?=})",
+                    "name": "meta.class.body.processing",
+                    "patterns": [
+                        {
+                            "include": "#enum-body"
+                        }
+                    ]
+                }
+            ]
+        },
+        "class-body": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#class"
+                },
+                {
+                    "include": "#enum"
+                },
+                {
+                    "include": "#methods"
+                },
+                {
+                    "include": "#annotations"
+                },
+                {
+                    "include": "#storage-modifiers"
+                },
+                {
+                    "include": "#code"
+                }
+            ]
+        },
+        "enum-body": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#class"
+                },
+                {
+                    "include": "#enum"
+                },
+                {
+                    "include": "#enums"
+                },
+                {
+                    "include": "#methods"
+                },
+                {
+                    "include": "#annotations"
+                },
+                {
+                    "include": "#storage-modifiers"
+                },
+                {
+                    "include": "#code"
+                }
+            ]
+        },
+        "code": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#class"
+                },
+                {
+                    "include": "#enum"
+                },
+                {
+                    "begin": "{",
+                    "end": "}",
+                    "patterns": [
+                        {
+                            "include": "#code"
+                        }
+                    ]
+                },
+                {
+                    "include": "#assertions"
+                },
+                {
+                    "include": "#parens"
+                },
+                {
+                    "include": "#constants-and-special-vars"
+                },
+                {
+                    "include": "#anonymous-classes-and-new"
+                },
+                {
+                    "include": "#keywords"
+                },
+                {
+                    "include": "#operators"
+                },
+                {
+                    "include": "#storage-modifiers"
+                },
+                {
+                    "include": "#strings"
+                },
+                {
+                    "include": "#all-types"
+                },
+                {
+                    "include": "#function-calls"
+                }
+            ]
+        },
+        "inner-code": {
+            "patterns": [
+                {
+                    "include": "#comments"
+                },
+                {
+                    "include": "#assertions"
+                },
+                {
+                    "include": "#parens"
+                },
+                {
+                    "include": "#constants-and-special-vars"
+                },
+                {
+                    "include": "#anonymous-classes-and-new"
+                },
+                {
+                    "include": "#keywords"
+                },
+                {
+                    "include": "#inner-operators"
+                },
+                {
+                    "include": "#storage-modifiers"
+                },
+                {
+                    "include": "#strings"
+                },
+                {
+                    "include": "#all-types"
+                },
+                {
+                    "include": "#function-calls"
+                }
+            ]
+        },
+        "comments": {
+            "patterns": [
+                {
+                    "captures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.processing"
+                        }
+                    },
+                    "match": "/\\*\\*/",
+                    "name": "comment.block.empty.processing"
+                },
+                {
+                    "include": "text.html.javadoc"
+                },
+                {
+                    "include": "#comments-inline"
+                }
+            ]
+        },
+        "comments-inline": {
+            "patterns": [
+                {
+                    "begin": "/\\*",
+                    "captures": {
+                        "0": {
+                            "name": "punctuation.definition.comment.processing"
+                        }
+                    },
+                    "end": "\\*/",
+                    "name": "comment.block.processing"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "comment.line.double-slash.processing"
+                        },
+                        "2": {
+                            "name": "punctuation.definition.comment.processing"
+                        }
+                    },
+                    "match": "\\s*((//).*$\\n?)"
+                }
+            ]
+        },
+        "constants-and-special-vars": {
+            "patterns": [
+                {
+                    "match": "\\b(true|false|null)\\b",
+                    "name": "constant.language.processing"
+                },
+                {
+                    "match": "\\b(this|super)\\b",
+                    "name": "variable.language.processing"
+                },
+                {
+                    "match": "\\b((0(x|X)[0-9a-fA-F]*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))((e|E)(\\+|-)?[0-9]+)?)([LlFfUuDd]|UL|ul)?\\b",
+                    "name": "constant.numeric.processing"
+                },
+                {
+                    "match": "(#[0-9a-fA-F]+)\\b",
+                    "name": "constant.numeric.processing"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "keyword.operator.dereference.processing"
+                        }
+                    },
+                    "match": "(\\.)?\\b([A-Z][A-Z0-9_]+)(?!<|\\.class|\\s*\\w+\\s*=)\\b",
+                    "name": "constant.other.processing"
+                }
+            ]
+        },
+        "enums": {
+            "begin": "^(?=\\s*[A-Z0-9_]+\\s*({|\\(|,))",
+            "end": "(?=;|})",
+            "patterns": [
+                {
+                    "begin": "\\w+",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "constant.other.enum.java"
+                        }
+                    },
+                    "end": "(?=,|;|})",
+                    "name": "meta.enum.java",
+                    "patterns": [
+                        {
+                            "include": "#parens"
+                        },
+                        {
+                            "begin": "{",
+                            "end": "}",
+                            "patterns": [
+                                {
+                                    "include": "#class-body"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "keywords": {
+            "patterns": [
+                {
+                    "match": "\\b(try|catch|finally|throw)\\b",
+                    "name": "keyword.control.catch-exception.processing"
+                },
+                {
+                    "match": "\\b(return|break|case|continue|default|do|while|for|switch|if|else)\\b",
+                    "name": "keyword.control.processing"
+                },
+                {
+                    "match": "\\b(displayHeight|displayWidth|focused|frameCount|frameRate|height|key|keyCode|keyPressed|mouseButton|mousePressed|mouseX|mouseY|online|pixelHeight|pixelWidth|pixels|pmouseX|pmouseY|screen|width)\\b",
+                    "name": "constant.other.processing"
+                },
+                {
+                    "match": "\\b(ADD|ALIGN_CENTER|ALIGN_LEFT|ALIGN_RIGHT|ALPHA|ALPHA_MASK|ALT|AMBIENT|ARGB|ARROW|BACKSPACE|BEVEL|BLEND|BLUE_MASK|BLUR|CENTER|CENTER_RADIUS|CHATTER|CODED|COMPLAINT|COMPONENT|COMPOSITE|CONCAVE_POLYGON|CONTROL|CONVEX_POLYGON|CORNER|CORNERS|CROSS|CUSTOM|DARKEST|DEGREES|DEG_TO_RAD|DELETE|DIFFERENCE|DIFFUSE|DISABLED|DISABLE_TEXT_SMOOTH|DOWN|ENTER|EPSILON|ESC|FX2D|GIF|GREEN_MASK|GREY|HALF|HALF_PI|HAND|HARD_LIGHT|HSB|IMAGE|INVERT|JAVA2D|JPEG|LEFT|LIGHTEST|LINES|LINE_LOOP|LINE_STRIP|MAX_FLOAT|MITER|MODEL|MOVE|MULTIPLY|NORMALIZED|NO_DEPTH_TEST|NTSC|ONE|OPAQUE|OPENGL|ORTHOGRAPHIC|OVERLAY|P2D|P3D|PAL|PDF|PERSPECTIVE|PI|PIXEL_CENTER|POINTS|POLYGON|POSTERIZE|PROBLEM|PROJECT|QUADS|QUAD_STRIP|QUARTER_PI|RADIANS|RAD_TO_DEG|RED_MASK|REPLACE|RETURN|RGB|RIGHT|ROUND|SCREEN|SECAM|SHIFT|SOFT_LIGHT|SPAN|SPECULAR|SQUARE|SUBTRACT|SVIDEO|TAB|TARGA|TEXT|TFF|THIRD_PI|THRESHOLD|TIFF|TRIANGLES|TRIANGLE_FAN|TRIANGLE_STRIP|TUNER|TAU|TWO|TWO_PI|UP|WAIT|WHITESPACE)\\b",
+                    "name": "support.constant.processing"
+                },
+                {
+                    "match": "\\b(Array|Character|FloatDict|FloatList|IntDict|IntList|Integer|JSONArray|JSONObject|Math|Object|PFont|PGraphics|PImage|PShader|PShape|PSound|PVector|StringBuffer|StringDict|StringList|Table|TableRow|Thread|XML)\\b",
+                    "name": "support.class.processing"
+                },
+                {
+                    "match": "\\b(instanceof)\\b",
+                    "name": "keyword.operator.processing"
+                }
+            ]
+        },
+        "operators": {
+            "patterns": [
+                {
+                    "include": "#common-operators"
+                },
+                {
+                    "begin": "=",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "keyword.operator.assignment.processing"
+                        }
+                    },
+                    "end": ";",
+                    "patterns": [
+                        {
+                            "include": "#inner-code"
+                        }
+                    ]
+                },
+                {
+                    "match": ";",
+                    "name": "punctuation.terminator.processing"
+                }
+            ]
+        },
+        "inner-operators": {
+            "patterns": [
+                {
+                    "include": "#common-operators"
+                },
+                {
+                    "match": "(=)",
+                    "name": "keyword.operator.assignment.processing"
+                }
+            ]
+        },
+        "common-operators": {
+            "patterns": [
+                {
+                    "match": "(==|!=|<=|>=|<>|<|>)",
+                    "name": "keyword.operator.comparison.processing"
+                },
+                {
+                    "match": "(\\-\\-|\\+\\+)",
+                    "name": "keyword.operator.increment-decrement.processing"
+                },
+                {
+                    "match": "(\\+\\=|\\-\\=|\\*\\=|\\/\\=)",
+                    "name": "keyword.operator.arithmetic-assignment.processing"
+                },
+                {
+                    "match": "(\\-|\\+|\\*|\\/|%)",
+                    "name": "keyword.operator.arithmetic.processing"
+                },
+                {
+                    "match": "(!|&&|\\|\\|)",
+                    "name": "keyword.operator.logical.processing"
+                },
+                {
+                    "match": "(?<=\\S)\\.(?=\\S)",
+                    "name": "keyword.operator.dereference.processing"
+                },
+                {
+                    "match": "(\\?|\\:)",
+                    "name": "keyword.operator.ternary.processing"
+                }
+            ]
+        },
+        "function-calls": {
+            "patterns": [
+                {
+                    "captures": {
+                        "1": {
+                            "name": "support.function.any-method.processing"
+                        }
+                    },
+                    "match": "(?x)\n    \t\t\t\t(\n    \t\t\t\t\t(?!while|for|do|if|else|switch|catch|enumerate|return|r?iterate)(?: \\b[A-Za-z_][A-Za-z0-9_]*+\\b | :: )*+                  # actual name\n    \t\t\t\t)\n    \t\t\t\t \\s*(?:\\()",
+                    "name": "meta.function-call.processing"
+                }
+            ]
+        },
+        "methods": {
+            "begin": "(?!new)(?=\\w.*\\s+)(?=[^=]+\\()",
+            "end": "}|(?=;)",
+            "name": "meta.method.processing",
+            "patterns": [
+                {
+                    "include": "#storage-modifiers"
+                },
+                {
+                    "begin": "(\\w+)\\s*\\(",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "entity.name.function.processing"
+                        }
+                    },
+                    "end": "\\)",
+                    "name": "meta.method.identifier.processing",
+                    "patterns": [
+                        {
+                            "include": "#parameters"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(?=\\w.*\\s+\\w+\\s*\\()",
+                    "end": "(?=\\w+\\s*\\()",
+                    "name": "meta.method.return-type.processing",
+                    "patterns": [
+                        {
+                            "include": "#all-types"
+                        }
+                    ]
+                },
+                {
+                    "include": "#throws"
+                },
+                {
+                    "begin": "{",
+                    "end": "(?=})",
+                    "name": "meta.method.body.processing",
+                    "patterns": [
+                        {
+                            "include": "#code"
+                        }
+                    ]
+                }
+            ]
+        },
+        "object-types": {
+            "patterns": [
+                {
+                    "begin": "\\b((?:[a-z]\\w*\\.)*[A-Z]+\\w*)<",
+                    "end": ">|[^\\w\\s,\\?<\\[\\]]",
+                    "name": "storage.type.generic.processing",
+                    "patterns": [
+                        {
+                            "include": "#object-types"
+                        },
+                        {
+                            "begin": "<",
+                            "comment": "This is to support <>'s with no actual type prefix",
+                            "end": ">|[^\\w\\s,\\[\\]<]",
+                            "name": "storage.type.generic.processing"
+                        }
+                    ]
+                },
+                {
+                    "begin": "\\b((?:[a-z]\\w*\\.)*[A-Z]+\\w*)(?=\\[)",
+                    "end": "(?=[^\\]\\s])",
+                    "name": "storage.type.object.array.processing",
+                    "patterns": [
+                        {
+                            "begin": "\\[",
+                            "end": "\\]",
+                            "patterns": [
+                                {
+                                    "include": "#inner-code"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "keyword.operator.dereference.processing"
+                        }
+                    },
+                    "match": "\\b(?:[a-z]\\w*(\\.))*[A-Z]+\\w*\\b",
+                    "name": "storage.type.processing"
+                }
+            ]
+        },
+        "object-types-inherited": {
+            "patterns": [
+                {
+                    "begin": "\\b((?:[a-z]\\w*\\.)*[A-Z]+\\w*)<",
+                    "end": ">|[^\\w\\s,<]",
+                    "name": "entity.other.inherited-class.processing",
+                    "patterns": [
+                        {
+                            "include": "#object-types"
+                        },
+                        {
+                            "begin": "<",
+                            "comment": "This is to support <>'s with no actual type prefix",
+                            "end": ">|[^\\w\\s,<]",
+                            "name": "storage.type.generic.processing"
+                        }
+                    ]
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "keyword.operator.dereference.processing"
+                        }
+                    },
+                    "match": "\\b(?:[a-z]\\w*(\\.))*[A-Z]+\\w*",
+                    "name": "entity.other.inherited-class.processing"
+                }
+            ]
+        },
+        "parameters": {
+            "patterns": [
+                {
+                    "match": "final",
+                    "name": "storage.modifier.processing"
+                },
+                {
+                    "include": "#simple-arrays"
+                },
+                {
+                    "include": "#simple-types"
+                },
+                {
+                    "include": "#object-types"
+                },
+                {
+                    "match": "\\w+",
+                    "name": "variable.parameter.processing"
+                }
+            ]
+        },
+        "parens": {
+            "begin": "\\(",
+            "end": "\\)",
+            "patterns": [
+                {
+                    "include": "#inner-code"
+                }
+            ]
+        },
+        "simple-arrays": {
+            "patterns": [
+                {
+                    "match": "\\b(?:void|boolean|byte|char|short|int|float|long|double|color)(\\[\\])*\\b",
+                    "name": "storage.type.simple.array.processing"
+                }
+            ]
+        },
+        "simple-types": {
+            "patterns": [
+                {
+                    "match": "\\b(?:void|boolean|byte|char|short|int|float|long|double|color)\\b",
+                    "name": "storage.type.simple.processing"
+                }
+            ]
+        },
+        "storage-modifiers": {
+            "captures": {
+                "1": {
+                    "name": "storage.modifier.processing"
+                }
+            },
+            "match": "\\b(public|private|protected|static|final|native|synchronized|abstract|threadsafe|transient)\\b"
+        },
+        "strings": {
+            "patterns": [
+                {
+                    "begin": "\"",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.processing"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.processing"
+                        }
+                    },
+                    "name": "string.quoted.double.processing",
+                    "patterns": [
+                        {
+                            "match": "\\\\.",
+                            "name": "constant.character.escape.processing"
+                        }
+                    ]
+                },
+                {
+                    "begin": "'",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.processing"
+                        }
+                    },
+                    "end": "'",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.processing"
+                        }
+                    },
+                    "name": "string.quoted.single.processing",
+                    "patterns": [
+                        {
+                            "match": "\\\\.",
+                            "name": "constant.character.escape.processing"
+                        }
+                    ]
+                }
+            ]
+        },
+        "throws": {
+            "begin": "throws",
+            "beginCaptures": {
+                "0": {
+                    "name": "storage.modifier.processing"
+                }
+            },
+            "end": "(?={|;)",
+            "name": "meta.throwables.processing",
+            "patterns": [
+                {
+                    "include": "#object-types"
+                }
+            ]
+        },
+        "values": {
+            "patterns": [
+                {
+                    "include": "#strings"
+                },
+                {
+                    "include": "#object-types"
+                },
+                {
+                    "include": "#constants-and-special-vars"
+                }
+            ]
+        }
+    },
+    "scopeName": "source.pde",
+    "uuid": "D3D6351E-1416-4AE7-8060-665C6108D2C5"
+}
