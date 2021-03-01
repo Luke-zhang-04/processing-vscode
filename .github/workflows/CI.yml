@@ -1,0 +1,21 @@
+name: Node.js CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: install deps
+        run: yarn install --frozen-lockfile
+
+      - name: build
+        run: yarn tsc
