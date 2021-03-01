@@ -31,9 +31,7 @@ const config = {
             indent: "  ",
             namedExports: false,
         }),
-        resolve({
-            resolveOnly: [/^\.{0,2}\/|tslib/],
-        }),
+        resolve(),
         process.env.NODE_ENV === "dev" ? undefined : terser({
             format: {
                 comments: (_, {value}) => (
