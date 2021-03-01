@@ -2,7 +2,7 @@
   "name": "processing-vscode",
   "displayName": "Processing VSCode",
   "description": "Processing Language Support for VSCode",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "publisher": "Luke-zhang-04",
   "engines": {
     "vscode": "^1.48.0"
@@ -23,8 +23,8 @@
     "pde",
     "language",
     "snippets",
-    "java",
-    "multi-root ready"
+    "diagnostics",
+    "runner"
   ],
   "activationEvents": [
     "onCommand:processing.OpenExtensionDocumentation",
@@ -146,7 +146,7 @@
   },
   "scripts": {
     "vscode:prepublish": "rollup -c rollup.config.js",
-    "compile": "rollup -c rollup.config.js",
+    "build": "rollup -c rollup.config.js",
     "deploy": "vsce publish"
   },
   "devDependencies": {
