@@ -970,7 +970,7 @@
                     "name": "keyword.reserved.processing"
                 },
                 {
-                    "match": "\\b(Array|Character|FloatDict|FloatList|IntDict|IntList|Integer|JSONArray|JSONObject|Math|Object|PFont|PGraphics|PImage|PShader|PShape|PSound|PVector|String|StringBuffer|StringDict|StringList|Table|TableRow|Thread|XML|Byte|Short|Long|Float|Double|Boolean)\\b",
+                    "match": "\\b(Array|Character|FloatDict|FloatList|IntDict|IntList|Integer|JSONArray|JSONObject|Math|Object|PFont|PGraphics|PImage|PShader|PShape|PSound|PVector|String|StringBuffer|StringDict|StringList|Table|TableRow|Thread|XML|Byte|Short|Long|Float|Double|Boolean|System)\\b",
                     "name": "support.class.processing"
                 },
                 {
