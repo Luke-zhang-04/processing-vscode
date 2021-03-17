@@ -28,9 +28,9 @@ class RunManager {
             currentTerminal.show()
 
             // If file is a processing project file
-            const cmd = `${getProcessingCommand()} --sketch=${dirname(
+            const cmd = `${getProcessingCommand()} --sketch="${dirname(
                 editor.document.fileName,
-            )} --run`
+            )}" --run`
 
             currentTerminal.sendText(cmd)
         }
