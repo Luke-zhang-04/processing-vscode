@@ -1,11 +1,12 @@
 /**
  * processing-vscode - Processing Language Support for VSCode
- * @version 2.0.3
+ * @version 2.0.5
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
-import {dirname} from "path"
+import path, {dirname} from "path"
 import {getProcessingCommand} from "../getConfig"
+import {isValidProcessingProject} from "../utils"
 import vscode from "vscode"
 
 class RunManager {
@@ -24,13 +25,24 @@ class RunManager {
             const currentTerminal = (this._terminal ??= // Readability 100
                 vscode.window.terminals.find((terminal) => terminal.name === "Processing") ??
                 vscode.window.createTerminal("Processing"))
+            let sketchName = dirname(editor.document.fileName)
+            const isValidProjectName = isValidProcessingProject(sketchName.split(path.sep).pop())
+            const shouldQuotePath = sketchName.includes(" ")
+
+            if (shouldQuotePath) {
+                sketchName = `"${sketchName}"`
+            }
 
             currentTerminal.show()
 
+            if (!isValidProjectName) {
+                vscode.window.showWarningMessage(
+                    "Warning: Processing project names must be valid Java variable names. Your program may fail to run properly.",
+                )
+            }
+
             // If file is a processing project file
-            const cmd = `${getProcessingCommand()} --sketch="${dirname(
-                editor.document.fileName,
-            )}" --run`
+            const cmd = `${getProcessingCommand()} --sketch=${sketchName} --run`
 
             currentTerminal.sendText(cmd)
         }

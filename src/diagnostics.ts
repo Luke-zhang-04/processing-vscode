@@ -1,13 +1,14 @@
 /**
  * processing-vscode - Processing Language Support for VSCode
- * @version 2.0.3
+ * @version 2.0.5
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
+import path, {dirname} from "path"
 import childProcess from "child_process"
 import crypto from "crypto"
-import {dirname} from "path"
 import {getProcessingCommand} from "./getConfig"
+import {isValidProcessingProject} from "./utils"
 import vscode from "vscode"
 
 let oldHash = ""
@@ -37,12 +38,23 @@ const refreshDiagnostics = async (
 ): Promise<void> => {
     try {
         const foundDiagnostics: vscode.Diagnostic[] = []
-        const sketchName = doc.fileName.includes(".pde") ? dirname(doc.fileName) : undefined
+        let sketchName = doc.fileName.includes(".pde") ? dirname(doc.fileName) : undefined
 
-        if (sketchName && doc.getText()) {
+        if (
+            sketchName &&
+            doc.getText() &&
+            isValidProcessingProject(sketchName.split(path.sep).pop())
+        ) {
+            const shouldQuotePath = sketchName.includes(" ")
+
+            if (shouldQuotePath) {
+                sketchName = `"${sketchName}"`
+            }
+
+            console.log({sketchName})
             const diagnostic = await new Promise<string[]>((resolve) => {
                 const processingProcess = childProcess.spawn(getProcessingCommand(), [
-                    `--sketch=${dirname(doc.fileName)}`,
+                    `--sketch=${sketchName}`,
                     "--build",
                 ])
 

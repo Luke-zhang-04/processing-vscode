@@ -6,7 +6,7 @@ import typescript from "@rollup/plugin-typescript"
 
 const banner = `/**
  * processing-vscode - Processing Language Support for VSCode
- * @version 2.0.3
+ * @version 2.0.5
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  * @preserve
  */
@@ -35,6 +35,7 @@ const config = {
         process.env.NODE_ENV === "dev" ? undefined : terser({
             format: {
                 comments: (_, {value}) => (
+                    ((/@preserve/).test(value) || !(/processing-vscode/ui).test(value)) &&
                     (/@preserve|li[cs]ense|copyright/ui).test(value)
                 ),
             }
