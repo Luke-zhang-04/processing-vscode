@@ -14,7 +14,6 @@ export async function activate(context: vscode.ExtensionContext) {
     const log = vscode.window.createOutputChannel("Processing")
 
     log.appendLine("Activating Processing language extension...")
-    console.log("Activating Processing language extension...")
 
     subscribeCommands(context)
 
@@ -34,7 +33,6 @@ export async function activate(context: vscode.ExtensionContext) {
     await import("./documentation")
 
     log.appendLine("Processing language extension is now active!")
-    console.log("Processing language extension is now active!")
 }
 
 // this method is called when your extension is deactivated
