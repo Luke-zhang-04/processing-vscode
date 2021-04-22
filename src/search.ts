@@ -1,5 +1,6 @@
 /**
- * processing-vscode - Processing Language Support for VSCode
+ * Processing-vscode - Processing Language Support for VSCode
+ *
  * @version 2.0.6
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
@@ -16,13 +17,13 @@ const enum Urls {
     P5jsSearchDuckDuckGo = "https://duckduckgo.com/?q=!p5+",
 }
 
-export const openURL = async (search_base?: string, url?: string) => {
-    if (search_base === "open") {
+export const openURL = async (searchBase?: string, url?: string) => {
+    if (searchBase === "open") {
         await vscode.env.openExternal(vscode.Uri.parse(url as string))
     } else {
         const {processingDocs, searchEngine} = getSearchConfig()
         const searchUrl = ((): string => {
-            if (search_base === "docs") {
+            if (searchBase === "docs") {
                 if (!url) {
                     return processingDocs === "p5js.org" ? Urls.P5jsDocs : Urls.ProcessingorgDocs
                 } else if (searchEngine === "DuckDuckGo") {
@@ -36,7 +37,7 @@ export const openURL = async (search_base?: string, url?: string) => {
                     : `${Urls.ProcessingorgSearchGoogle}${url}`
             }
 
-            return search_base ?? ""
+            return searchBase ?? ""
         })()
 
         await vscode.env.openExternal(vscode.Uri.parse(searchUrl))

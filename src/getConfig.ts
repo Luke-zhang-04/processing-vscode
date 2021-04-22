@@ -1,5 +1,6 @@
 /**
- * processing-vscode - Processing Language Support for VSCode
+ * Processing-vscode - Processing Language Support for VSCode
+ *
  * @version 2.0.6
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
@@ -36,13 +37,13 @@ export const getSearchConfig = (): {searchEngine: string; processingDocs: string
 }
 
 export const getDiagnosticConfig = (): boolean => {
-    const config = vscode.workspace
+    const shouldGiveDiagnostics = vscode.workspace
         .getConfiguration()
         .get<boolean>("processing.shouldGiveDiagnostics", true)
 
-    if (typeof config !== "boolean") {
+    if (typeof shouldGiveDiagnostics !== "boolean") {
         throw new Error("Config option processing.shouldGiveDiagnostics must be of type string")
     }
 
-    return config
+    return shouldGiveDiagnostics
 }

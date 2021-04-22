@@ -6,9 +6,7 @@
 [![Installs](https://vsmarketplacebadge.apphb.com/installs-short/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-star/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
 
-
 Jump to the [Feature List](#Feature-list)
-
 
 ## What this extension is
 
@@ -24,11 +22,11 @@ This extension does not allow you to debug Java or Processing projects. It also 
 
 The [original extension](https://github.com/TobiahZ/processing-vscode) was missing some features that I wanted and it seemed as if the repo was no longer being maintained. So, forked the extension and changed some things.
 
-- Better syntax highlighting (thanks to [Red Hat](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json))
-- Documentation on hover
-- A run button
-- Simple diagnostics
-- Strings are auto closing and surrounding
+-   Better syntax highlighting (thanks to [Red Hat](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json))
+-   Documentation on hover
+-   A run button
+-   Simple diagnostics
+-   Strings are auto closing and surrounding
 
 See the [CHANGELOG](https://github.com/Luke-zhang-04/processing-vscode/blob/main/CHANGELOG.md) for all changes
 
@@ -78,5 +76,3 @@ By default uses Google for search. Can change to DuckDuckGo if preferred using t
 
 Snippets are based on the [Processing Sublime Text plugin](https://github.com/b-g/processing-sublime).
 Syntax highlighting is based on the [Red Hat VSCode-Java extension grammar](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json)
-
-

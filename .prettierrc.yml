@@ -1,3 +1,4 @@
+# Normal Options
 arrowParens: "always"
 bracketSpacing: false
 embeddedLanguageFormatting: "auto"
@@ -5,10 +6,30 @@ endOfLine: "lf"
 htmlWhitespaceSensitivity: "strict"
 jsxBracketSameLine: false
 jsxSingleQuote: false
-printWidth: 101
+printWidth: 99
 quoteProps: "as-needed"
 semi: false
 singleQuote: false
 tabWidth: 4
 trailingComma: "all"
 useTabs: false
+
+# JSDoc plugin
+jsdocSpaces: 1
+jsdocDescriptionWithDot: false
+jsdocDescriptionTag: false
+jsdocVerticalAlignment: false
+jsdocKeepUnParseAbleExampleIndent: false
+jsdocSingleLineComment: false
+tsdoc: true
+
+overrides:
+  - files:
+      - "*.html"
+      - "*.yml"
+      - "*.yaml"
+      - "*.json"
+      - "*.css"
+      - "*.scss"
+    options:
+      tabWidth: 2

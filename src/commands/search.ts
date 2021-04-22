@@ -2,7 +2,7 @@ import * as search from "../search"
 import vscode from "vscode"
 
 const openDocErrorMessage = async (str: string) => {
-    const item = await vscode.window.showErrorMessage("Error: " + str, "Open Docs")
+    const item = await vscode.window.showErrorMessage(`Error: ${str}`, "Open Docs")
 
     if (item === "Open Docs") {
         search.openURL("docs")
@@ -10,30 +10,36 @@ const openDocErrorMessage = async (str: string) => {
 }
 
 export const openDocumentation = () => {
-    search.openURL("https://github.com/Luke-zhang-04/processing-vscode#processing-for-visual-studio-code")
+    search.openURL(
+        "https://github.com/Luke-zhang-04/processing-vscode#processing-for-visual-studio-code",
+    )
 }
 
 export const openProcessingDocs = (textEditor: vscode.TextEditor) => {
     // selection[0] is the start, and selection[1] is the end
-    let selection = textEditor.selection
+    const {selection} = textEditor
+
     if (!selection.isSingleLine) {
         openDocErrorMessage("Multiple lines selected, please select a class or function.")
+
         return
     }
 
     let range = undefined
-    if (!selection.isEmpty) {
-        // selection is not empty, get text from it
-        range = new vscode.Range(selection.start, selection.end)
-    } else {
+
+    if (selection.isEmpty) {
         // selection is empty, get any word at cursor
         range = textEditor.document.getWordRangeAtPosition(selection.active)
+    } else {
+        // selection is not empty, get text from it
+        range = new vscode.Range(selection.start, selection.end)
     }
 
     if (range === undefined) {
         openDocErrorMessage(
             'Nothing is selected. Please select a class, or use "Search Documentation" instead!',
         )
+
         return
     }
 

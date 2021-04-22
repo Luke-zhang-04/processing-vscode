@@ -7,22 +7,22 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '14.x'
-        registry-url: 'https://registry.npmjs.org'
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+          registry-url: "https://registry.npmjs.org"
 
-    - name: install deps
-      run: yarn install --frozen-lockfile
+      - name: install deps
+        run: yarn install --frozen-lockfile
 
-    - name: build
-      run: yarn vsce package
+      - name: build
+        run: yarn vsce package
 
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: ./processing-vscode-*.vsix
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./processing-vscode-*.vsix
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,5 +1,6 @@
 /**
- * processing-vscode - Processing Language Support for VSCode
+ * Processing-vscode - Processing Language Support for VSCode
+ *
  * @version 2.0.6
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
@@ -53,7 +54,8 @@ const runManager = new RunManager()
 
 /**
  * Runs the current processing project
- * @param editor - vscode text editor
- * @param log - vscode output log
+ *
+ * @param editor - Vscode text editor
+ * @param log - Vscode output log
  */
 export const {run} = runManager

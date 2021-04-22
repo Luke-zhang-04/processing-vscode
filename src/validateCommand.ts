@@ -1,5 +1,6 @@
 /**
- * processing-vscode - Processing Language Support for VSCode
+ * Processing-vscode - Processing Language Support for VSCode
+ *
  * @version 2.0.6
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
@@ -21,7 +22,9 @@ export const isValidProcessingCommand = async (cmd: string): Promise<boolean> =>
         processingProcess.on("error", () => resolve(false))
     })
 
-    return typeof result === "boolean" ? result : /Command line edition for Processing/.test(result)
+    return typeof result === "boolean"
+        ? result
+        : /Command line edition for Processing/u.test(result)
 }
 
 export default isValidProcessingCommand

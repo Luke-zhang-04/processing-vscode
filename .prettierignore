@@ -1,1 +1,8 @@
-*.json
+src/documentation-data.json
+*/node_modules/
+build
+.serverless
+.vscode
+lib/
+tsconfig*.json
+legacy
