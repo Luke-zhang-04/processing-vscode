@@ -72,6 +72,16 @@ Use the pallet command "Processing: Search Processing Website" to quickly search
 
 By default uses Google for search. Can change to DuckDuckGo if preferred using the `processing.search` setting.
 
+## Proper Hover, Intellisense, and Diagnostics
+
+Problems with the current approach:
+
+-   Hover works with word matching, so comments show documentation on hover
+-   There's no intellsense, only the built in VSCode word matching
+-   Diagnostics rely on processing-java, which makes it very slow, and also has no option to cache the build
+
+Despite all these problems however, this extension probably will stay this way. Why? Because there isn't nearly enough demand to make a "proper" extension that popular languages such as Python do. Making an extension like this would require me to write a parser and generate an AST, far too much work for a language that I won't really be using outside of my class, and way outside of my abilities. If someone really wants to do this, they can go ahead, I guess.
+
 ## Credits
 
 Snippets are based on the [Processing Sublime Text plugin](https://github.com/b-g/processing-sublime).
