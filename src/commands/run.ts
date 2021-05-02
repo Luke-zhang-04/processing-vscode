@@ -5,8 +5,8 @@
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
-import path, {dirname} from "path"
 import {getProcessingCommand, shouldAlwaysQuotePath} from "../getConfig"
+import path, {dirname} from "path"
 import {isValidProcessingProject} from "../utils"
 import vscode from "vscode"
 
