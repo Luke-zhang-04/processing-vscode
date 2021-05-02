@@ -1,6 +1,7 @@
 /**
- * processing-vscode - Processing Language Support for VSCode
- * @version 2.0.6
+ * Processing-vscode - Processing Language Support for VSCode
+ *
+ * @version 2.1.0
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
@@ -36,13 +37,25 @@ export const getSearchConfig = (): {searchEngine: string; processingDocs: string
 }
 
 export const getDiagnosticConfig = (): boolean => {
-    const config = vscode.workspace
+    const shouldGiveDiagnostics = vscode.workspace
         .getConfiguration()
         .get<boolean>("processing.shouldGiveDiagnostics", true)
 
-    if (typeof config !== "boolean") {
+    if (typeof shouldGiveDiagnostics !== "boolean") {
         throw new Error("Config option processing.shouldGiveDiagnostics must be of type string")
     }
 
-    return config
+    return shouldGiveDiagnostics
+}
+
+export const shouldAlwaysQuotePath = (): boolean => {
+    const shouldQuotePath = vscode.workspace
+        .getConfiguration()
+        .get<"always" | "auto">("processing.runPathQuotes", "auto")
+
+    if (shouldQuotePath !== "always" && shouldQuotePath !== "auto") {
+        throw new Error("processing.runPathQuotes should be auto or always")
+    }
+
+    return shouldQuotePath === "always"
 }

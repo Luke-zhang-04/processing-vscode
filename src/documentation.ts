@@ -1,16 +1,18 @@
 /**
- * processing-vscode - Processing Language Support for VSCode
- * @version 2.0.6
+ * Processing-vscode - Processing Language Support for VSCode
+ *
+ * @version 2.1.0
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
-import documentation from "./documentation-data.json"
+import documentation from "./documentation-data.yml"
 import vscode from "vscode"
 
 /**
  * Gets the hovered "thing" and returns it
- * @param line - contents of line
- * @param position - position of hover
+ *
+ * @param line - Contents of line
+ * @param position - Position of hover
  */
 const getHoveredItem = (line: string, position: number): string => {
     const itemStart = (() => {
@@ -85,7 +87,7 @@ ${info.examples}
             : `\`\`\`js
 ${info.type} ${item}
 \`\`\``,
-        `${info.examples ? "" : item + "\n\n"}${info.description}
+        `${info.examples ? "" : `${item}\n\n`}${info.description}
 
 @see {@link [${info.docUrl}](${info.docUrl})}
 `,
@@ -120,7 +122,7 @@ ${info.syntax}
 \`\`\``,
               ]
             : []),
-        `${info.syntax ? "" : item + "\n\n"}${info.description}
+        `${info.syntax ? "" : `${item}\n\n`}${info.description}
 
 @see {@link [${info.docUrl}](${info.docUrl})}
 
@@ -131,7 +133,10 @@ ${returns ? `@returns ${returns === "void" ? "`void`" : returns}` : ""}
     ])
 }
 
-const documentClass = (info: DocumentationClass, item: keyof typeof documentation): vscode.Hover => {
+const documentClass = (
+    info: DocumentationClass,
+    item: keyof typeof documentation,
+): vscode.Hover => {
     const params = Object.entries(info.parameters).map(([name, desc]) => {
         const typeDefs = desc.indexOf(":")
 
@@ -156,7 +161,7 @@ ${info.syntax}
 \`\`\``,
               ]
             : []),
-        `${info.syntax ? "" : item + "\n\n"}${info.description}
+        `${info.syntax ? "" : `${item}\n\n`}${info.description}
 
 @see {@link [${info.docUrl}](${info.docUrl})}
 
@@ -170,7 +175,10 @@ vscode.languages.registerHoverProvider(
     {
         provideHover: (document, position) => {
             const line = document.lineAt(position.line)
-            const item = getHoveredItem(line.text, position.character) as keyof typeof documentation
+            const item = getHoveredItem(
+                line.text,
+                position.character,
+            ) as keyof typeof documentation
             const info = (documentation as Documentation)[item]
 
             if (!info) {

@@ -6,9 +6,7 @@
 [![Installs](https://vsmarketplacebadge.apphb.com/installs-short/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
 [![Rating](https://vsmarketplacebadge.apphb.com/rating-star/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
 
-
 Jump to the [Feature List](#Feature-list)
-
 
 ## What this extension is
 
@@ -24,11 +22,11 @@ This extension does not allow you to debug Java or Processing projects. It also 
 
 The [original extension](https://github.com/TobiahZ/processing-vscode) was missing some features that I wanted and it seemed as if the repo was no longer being maintained. So, forked the extension and changed some things.
 
-- Better syntax highlighting (thanks to [Red Hat](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json))
-- Documentation on hover
-- A run button
-- Simple diagnostics
-- Strings are auto closing and surrounding
+-   Better syntax highlighting (thanks to [Red Hat](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json))
+-   Documentation on hover
+-   A run button
+-   Simple diagnostics
+-   Strings are auto closing and surrounding
 
 See the [CHANGELOG](https://github.com/Luke-zhang-04/processing-vscode/blob/main/CHANGELOG.md) for all changes
 
@@ -74,9 +72,17 @@ Use the pallet command "Processing: Search Processing Website" to quickly search
 
 By default uses Google for search. Can change to DuckDuckGo if preferred using the `processing.search` setting.
 
+## Proper Hover, Intellisense, and Diagnostics
+
+Problems with the current approach:
+
+-   Hover works with word matching, so comments show documentation on hover
+-   There's no intellsense, only the built in VSCode word matching
+-   Diagnostics rely on processing-java, which makes it very slow, and also has no option to cache the build
+
+Despite all these problems however, this extension probably will stay this way. Why? Because there isn't nearly enough demand to make a "proper" extension that popular languages such as Python do. Making an extension like this would require me to write a parser and generate an AST, far too much work for a language that I won't really be using outside of my class, and way outside of my abilities. If someone really wants to do this, they can go ahead, I guess.
+
 ## Credits
 
 Snippets are based on the [Processing Sublime Text plugin](https://github.com/b-g/processing-sublime).
 Syntax highlighting is based on the [Red Hat VSCode-Java extension grammar](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json)
-
-

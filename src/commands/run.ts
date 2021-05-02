@@ -1,11 +1,12 @@
 /**
- * processing-vscode - Processing Language Support for VSCode
- * @version 2.0.6
+ * Processing-vscode - Processing Language Support for VSCode
+ *
+ * @version 2.1.0
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
+import {getProcessingCommand, shouldAlwaysQuotePath} from "../getConfig"
 import path, {dirname} from "path"
-import {getProcessingCommand} from "../getConfig"
 import {isValidProcessingProject} from "../utils"
 import vscode from "vscode"
 
@@ -22,12 +23,13 @@ class RunManager {
         }
 
         if (/\.pde$/u.test(editor.document.fileName)) {
-            const currentTerminal = (this._terminal ??= // Readability 100
-                vscode.window.terminals.find((terminal) => terminal.name === "Processing") ??
-                vscode.window.createTerminal("Processing"))
+            const currentTerminal =
+                (this._terminal ??= vscode.window.terminals.find(
+                    (terminal) => terminal.name === "Processing",
+                )) ?? vscode.window.createTerminal("Processing")
             let sketchName = dirname(editor.document.fileName)
             const isValidProjectName = isValidProcessingProject(sketchName.split(path.sep).pop())
-            const shouldQuotePath = sketchName.includes(" ")
+            const shouldQuotePath = shouldAlwaysQuotePath() || / |\\/u.test(sketchName)
 
             if (shouldQuotePath) {
                 sketchName = `"${sketchName}"`
@@ -53,7 +55,8 @@ const runManager = new RunManager()
 
 /**
  * Runs the current processing project
- * @param editor - vscode text editor
- * @param log - vscode output log
+ *
+ * @param editor - Vscode text editor
+ * @param log - Vscode output log
  */
 export const {run} = runManager
