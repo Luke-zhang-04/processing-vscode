@@ -140,6 +140,15 @@
           "type": "boolean",
           "default": false,
           "description": "If the extension should provide diagnostics (via processing-java)"
+        },
+        "processing.runPathQuotes": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "always"
+          ],
+          "default": "auto",
+          "description": "When the run path should be quoted. If always, the run path will always be quoted. If auto, the extension will attempt to figure out when to quote the path."
         }
       }
     }

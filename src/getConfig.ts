@@ -47,3 +47,15 @@ export const getDiagnosticConfig = (): boolean => {
 
     return shouldGiveDiagnostics
 }
+
+export const shouldAlwaysQuotePath = (): boolean => {
+    const shouldQuotePath = vscode.workspace
+        .getConfiguration()
+        .get<"always" | "auto">("processing.runPathQuotes", "auto")
+
+    if (shouldQuotePath !== "always" && shouldQuotePath !== "auto") {
+        throw new Error("processing.runPathQuotes should be auto or always")
+    }
+
+    return shouldQuotePath === "always"
+}

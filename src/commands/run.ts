@@ -6,7 +6,7 @@
  */
 
 import path, {dirname} from "path"
-import {getProcessingCommand} from "../getConfig"
+import {getProcessingCommand, shouldAlwaysQuotePath} from "../getConfig"
 import {isValidProcessingProject} from "../utils"
 import vscode from "vscode"
 
@@ -28,7 +28,7 @@ class RunManager {
                 vscode.window.createTerminal("Processing"))
             let sketchName = dirname(editor.document.fileName)
             const isValidProjectName = isValidProcessingProject(sketchName.split(path.sep).pop())
-            const shouldQuotePath = / |\\/u.test(sketchName)
+            const shouldQuotePath = shouldAlwaysQuotePath() || / |\\/u.test(sketchName)
 
             if (shouldQuotePath) {
                 sketchName = `"${sketchName}"`
