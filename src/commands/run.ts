@@ -23,12 +23,12 @@ class RunManager {
         }
 
         if (/\.pde$/u.test(editor.document.fileName)) {
-            const currentTerminal = (this._terminal ??= // Readability 100
+            const currentTerminal = (this._terminal ??=
                 vscode.window.terminals.find((terminal) => terminal.name === "Processing") ??
                 vscode.window.createTerminal("Processing"))
             let sketchName = dirname(editor.document.fileName)
             const isValidProjectName = isValidProcessingProject(sketchName.split(path.sep).pop())
-            const shouldQuotePath = sketchName.includes(" ")
+            const shouldQuotePath = / |\\/u.test(sketchName)
 
             if (shouldQuotePath) {
                 sketchName = `"${sketchName}"`
