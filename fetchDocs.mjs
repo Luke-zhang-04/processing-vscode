@@ -83,16 +83,22 @@ const getDocLinks = async () => {
     return {
         functionLinks: references // Function doc links
             .filter(({innerHTML}) => /[A-z]\(\)/u.test(innerHTML))
-            .map((item) => item.getAttribute("href")),
+            .map((item) => item.getAttribute("href").trim()),
         variableLinks: references // Variable doc links
             .filter(({innerHTML}) => variables.includes(innerHTML))
-            .map((item) => item.getAttribute("href")),
+            .map((item) => item.getAttribute("href").trim()),
         classLinks: references // Class doc links
             .filter(({innerHTML}) => classes.includes(innerHTML))
-            .map((item) => item.getAttribute("href")),
+            .map((item) => item.getAttribute("href").trim()),
     }
 }
 
+/**
+ * Escapes some html
+ *
+ * @param {string} html - Html to escape
+ * @returns {string} Escaped html
+ */
 const escapeHTML = (html) =>
     html
         .replace(/<(\/)?(b|pre)>/gu, "`")
@@ -100,6 +106,7 @@ const escapeHTML = (html) =>
         .replace(/<[^>]*>/gu, "")
         .replace(/&lt;/gu, "<")
         .replace(/&gt;/gu, ">")
+        .trim()
 
 /**
  * Gets the documentation for a single link
