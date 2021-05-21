@@ -2,4 +2,7 @@
 * text=auto eol=lf
 
 # Don't diff or textually merge documentation data
-src/documentation-data.json binary
+data/documentation-data.yml binary
+
+.eslintrc.js linguist-detectable=false
+rollup.config.js linguist-detectable=false
