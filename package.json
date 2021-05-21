@@ -189,7 +189,7 @@
     "vscode:prepublish": "rollup -c rollup.config.js",
     "build": "rollup -c rollup.config.js",
     "deploy": "vsce publish",
-    "lint": "eslint src/\"{*,**/*}\".ts",
+    "lint": "eslint src/\"{*,**/*}\".ts --max-warnings=0",
     "format": "prettier . --write && eslint src/\"{*,**/*}\".ts --fix"
   },
   "devDependencies": {
