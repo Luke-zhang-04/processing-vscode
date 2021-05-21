@@ -1,8 +1,7 @@
 /**
  * Processing-vscode - Processing Language Support for VSCode
  *
- * @version 2.0.3
- * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
+ * @copyright (C) 2021 Luke Zhang
  */
 
 import {openDocumentation, openProcessingDocs, searchUnityDocs} from "./search"
