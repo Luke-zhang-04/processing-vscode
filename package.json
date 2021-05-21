@@ -178,7 +178,7 @@
     "jsdom": "^16.4.0",
     "mocha": "^6.2.3",
     "node-fetch": "^2.6.1",
-    "prettier": "^2.2.1",
+    "prettier": "^2.3.0",
     "prettier-plugin-jsdoc": "^0.3.18",
     "rollup": "^2.39.0",
     "rollup-plugin-progress": "^1.1.2",

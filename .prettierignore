@@ -1,4 +1,5 @@
-src/documentation-data.json
+data/*
+src/*.yml
 */node_modules/
 build
 .serverless
@@ -6,3 +7,4 @@ build
 lib/
 tsconfig*.json
 legacy
+processing-vscode.js
