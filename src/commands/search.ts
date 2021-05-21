@@ -1,3 +1,9 @@
+/**
+ * Processing-vscode - Processing Language Support for VSCode
+ *
+ * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
+ */
+
 import * as search from "../search"
 import vscode from "vscode"
 
