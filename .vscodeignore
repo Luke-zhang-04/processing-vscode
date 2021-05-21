@@ -4,13 +4,13 @@ src/**
 .editorconfig
 .gitignore
 .prettierrc.yml
-fetchDocs.mjs
 tsconfig.json
 tslint.json
 **/*.map
 yarn.lock
 rollup.config.js
-node_modules
+node_modules/
+scripts/
 *.log
 legacy/
 media/
