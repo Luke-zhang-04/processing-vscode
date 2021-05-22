@@ -1,19 +1,36 @@
 /**
  * Processing-vscode - Processing Language Support for VSCode
  *
- * @version 2.1.0
- * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
+ * @copyright (C) 2021 Luke Zhang
  */
 
-import {getProcessingCommand, shouldAlwaysQuotePath} from "../getConfig"
+import {
+    getJarPath,
+    getJavaCommand,
+    getProcessingCommand,
+    shouldAlwaysQuotePath,
+} from "../getConfig"
 import path, {dirname} from "path"
 import {isValidProcessingProject} from "../utils"
 import vscode from "vscode"
 
 class RunManager {
-    private _terminal: vscode.Terminal | undefined = undefined
+    private static _pythonUtils = {
+        getProjectFilename: ({fileName}: vscode.TextDocument): string =>
+            shouldAlwaysQuotePath() || / |\\/u.test(fileName) ? `"${fileName}"` : fileName,
 
-    public run = (): void => {
+        getJarFilename: (): string => {
+            const jarPath = getJarPath()
+
+            return shouldAlwaysQuotePath() || / |\\/u.test(jarPath) ? `"${jarPath}"` : jarPath
+        },
+    }
+
+    private _terminal?: vscode.Terminal = undefined
+
+    private _pythonTerminal?: vscode.Terminal = undefined
+
+    public run = (mode?: "py" | "java"): void => {
         const {activeTextEditor: editor} = vscode.window
 
         if (!editor) {
@@ -22,32 +39,91 @@ class RunManager {
             return
         }
 
-        if (/\.pde$/u.test(editor.document.fileName)) {
-            const currentTerminal =
-                (this._terminal ??= vscode.window.terminals.find(
-                    (terminal) => terminal.name === "Processing",
-                )) ?? vscode.window.createTerminal("Processing")
-            let sketchName = dirname(editor.document.fileName)
-            const isValidProjectName = isValidProcessingProject(sketchName.split(path.sep).pop())
-            const shouldQuotePath = shouldAlwaysQuotePath() || / |\\/u.test(sketchName)
-
-            if (shouldQuotePath) {
-                sketchName = `"${sketchName}"`
+        const processingMode = (() => {
+            if (mode) {
+                return mode
             }
 
-            currentTerminal.show()
-
-            if (!isValidProjectName) {
-                vscode.window.showWarningMessage(
-                    "Warning: Processing project names must be valid Java variable names. Your program may fail to run properly.",
-                )
+            if (/\.pde$/u.test(editor.document.fileName)) {
+                return "java"
+            } else if (editor.document.languageId === "python") {
+                return "py"
             }
 
-            // If file is a processing project file
-            const cmd = `${getProcessingCommand()} --sketch=${sketchName} --run`
+            return
+        })()
 
-            currentTerminal.sendText(cmd)
+        if (processingMode === "java") {
+            this._runJavaMode(editor)
+        } else if (processingMode === "py") {
+            this._runPythonMode(editor)
+        } else {
+            vscode.window.showErrorMessage("Could not determine processing mode.")
         }
+    }
+
+    /**
+     * This monstrosity searches for an existing terminal if it exists or creates a new one and returns it.
+     *
+     * @param terminalName - Key of terminal in class
+     * @param terminalDisplayName - Display name of terminal
+     * @returns Vscode terminal
+     */
+    private _getTerminal = (
+        terminalName: "_terminal" | "_pythonTerminal",
+        terminalDisplayName: string,
+    ): vscode.Terminal =>
+        (this[terminalName] !== undefined && this[terminalName]?.exitStatus === undefined // Terminal exists
+            ? vscode.window.terminals.find((terminal) => terminal.name === terminalDisplayName) // Find existing terminal
+            : (this[terminalName] = vscode.window.createTerminal(terminalDisplayName))) ?? // Terminal doesn't exist; create a new terminal
+        (this[terminalName] = vscode.window.createTerminal(terminalDisplayName)) // Somehow couldn't find an existing terminal
+
+    /**
+     * Runs the current project in Java mode
+     *
+     * @param editor - Vscode text editor
+     */
+    private _runJavaMode = (editor: vscode.TextEditor): void => {
+        const currentTerminal = this._getTerminal("_terminal", "Processing")
+
+        let sketchName = dirname(editor.document.fileName)
+        const isValidProjectName = isValidProcessingProject(sketchName.split(path.sep).pop())
+        const shouldQuotePath = shouldAlwaysQuotePath() || / |\\/u.test(sketchName)
+
+        if (shouldQuotePath) {
+            sketchName = `"${sketchName}"`
+        }
+
+        currentTerminal.show()
+
+        if (!isValidProjectName) {
+            vscode.window.showWarningMessage(
+                "Warning: Processing project names must be valid Java variable names. Your program may fail to run properly.",
+            )
+        }
+
+        // If file is a processing project file
+        const cmd = `${getProcessingCommand()} --sketch=${sketchName} --run`
+
+        currentTerminal.sendText(cmd)
+    }
+
+    /**
+     * Runs the current project in Python mode
+     *
+     * @param editor - Vscode text editor
+     */
+    private _runPythonMode = (editor: vscode.TextEditor): void => {
+        const currentTerminal = this._getTerminal("_pythonTerminal", "Processing-py")
+
+        currentTerminal.show()
+
+        // If file is a processing project file
+        const cmd = `${getJavaCommand()} -jar ${RunManager._pythonUtils.getJarFilename()} ${RunManager._pythonUtils.getProjectFilename(
+            editor.document,
+        )}`
+
+        currentTerminal.sendText(cmd)
     }
 }
 

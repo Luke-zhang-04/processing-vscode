@@ -19,3 +19,9 @@ jobs:
 
       - name: build
         run: yarn tsc
+
+      - name: lint
+        run: yarn lint
+
+      - name: check with prettier
+        run: yarn prettier . --check

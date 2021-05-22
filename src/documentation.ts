@@ -1,8 +1,7 @@
 /**
  * Processing-vscode - Processing Language Support for VSCode
  *
- * @version 2.1.0
- * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
+ * @copyright (C) 2021 Luke Zhang
  */
 
 import documentation from "./documentation-data.yml"
@@ -14,7 +13,11 @@ import vscode from "vscode"
  * @param line - Contents of line
  * @param position - Position of hover
  */
-const getHoveredItem = (line: string, position: number): string => {
+const getHoveredItem = (line: string, position: number): string | undefined => {
+    if (/\/\//u.test(line.slice(0, position))) {
+        return
+    }
+
     const itemStart = (() => {
         let index = position
 
@@ -175,10 +178,14 @@ vscode.languages.registerHoverProvider(
     {
         provideHover: (document, position) => {
             const line = document.lineAt(position.line)
-            const item = getHoveredItem(
-                line.text,
-                position.character,
-            ) as keyof typeof documentation
+            const item = getHoveredItem(line.text, position.character) as
+                | keyof typeof documentation
+                | undefined
+
+            if (item === undefined) {
+                return
+            }
+
             const info = (documentation as Documentation)[item]
 
             if (!info) {

@@ -2,7 +2,7 @@
   "name": "processing-vscode",
   "displayName": "Processing VSCode",
   "description": "Processing Language Support for VSCode",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "publisher": "Luke-zhang-04",
   "engines": {
     "vscode": "^1.48.0"
@@ -21,6 +21,8 @@
   "keywords": [
     "processing",
     "pde",
+    "procesing.py",
+    "processing-python",
     "language",
     "snippets",
     "diagnostics",
@@ -31,13 +33,23 @@
     "onCommand:processing.OpenDocs",
     "onCommand:processing.SearchWebsite",
     "onCommand:processing.Run",
-    "onLanguage:pde"
+    "onLanguage:pde",
+    "onLanguage:python"
   ],
   "main": "./processing-vscode.js",
   "contributes": {
     "commands": [
       {
         "command": "processing.Run",
+        "title": "Processing: Run Open Processing Project"
+      },
+      {
+        "command": "processing.RunPy",
+        "title": "Processing: Run Open Processing Python Project",
+        "icon": "./images/play-arrow-with-logo.svg"
+      },
+      {
+        "command": "processing.RunJava",
         "title": "Processing: Run Open Processing Project",
         "icon": "./images/play-arrow.svg"
       },
@@ -89,14 +101,24 @@
         },
         {
           "when": "resourceLangId == pde",
-          "command": "processing.Run",
+          "command": "processing.RunJava",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == python",
+          "command": "processing.RunPy",
           "group": "navigation"
         }
       ],
       "editor/title": [
         {
           "when": "resourceLangId == pde",
-          "command": "processing.Run",
+          "command": "processing.RunJava",
+          "group": "navigation"
+        },
+        {
+          "when": "resourceLangId == python",
+          "command": "processing.RunPy",
           "group": "navigation"
         }
       ]
@@ -108,7 +130,7 @@
         "processing.processingPath": {
           "type": "string",
           "default": "processing-java",
-          "description": "Path to Processing. Leave default if you've added processing to your path, otherwise enter the path to processing-java here. Example: '/usr/bin/processing-java for Unix' for Unix, or 'C:\\Program Files\\processing-3.0.1\\processing-java' for Windows."
+          "description": "Path to Processing. Leave default if you've added processing to your path, otherwise enter the path to `processing-java` here. Example: `/usr/bin/processing-java` for Unix, or `C:\\Program Files\\processing-3.0.1\\processing-java` for Windows."
         },
         "processing.docs": {
           "type": "string",
@@ -149,6 +171,16 @@
           ],
           "default": "auto",
           "description": "When the run path should be quoted. If always, the run path will always be quoted. If auto, the extension will attempt to figure out when to quote the path."
+        },
+        "processing.py.jarPath": {
+          "type": "string",
+          "default": "processing-py.jar",
+          "description": "The location of your processing-py.jar file. You can download it from https://py.processing.org/tutorials/command-line/#requirements."
+        },
+        "processing.py.javaPath": {
+          "type": "string",
+          "default": "java",
+          "description": "Path to Java. Leave default if you've added java to your path, otherwise enter the path to `java` here. Example: `/usr/bin/java` for Unix, or `C:\\Program Files\\Java\\jdk1.8.0_202\\bin\\javac.exe` for Windows."
         }
       }
     }
@@ -157,7 +189,7 @@
     "vscode:prepublish": "rollup -c rollup.config.js",
     "build": "rollup -c rollup.config.js",
     "deploy": "vsce publish",
-    "lint": "eslint src/\"{*,**/*}\".ts",
+    "lint": "eslint src/\"{*,**/*}\".ts --max-warnings=0",
     "format": "prettier . --write && eslint src/\"{*,**/*}\".ts --fix"
   },
   "devDependencies": {
@@ -178,7 +210,7 @@
     "jsdom": "^16.4.0",
     "mocha": "^6.2.3",
     "node-fetch": "^2.6.1",
-    "prettier": "^2.2.1",
+    "prettier": "^2.3.0",
     "prettier-plugin-jsdoc": "^0.3.18",
     "rollup": "^2.39.0",
     "rollup-plugin-progress": "^1.1.2",
@@ -186,7 +218,8 @@
     "tslib": "^2.1.0",
     "tslint": "^5.20.1",
     "typescript": "^4.1.5",
-    "vsce": "^1.85.1"
+    "vsce": "^1.88.0",
+    "yaml": "^1.10.2"
   },
   "icon": "images/processing.png",
   "dependencies": {}

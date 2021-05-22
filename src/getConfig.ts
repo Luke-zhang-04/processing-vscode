@@ -1,8 +1,7 @@
 /**
  * Processing-vscode - Processing Language Support for VSCode
  *
- * @version 2.1.0
- * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
+ * @copyright (C) 2021 Luke Zhang
  */
 
 import vscode from "vscode"
@@ -14,6 +13,42 @@ export const getProcessingCommand = (): string => {
 
     if (typeof config !== "string") {
         throw new Error("Config option processing.processingPath must be of type string")
+    }
+
+    return config
+}
+
+export const getJavaCommand = (): string => {
+    const config = vscode.workspace
+        .getConfiguration()
+        .get<unknown>("processing.py.javaPath", "java")
+
+    if (typeof config !== "string") {
+        throw new Error("Config option processing.py.javaPath must be of type string")
+    }
+
+    return config
+}
+
+export const getJarPath = (): string => {
+    const config = vscode.workspace
+        .getConfiguration()
+        .get<unknown>("processing.py.jarPath", "processing-py.jar")
+
+    if (typeof config !== "string") {
+        throw new Error("Config option processing.py.jarPath must be of type string")
+    }
+
+    return config
+}
+
+export const isPythonEnabled = (): boolean => {
+    const config = vscode.workspace
+        .getConfiguration()
+        .get<unknown>("processing.py.isEnabled", true)
+
+    if (typeof config !== "boolean") {
+        throw new Error("Config option processing.py.javaPath must be of type string")
     }
 
     return config
