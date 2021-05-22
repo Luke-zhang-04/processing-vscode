@@ -63,17 +63,28 @@ class RunManager {
     }
 
     /**
+     * This monstrosity searches for an existing terminal if it exists or creates a new one and returns it.
+     *
+     * @param terminalName - Key of terminal in class
+     * @param terminalDisplayName - Display name of terminal
+     * @returns Vscode terminal
+     */
+    private _getTerminal = (
+        terminalName: "_terminal" | "_pythonTerminal",
+        terminalDisplayName: string,
+    ): vscode.Terminal =>
+        (this[terminalName] !== undefined && this[terminalName]?.exitStatus === undefined // Terminal exists
+            ? vscode.window.terminals.find((terminal) => terminal.name === terminalDisplayName) // Find existing terminal
+            : (this[terminalName] = vscode.window.createTerminal(terminalDisplayName))) ?? // Terminal doesn't exist; create a new terminal
+        (this[terminalName] = vscode.window.createTerminal(terminalDisplayName)) // Somehow couldn't find an existing terminal
+
+    /**
      * Runs the current project in Java mode
      *
      * @param editor - Vscode text editor
      */
     private _runJavaMode = (editor: vscode.TextEditor): void => {
-        const terminalName = "Processing"
-        const currentTerminal = // Forgive me
-            (this._terminal !== undefined && this._terminal.exitStatus === undefined // Terminal exists
-                ? vscode.window.terminals.find((terminal) => terminal.name === terminalName) // Find existing terminal
-                : (this._terminal = vscode.window.createTerminal(terminalName))) ?? // Terminal doesn't exist; create a new terminal
-            (this._terminal = vscode.window.createTerminal(terminalName)) // Somehow couldn't find an existing terminal
+        const currentTerminal = this._getTerminal("_terminal", "Processing")
 
         let sketchName = dirname(editor.document.fileName)
         const isValidProjectName = isValidProcessingProject(sketchName.split(path.sep).pop())
@@ -103,12 +114,7 @@ class RunManager {
      * @param editor - Vscode text editor
      */
     private _runPythonMode = (editor: vscode.TextEditor): void => {
-        const terminalName = "Processing_py"
-        const currentTerminal = // Yes.
-            (this._pythonTerminal !== undefined && this._pythonTerminal.exitStatus === undefined
-                ? vscode.window.terminals.find((terminal) => terminal.name === terminalName)
-                : (this._pythonTerminal = vscode.window.createTerminal(terminalName))) ??
-            (this._pythonTerminal = vscode.window.createTerminal(terminalName))
+        const currentTerminal = this._getTerminal("_pythonTerminal", "Processing-py")
 
         currentTerminal.show()
 
