@@ -66,12 +66,12 @@
       {
         "command": "processing.OpenDocs",
         "title": "Processing: Open Documentation for Selection",
-        "enablement": "resourceLangId == pde"
+        "enablement": "resourceLangId == pde || resourceLangId == python && config.processing.py.isEnabled"
       },
       {
         "command": "processing.SearchWebsite",
         "title": "Processing: Search Processing Website",
-        "enablement": "resourceLangId == pde"
+        "enablement": "resourceLangId == pde || resourceLangId == python && config.processing.py.isEnabled"
       }
     ],
     "languages": [
@@ -142,16 +142,20 @@
         },
         "processing.docs": {
           "type": "string",
-          "default": "processing.org",
+          "default": "auto",
           "enum": [
             "processing.org",
-            "p5js.org"
+            "p5js.org",
+            "py.processing.org",
+            "auto"
           ],
           "enumDescriptions": [
             "Use processing.org for documentation",
-            "Use p5js for documentation"
+            "Use p5js for documentation",
+            "Use py.processing.org for documentation",
+            "Automatically determine either processing.org or py.processing.org (never p5js) depending on the current file"
           ],
-          "description": "Which documentation should this extension use?"
+          "description": "Which documentation this extension should use"
         },
         "processing.search": {
           "type": "string",

@@ -16,6 +16,9 @@ const enum Urls {
     P5jsDocs = "https://p5js.org/reference/",
     P5jsSearchGoogle = "https://www.google.com/search?as_sitesearch=p5js.org&as_q=",
     P5jsSearchDuckDuckGo = "https://duckduckgo.com/?q=!p5+",
+    PyDocs = "https://py.processing.org/reference/",
+    PySearchGoogle = "https://www.google.com/search?as_sitesearch=py.processing.org&as_q=",
+    PySearchDuckDuckGo = "https://duckduckgo.com/?q=%5Csite%3Apy.processing.org+",
 }
 
 export const openURL = async (searchBase?: string, url?: string): Promise<void> => {
@@ -24,24 +27,63 @@ export const openURL = async (searchBase?: string, url?: string): Promise<void> 
     } else {
         const {processingDocs, searchEngine} = searchConfig
         const searchUrl = ((): string => {
-            let docUrl: string | undefined
+            let directDocUrl: string | undefined
 
             if (searchBase === "docs") {
+                const {
+                    window: {activeTextEditor},
+                } = vscode
+                const languageId = activeTextEditor?.document.languageId
+
                 if (!url) {
-                    return processingDocs === "p5js.org" ? Urls.P5jsDocs : Urls.ProcessingorgDocs
+                    if (processingDocs === "p5js.org") {
+                        return Urls.P5jsDocs
+                    } else if (
+                        (processingDocs === "auto" && languageId === "pyton") ||
+                        processingDocs === "py.processing.org"
+                    ) {
+                        return Urls.PyDocs
+                    }
+
+                    // (processingDocs === "auto" && languageId === "pde")
+                    // || processingDocs === "processing.org"
+                    return Urls.ProcessingorgDocs
                 } else if (
-                    (docUrl = (documentation as Documentation)[url]?.docUrl) !== undefined
+                    // Look for entry directly in documentation data
+                    (processingDocs === "auto" || processingDocs === "processing.org") &&
+                    languageId === "pde" &&
+                    (directDocUrl = (documentation as Documentation)[url]?.docUrl) !== undefined
                 ) {
-                    return docUrl
+                    return directDocUrl
                 } else if (searchEngine === "DuckDuckGo") {
-                    return processingDocs === "p5js.org"
-                        ? `${Urls.P5jsSearchDuckDuckGo}${url}`
-                        : `${Urls.ProcessingorgSearchDuckDuckGo}${url}`
+                    // Search Engine == "google"
+                    if (processingDocs === "p5js.org") {
+                        return `${Urls.P5jsSearchDuckDuckGo}${url}`
+                    } else if (
+                        (processingDocs === "auto" && languageId === "pyton") ||
+                        processingDocs === "py.processing.org"
+                    ) {
+                        return `${Urls.PySearchDuckDuckGo}${url}`
+                    }
+
+                    // (processingDocs === "auto" && languageId === "pde")
+                    // || processingDocs === "processing.org"
+                    return `${Urls.ProcessingorgSearchDuckDuckGo}${url}`
                 }
 
-                return processingDocs === "p5js.org"
-                    ? `${Urls.P5jsSearchGoogle}${url}`
-                    : `${Urls.ProcessingorgSearchGoogle}${url}`
+                // Search Engine == "google"
+                if (processingDocs === "p5js.org") {
+                    return `${Urls.P5jsSearchGoogle}${url}`
+                } else if (
+                    (processingDocs === "auto" && languageId === "pyton") ||
+                    processingDocs === "py.processing.org"
+                ) {
+                    return `${Urls.PySearchGoogle}${url}`
+                }
+
+                // (processingDocs === "auto" && languageId === "pde")
+                // || processingDocs === "processing.org"
+                return `${Urls.ProcessingorgSearchGoogle}${url}`
             }
 
             return searchBase ?? ""
