@@ -4,7 +4,7 @@
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
-import {getSearchConfig} from "./getConfig"
+import {searchConfig} from "./config"
 import vscode from "vscode"
 
 const enum Urls {
@@ -20,7 +20,7 @@ export const openURL = async (searchBase?: string, url?: string) => {
     if (searchBase === "open") {
         await vscode.env.openExternal(vscode.Uri.parse(url as string))
     } else {
-        const {processingDocs, searchEngine} = getSearchConfig()
+        const {processingDocs, searchEngine} = searchConfig
         const searchUrl = ((): string => {
             if (searchBase === "docs") {
                 if (!url) {

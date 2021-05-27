@@ -5,7 +5,7 @@
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
-import {getDiagnosticConfig, getProcessingCommand} from "./getConfig"
+import {processingCommand, shouldEnableDiagnostics} from "./config"
 import isValidProcessingCommand from "./validateCommand"
 import subscribeCommands from "./commands"
 import subscribeDiagnostics from "./diagnostics"
@@ -18,15 +18,15 @@ export const activate = async (context: vscode.ExtensionContext) => {
 
     subscribeCommands(context)
 
-    if (getDiagnosticConfig()) {
-        if (await isValidProcessingCommand(getProcessingCommand())) {
+    if (shouldEnableDiagnostics) {
+        if (await isValidProcessingCommand(processingCommand)) {
             const pdeDiagnostics = vscode.languages.createDiagnosticCollection("processing")
 
             context.subscriptions.push(pdeDiagnostics)
             subscribeDiagnostics(pdeDiagnostics, context, log)
         } else {
             log.appendLine(
-                `ERROR! The configured processing command ${getProcessingCommand()} could not be executed.`,
+                `ERROR! The configured processing command ${processingCommand} could not be executed.`,
             )
             log.show()
         }

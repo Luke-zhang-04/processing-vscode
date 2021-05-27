@@ -6,7 +6,7 @@
 
 import vscode from "vscode"
 
-export const getProcessingCommand = (): string => {
+const getProcessingCommand = (): string => {
     const config = vscode.workspace
         .getConfiguration()
         .get<unknown>("processing.processingPath", "processing-java")
@@ -22,7 +22,7 @@ export const getProcessingCommand = (): string => {
     return config
 }
 
-export const getJavaCommand = (): string => {
+const getJavaCommand = (): string => {
     const config = vscode.workspace
         .getConfiguration()
         .get<unknown>("processing.py.javaPath", "java")
@@ -38,7 +38,7 @@ export const getJavaCommand = (): string => {
     return config
 }
 
-export const getJarPath = (): string => {
+const getJarPath = (): string => {
     const config = vscode.workspace
         .getConfiguration()
         .get<unknown>("processing.py.jarPath", "processing-py.jar")
@@ -54,23 +54,21 @@ export const getJarPath = (): string => {
     return config
 }
 
-export const isPythonEnabled = (): boolean => {
-    const config = vscode.workspace
+const getPythonEnablement = (): boolean => {
+    const isEnabled = vscode.workspace
         .getConfiguration()
-        .get<unknown>("processing.py.isEnabled", true)
+        .get<boolean>("processing.py.isEnabled", true)
 
-    if (typeof config !== "boolean") {
-        vscode.window.showErrorMessage(
-            "Config option processing.py.javaPath must be of type string",
-        )
+    if (typeof isEnabled !== "boolean") {
+        vscode.window.showErrorMessage("Config option processing.py.isEnabled should be a boolean")
 
-        throw new Error("Config option processing.py.javaPath must be of type string")
+        throw new Error("Config option processing.py.isEnabled should be a boolean")
     }
 
-    return config
+    return isEnabled
 }
 
-export const getSearchConfig = (): {searchEngine: string; processingDocs: string} => {
+const getSearchConfig = (): {searchEngine: string; processingDocs: string} => {
     const config = vscode.workspace.getConfiguration("processing")
     const processingDocs = config.get<unknown>("docs", "processing.org")
     const searchEngine = config.get<unknown>("search", "Google")
@@ -91,7 +89,7 @@ export const getSearchConfig = (): {searchEngine: string; processingDocs: string
     }
 }
 
-export const getDiagnosticConfig = (): boolean => {
+const getshouldEnableDiagnostics = (): boolean => {
     const shouldGiveDiagnostics = vscode.workspace
         .getConfiguration()
         .get<boolean>("processing.shouldGiveDiagnostics", true)
@@ -107,7 +105,7 @@ export const getDiagnosticConfig = (): boolean => {
     return shouldGiveDiagnostics
 }
 
-export const shouldAlwaysQuotePath = (): boolean => {
+const getQuoteEnablement = (): boolean => {
     const shouldQuotePath = vscode.workspace
         .getConfiguration()
         .get<"always" | "auto">("processing.runPathQuotes", "auto")
@@ -123,16 +121,20 @@ export const shouldAlwaysQuotePath = (): boolean => {
     return shouldQuotePath === "always"
 }
 
-export const pyIsEnabled = (): boolean => {
-    const isEnabled = vscode.workspace
-        .getConfiguration()
-        .get<boolean>("processing.py.isEnabled", true)
+export const processingCommand = getProcessingCommand()
+export const javaCommand = getJavaCommand()
+export const jarPath = getJarPath()
+export const shouldEnablePython = getPythonEnablement()
+export const searchConfig = getSearchConfig()
+export const shouldEnableDiagnostics = getshouldEnableDiagnostics()
+export const shouldAlwaysQuotePath = getQuoteEnablement()
 
-    if (typeof isEnabled !== "boolean") {
-        vscode.window.showErrorMessage("Config option processing.py.isEnabled should be a boolean")
-
-        throw new Error("Config option processing.py.isEnabled should be a boolean")
-    }
-
-    return isEnabled
+export default {
+    processingCommand,
+    javaCommand,
+    jarPath,
+    shouldEnablePython,
+    searchConfig,
+    shouldEnableDiagnostics,
+    shouldAlwaysQuotePath,
 }

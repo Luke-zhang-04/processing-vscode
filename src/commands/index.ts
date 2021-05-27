@@ -5,14 +5,14 @@
  */
 
 import {openDocumentation, openProcessingDocs, searchUnityDocs} from "./search"
-import {pyIsEnabled} from "../getConfig"
 import {run as runProject} from "./run"
+import {shouldEnablePython} from "../config"
 import vscode from "vscode"
 
 export const subscribeCommands = (context: vscode.ExtensionContext): void => {
     context.subscriptions.push(vscode.commands.registerCommand("processing.Run", runProject))
 
-    if (pyIsEnabled()) {
+    if (shouldEnablePython) {
         context.subscriptions.push(
             vscode.commands.registerCommand("processing.RunPy", () => runProject("py")),
         )
