@@ -113,7 +113,9 @@ export const shouldAlwaysQuotePath = (): boolean => {
         .get<"always" | "auto">("processing.runPathQuotes", "auto")
 
     if (shouldQuotePath !== "always" && shouldQuotePath !== "auto") {
-        vscode.window.showErrorMessage("Config option processing.runPathQuotes should be auto or always")
+        vscode.window.showErrorMessage(
+            "Config option processing.runPathQuotes should be auto or always",
+        )
 
         throw new Error("Config option processing.runPathQuotes should be auto or always")
     }
