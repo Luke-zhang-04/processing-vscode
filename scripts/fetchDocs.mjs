@@ -115,7 +115,7 @@ const escapeHTML = (html) =>
  * Gets the documentation for a single link
  *
  * @param {string} link - Link to get doc from
- * @returns {Promise<import("./src/documentation").DocumentationVariable>}
+ * @returns {Promise<import("../src/types").DocumentationVariable>}
  */
 const documentVariable = async (link) => {
     const documentation = {
@@ -177,7 +177,7 @@ const documentVariable = async (link) => {
  * Gets the documentation for a single link
  *
  * @param {string} link - Link to get doc from
- * @returns {Promise<import("./src/documentation").DocumentationFunction>}
+ * @returns {Promise<import("../src/types").DocumentationFunction>}
  */
 const documentFunction = async (link) => {
     const documentation = {
@@ -246,7 +246,7 @@ const documentFunction = async (link) => {
  * Gets the documentation for a single link
  *
  * @param {string} link - Link to get doc from
- * @returns {Promise<import("./src/documentation").DocumentationClass>}
+ * @returns {Promise<import("../src/types").DocumentationClass>}
  */
 const documentClass = async (link) => {
     const documentation = {
@@ -328,7 +328,7 @@ const documentLinks = async ({classLinks, functionLinks, variableLinks}) => {
     /**
      * All documentation (final object dumped to JSON)
      *
-     * @type {import("./src/documentation").Documentation}
+     * @type {import("../src/types").Documentation}
      */
     const documentation = {}
 

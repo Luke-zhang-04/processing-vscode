@@ -4,28 +4,20 @@
  * @copyright (C) 2021 Luke Zhang
  */
 
-import {
-    getJarPath,
-    getJavaCommand,
-    getProcessingCommand,
-    shouldAlwaysQuotePath,
-} from "../getConfig"
+import {jarPath, javaCommand, processingCommand, shouldAlwaysQuotePath} from "../config"
 import path, {dirname} from "path"
 import {isValidProcessingProject} from "../utils"
 import vscode from "vscode"
 
+const pythonUtils = {
+    getProjectFilename: ({fileName}: vscode.TextDocument): string =>
+        shouldAlwaysQuotePath || / |\\/u.test(fileName) ? `"${fileName}"` : fileName,
+
+    getJarFilename: (): string =>
+        shouldAlwaysQuotePath || / |\\/u.test(jarPath) ? `"${jarPath}"` : jarPath,
+}
+
 class RunManager {
-    private static _pythonUtils = {
-        getProjectFilename: ({fileName}: vscode.TextDocument): string =>
-            shouldAlwaysQuotePath() || / |\\/u.test(fileName) ? `"${fileName}"` : fileName,
-
-        getJarFilename: (): string => {
-            const jarPath = getJarPath()
-
-            return shouldAlwaysQuotePath() || / |\\/u.test(jarPath) ? `"${jarPath}"` : jarPath
-        },
-    }
-
     private _terminal?: vscode.Terminal = undefined
 
     private _pythonTerminal?: vscode.Terminal = undefined
@@ -88,7 +80,7 @@ class RunManager {
 
         let sketchName = dirname(editor.document.fileName)
         const isValidProjectName = isValidProcessingProject(sketchName.split(path.sep).pop())
-        const shouldQuotePath = shouldAlwaysQuotePath() || / |\\/u.test(sketchName)
+        const shouldQuotePath = shouldAlwaysQuotePath || / |\\/u.test(sketchName)
 
         if (shouldQuotePath) {
             sketchName = `"${sketchName}"`
@@ -103,7 +95,7 @@ class RunManager {
         }
 
         // If file is a processing project file
-        const cmd = `${getProcessingCommand()} --sketch=${sketchName} --run`
+        const cmd = `${processingCommand} --sketch=${sketchName} --run`
 
         currentTerminal.sendText(cmd)
     }
@@ -119,7 +111,7 @@ class RunManager {
         currentTerminal.show()
 
         // If file is a processing project file
-        const cmd = `${getJavaCommand()} -jar ${RunManager._pythonUtils.getJarFilename()} ${RunManager._pythonUtils.getProjectFilename(
+        const cmd = `${javaCommand} -jar ${pythonUtils.getJarFilename()} ${pythonUtils.getProjectFilename(
             editor.document,
         )}`
 

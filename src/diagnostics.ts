@@ -7,8 +7,8 @@
 import path, {dirname} from "path"
 import childProcess from "child_process"
 import crypto from "crypto"
-import {getProcessingCommand} from "./getConfig"
 import {isValidProcessingProject} from "./utils"
+import {processingCommand} from "./config"
 import vscode from "vscode"
 
 let oldHash = ""
@@ -53,7 +53,7 @@ const refreshDiagnostics = async (
 
             console.log({sketchName})
             const diagnostic = await new Promise<string[]>((resolve) => {
-                const processingProcess = childProcess.spawn(getProcessingCommand(), [
+                const processingProcess = childProcess.spawn(processingCommand, [
                     `--sketch=${sketchName}`,
                     "--build",
                 ])

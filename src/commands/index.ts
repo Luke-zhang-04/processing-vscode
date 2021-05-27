@@ -6,13 +6,18 @@
 
 import {openDocumentation, openProcessingDocs, searchUnityDocs} from "./search"
 import {run as runProject} from "./run"
+import {shouldEnablePython} from "../config"
 import vscode from "vscode"
 
 export const subscribeCommands = (context: vscode.ExtensionContext): void => {
     context.subscriptions.push(vscode.commands.registerCommand("processing.Run", runProject))
-    context.subscriptions.push(
-        vscode.commands.registerCommand("processing.RunPy", () => runProject("py")),
-    )
+
+    if (shouldEnablePython) {
+        context.subscriptions.push(
+            vscode.commands.registerCommand("processing.RunPy", () => runProject("py")),
+        )
+    }
+
     context.subscriptions.push(
         vscode.commands.registerCommand("processing.RunJava", () => runProject("java")),
     )

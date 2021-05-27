@@ -4,6 +4,12 @@
  * @copyright (C) 2021 Luke Zhang
  */
 
+import type {
+    Documentation,
+    DocumentationClass,
+    DocumentationFunction,
+    DocumentationVariable,
+} from "./types"
 import documentation from "./documentation-data.yml"
 import vscode from "vscode"
 
@@ -22,7 +28,7 @@ const getHoveredItem = (line: string, position: number): string | undefined => {
         let index = position
 
         for (; index >= 0 && index < line.length; index--) {
-            if (!/[a-z]|[0-9]|_/iu.test(line[index])) {
+            if (!/[a-z]|[0-9]|_/iu.test(line[index]!)) {
                 break
             }
         }
@@ -34,7 +40,7 @@ const getHoveredItem = (line: string, position: number): string | undefined => {
         let index = position
 
         for (; index >= 0 && index < line.length; index++) {
-            if (!/[a-z]|[0-9]|_/iu.test(line[index])) {
+            if (!/[a-z]|[0-9]|_/iu.test(line[index]!)) {
                 break
             }
         }
@@ -44,35 +50,6 @@ const getHoveredItem = (line: string, position: number): string | undefined => {
 
     return line.slice(itemStart, itemEnd)
 }
-
-interface DocumentationVariable {
-    description: string
-    examples?: string
-    docUrl: string
-    type: "var" | "const"
-}
-
-interface DocumentationClass {
-    description: string
-    syntax: string
-    parameters: {[key: string]: string}
-    docUrl: string
-    type: "class"
-}
-
-interface DocumentationFunction {
-    description: string
-    syntax: string
-    parameters: {[key: string]: string}
-    returns: string
-    docUrl: string
-    type: "function"
-}
-
-/* prettier-ignore */
-export type Documentation = {
-    [key: string]: DocumentationFunction | DocumentationVariable | DocumentationClass
-};
 
 const documentVariable = (
     info: DocumentationVariable,
