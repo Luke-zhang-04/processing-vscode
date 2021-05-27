@@ -33,6 +33,8 @@
     "onCommand:processing.OpenDocs",
     "onCommand:processing.SearchWebsite",
     "onCommand:processing.Run",
+    "onCommand:processing.RunJava",
+    "onCommand:processing.RunPy",
     "onLanguage:pde",
     "onLanguage:python"
   ],
@@ -41,29 +43,35 @@
     "commands": [
       {
         "command": "processing.Run",
-        "title": "Processing: Run Open Processing Project"
+        "title": "Processing: Run Open Processing Project",
+        "enablement": "resourceLangId == python || resourceLangId == pde"
       },
       {
         "command": "processing.RunPy",
         "title": "Processing: Run Open Processing Python Project",
-        "icon": "./images/play-arrow-with-logo.svg"
+        "icon": "./images/play-arrow-with-logo.svg",
+        "enablement": "resourceLangId == python && config.processing.py.isEnabled"
       },
       {
         "command": "processing.RunJava",
-        "title": "Processing: Run Open Processing Project",
-        "icon": "./images/play-arrow.svg"
+        "title": "Processing: Run Open Processing Java Project",
+        "icon": "./images/play-arrow.svg",
+        "enablement": "resourceLangId == pde"
       },
       {
         "command": "processing.OpenExtensionDocumentation",
-        "title": "Processing: Open Extension Documentation"
+        "title": "Processing: Open Extension Documentation",
+        "enablement": "resourceLangId == pde"
       },
       {
         "command": "processing.OpenDocs",
-        "title": "Processing: Open Documentation for Selection"
+        "title": "Processing: Open Documentation for Selection",
+        "enablement": "resourceLangId == pde"
       },
       {
         "command": "processing.SearchWebsite",
-        "title": "Processing: Search Processing Website"
+        "title": "Processing: Search Processing Website",
+        "enablement": "resourceLangId == pde"
       }
     ],
     "languages": [
@@ -105,7 +113,7 @@
           "group": "navigation"
         },
         {
-          "when": "resourceLangId == python",
+          "when": "resourceLangId == python && config.processing.py.isEnabled",
           "command": "processing.RunPy",
           "group": "navigation"
         }
@@ -117,7 +125,7 @@
           "group": "navigation"
         },
         {
-          "when": "resourceLangId == python",
+          "when": "resourceLangId == python && config.processing.py.isEnabled",
           "command": "processing.RunPy",
           "group": "navigation"
         }
@@ -181,6 +189,11 @@
           "type": "string",
           "default": "java",
           "description": "Path to Java. Leave default if you've added java to your path, otherwise enter the path to `java` here. Example: `/usr/bin/java` for Unix, or `C:\\Program Files\\Java\\jdk1.8.0_202\\bin\\javac.exe` for Windows."
+        },
+        "processing.py.isEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "If processing.py features should be enabled or not."
         }
       }
     }

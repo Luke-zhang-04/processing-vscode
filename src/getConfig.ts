@@ -12,6 +12,10 @@ export const getProcessingCommand = (): string => {
         .get<unknown>("processing.processingPath", "processing-java")
 
     if (typeof config !== "string") {
+        vscode.window.showErrorMessage(
+            "Config option processing.processingPath must be of type string",
+        )
+
         throw new Error("Config option processing.processingPath must be of type string")
     }
 
@@ -24,6 +28,10 @@ export const getJavaCommand = (): string => {
         .get<unknown>("processing.py.javaPath", "java")
 
     if (typeof config !== "string") {
+        vscode.window.showErrorMessage(
+            "Config option processing.py.javaPath must be of type string",
+        )
+
         throw new Error("Config option processing.py.javaPath must be of type string")
     }
 
@@ -36,6 +44,10 @@ export const getJarPath = (): string => {
         .get<unknown>("processing.py.jarPath", "processing-py.jar")
 
     if (typeof config !== "string") {
+        vscode.window.showErrorMessage(
+            "Config option processing.py.jarPath must be of type string",
+        )
+
         throw new Error("Config option processing.py.jarPath must be of type string")
     }
 
@@ -48,6 +60,10 @@ export const isPythonEnabled = (): boolean => {
         .get<unknown>("processing.py.isEnabled", true)
 
     if (typeof config !== "boolean") {
+        vscode.window.showErrorMessage(
+            "Config option processing.py.javaPath must be of type string",
+        )
+
         throw new Error("Config option processing.py.javaPath must be of type string")
     }
 
@@ -60,6 +76,10 @@ export const getSearchConfig = (): {searchEngine: string; processingDocs: string
     const searchEngine = config.get<unknown>("search", "Google")
 
     if (typeof processingDocs !== "string" || typeof searchEngine !== "string") {
+        vscode.window.showErrorMessage(
+            "Config options processing.processingDocs and processing.searchEngine must be of type string",
+        )
+
         throw new Error(
             "Config options processing.processingDocs and processing.searchEngine must be of type string",
         )
@@ -77,6 +97,10 @@ export const getDiagnosticConfig = (): boolean => {
         .get<boolean>("processing.shouldGiveDiagnostics", true)
 
     if (typeof shouldGiveDiagnostics !== "boolean") {
+        vscode.window.showErrorMessage(
+            "Config option processing.shouldGiveDiagnostics must be of type string",
+        )
+
         throw new Error("Config option processing.shouldGiveDiagnostics must be of type string")
     }
 
@@ -89,8 +113,24 @@ export const shouldAlwaysQuotePath = (): boolean => {
         .get<"always" | "auto">("processing.runPathQuotes", "auto")
 
     if (shouldQuotePath !== "always" && shouldQuotePath !== "auto") {
-        throw new Error("processing.runPathQuotes should be auto or always")
+        vscode.window.showErrorMessage("Config option processing.runPathQuotes should be auto or always")
+
+        throw new Error("Config option processing.runPathQuotes should be auto or always")
     }
 
     return shouldQuotePath === "always"
+}
+
+export const pyIsEnabled = (): boolean => {
+    const isEnabled = vscode.workspace
+        .getConfiguration()
+        .get<boolean>("processing.py.isEnabled", true)
+
+    if (typeof isEnabled !== "boolean") {
+        vscode.window.showErrorMessage("Config option processing.py.isEnabled should be a boolean")
+
+        throw new Error("Config option processing.py.isEnabled should be a boolean")
+    }
+
+    return isEnabled
 }

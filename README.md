@@ -101,6 +101,7 @@ This extension attempts to make Processing with Python easier to use. Follow the
     - Change the following configuration options
         - `processing.py.jarPath`: the path to your `processing-py.jar` file. Preferably, this is an absolute path. In this example, it will be `~/processing.py-linux64/processing.py-3056-linux64/processing-py.jar`
         - `processing.py.javaPath`: the path to your `java` executable. For example, `/usr/bin/java`
+        - Make sure `processing.py.isEnabled` is set to `true` (true by default)
 4. Downloads stub definitions (optional)
     - Definitions can be found [here](https://github.com/Abdulla060/Processing.py-intellisense/blob/master/lib/Processing3.pyi)
     - After than, follow the imports in [this example](https://github.com/Abdulla060/Processing.py-intellisense/blob/master/Example.py)
