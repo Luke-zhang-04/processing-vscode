@@ -4,7 +4,9 @@
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
-import {searchConfig} from "./config"
+import type {Documentation} from "../types"
+import documentation from "../documentation-data.yml"
+import {searchConfig} from "../config"
 import vscode from "vscode"
 
 const enum Urls {
@@ -16,15 +18,21 @@ const enum Urls {
     P5jsSearchDuckDuckGo = "https://duckduckgo.com/?q=!p5+",
 }
 
-export const openURL = async (searchBase?: string, url?: string) => {
+export const openURL = async (searchBase?: string, url?: string): Promise<void> => {
     if (searchBase === "open") {
         await vscode.env.openExternal(vscode.Uri.parse(url as string))
     } else {
         const {processingDocs, searchEngine} = searchConfig
         const searchUrl = ((): string => {
+            let docUrl: string | undefined
+
             if (searchBase === "docs") {
                 if (!url) {
                     return processingDocs === "p5js.org" ? Urls.P5jsDocs : Urls.ProcessingorgDocs
+                } else if (
+                    (docUrl = (documentation as Documentation)[url]?.docUrl) !== undefined
+                ) {
+                    return docUrl
                 } else if (searchEngine === "DuckDuckGo") {
                     return processingDocs === "p5js.org"
                         ? `${Urls.P5jsSearchDuckDuckGo}${url}`
@@ -42,7 +50,7 @@ export const openURL = async (searchBase?: string, url?: string) => {
         await vscode.env.openExternal(vscode.Uri.parse(searchUrl))
     }
 
-    return true
+    return
 }
 
 // Slice and Trim
@@ -53,17 +61,8 @@ export const prepareInput = (input: string, start: number, end: number) => {
         return ""
     }
 
-    // Slice to the selection
-    input = input.slice(start, end)
-
-    // Trim white space
-    input = input.trim()
-
-    // Possible future addition:
-    // Check right here if valid variable/function name to search?
-
     // Everything looks good by this point, so time to open a web browser!
-    return input
+    return input.slice(start, end).trim()
 }
 
 export const openProcessingDocs = (input: string, start: number, end: number) => {

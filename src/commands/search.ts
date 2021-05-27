@@ -4,7 +4,7 @@
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
-import * as search from "../search"
+import {search} from "../utils"
 import vscode from "vscode"
 
 const openDocErrorMessage = async (str: string) => {
