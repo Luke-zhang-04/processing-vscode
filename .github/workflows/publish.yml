@@ -30,6 +30,6 @@ jobs:
       - name: Publish to marketplace
         uses: lannonbr/vsce-action@master
         with:
-          args: "publish -p $VSCE_TOKEN"
+          args: "publish -p $PUBLISH_TOKEN"
         env:
-          VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
+          PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}

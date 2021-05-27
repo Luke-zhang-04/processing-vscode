@@ -2,11 +2,13 @@
 
 # Processing for Visual Studio Code
 
-[![.github/workflows/CI.yml](https://img.shields.io/github/workflow/status/Luke-zhang-04/processing-vscode/Node.js%20CI?label=CI&logo=github)](https://github.com/Luke-zhang-04/processing-vscode/actions)
+[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/Luke-zhang-04.processing-vscode.svg?style=for-the-badge&logo=visual-studio-code&logoColor=007ACC&color=007ACC&labelColor=083254)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
 
-[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
-[![Installs](https://vsmarketplacebadge.apphb.com/installs-short/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
-[![Rating](https://vsmarketplacebadge.apphb.com/rating-star/Luke-zhang-04.processing-vscode.svg)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
+[![Installs](https://vsmarketplacebadge.apphb.com/installs-short/Luke-zhang-04.processing-vscode.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
+[![Rating](https://vsmarketplacebadge.apphb.com/rating-star/Luke-zhang-04.processing-vscode.svg?style=flat-square)](https://marketplace.visualstudio.com/items?itemName=Luke-zhang-04.processing-vscode)
+[![.github/workflows/CI.yml](https://img.shields.io/github/workflow/status/Luke-zhang-04/processing-vscode/Node.js%20CI?label=CI&logo=github&style=flat-square)](https://github.com/Luke-zhang-04/processing-vscode/actions)
+[![License](https://img.shields.io/github/license/Luke-zhang-04/processing-vscode?style=flat-square)](./LICENSE)
+![Maintained?](https://img.shields.io/maintenance/yes/2021?style=flat-square)
 
 ## Contents
 
