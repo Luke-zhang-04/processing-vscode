@@ -28,7 +28,9 @@ const config = {
         progress(),
         typescript(),
         yaml(),
-        resolve(),
+        resolve({
+            resolveOnly: [/^(?!vscode)$/],
+        }),
         process.env.NODE_ENV === "dev"
             ? undefined
             : terser({
