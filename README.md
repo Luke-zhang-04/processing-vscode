@@ -9,6 +9,7 @@
 [![.github/workflows/CI.yml](https://img.shields.io/github/workflow/status/Luke-zhang-04/processing-vscode/Node.js%20CI?label=CI&logo=github&style=flat-square)](https://github.com/Luke-zhang-04/processing-vscode/actions)
 [![License](https://img.shields.io/github/license/Luke-zhang-04/processing-vscode?style=flat-square)](./LICENSE)
 ![Maintained?](https://img.shields.io/maintenance/yes/2021?style=flat-square)
+[![Vulnerabilities](https://snyk.io/test/github/Luke-zhang-04/processing-vscode/badge.svg?style=flat-square)](https://snyk.io/test/github/Luke-zhang-04/processing-vscode)
 
 ## Contents
 
