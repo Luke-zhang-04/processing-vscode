@@ -269,6 +269,12 @@
     "description": "char",
     "scope": "source.pde"
   },
+  "circle": {
+    "prefix": "circle",
+    "body": "circle(${1:x}, ${2:y}, ${3:extent});",
+    "description": "circle",
+    "scope": "source.pde"
+  },
   "class": {
     "prefix": "class",
     "body": "${1:public }class ${2:${TM_FILENAME/(.*?)(\\..+)/$1/}} ${3:extends} {\n\n\tpublic $2 (${4:arguments}) {\n\t\t${0}\n\t}\n\n}\n",
@@ -1629,6 +1635,12 @@
     "prefix": "sqrt",
     "body": "sqrt(${1:value});",
     "description": "sqrt",
+    "scope": "source.pde"
+  },
+  "square": {
+    "prefix": "square",
+    "body": "square(${1:x}, ${2:y}, ${3:extent});",
+    "description": "square",
     "scope": "source.pde"
   },
   "status": {
