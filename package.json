@@ -38,7 +38,7 @@
     "@types/jsdom": "^16.2.13",
     "@types/node": "^16.3.1",
     "@types/node-fetch": "^2.5.11",
-    "@types/vscode": "^1.58.0",
+    "@types/vscode": "^1.48.0",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "eslint": "^7.30.0",
