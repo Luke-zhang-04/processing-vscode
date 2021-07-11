@@ -8,3 +8,4 @@ lib/
 tsconfig*.json
 legacy
 processing-vscode.js
+pnpm-lock.yaml

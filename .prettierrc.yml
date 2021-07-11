@@ -23,6 +23,10 @@ jsdocKeepUnParseAbleExampleIndent: false
 jsdocSingleLineComment: false
 tsdoc: true
 
+plugins:
+  - ./node_modules/prettier-plugin-jsdoc
+  - ./node_modules/prettier-plugin-package
+
 overrides:
   - files:
       - "*.html"
