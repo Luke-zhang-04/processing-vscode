@@ -13,15 +13,18 @@ jobs:
         with:
           node-version: "14.x"
           registry-url: "https://registry.npmjs.org"
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.0.2
 
       - name: install deps
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: build
-        run: yarn tsc
+        run: pnpm tsc
 
       - name: lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: check with prettier
-        run: yarn prettier . --check
+        run: pnpm prettier . --check
