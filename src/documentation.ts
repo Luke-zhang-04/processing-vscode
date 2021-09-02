@@ -69,7 +69,7 @@ ${info.type} ${item}
 \`\`\``,
         `${info.examples ? "" : `${item}\n\n`}${info.description}
 
-@see {@link [${info.docUrl}](${info.docUrl})}
+*@see* — [${info.docUrl}](${info.docUrl})
 `,
     ])
 
@@ -81,12 +81,12 @@ const documentFuntion = (
         const typeDefs = desc.indexOf(":")
 
         if (typeDefs === -1) {
-            return `@param \`${name}\` — ${desc}`
+            return `*@param* \`${name}\` — ${desc}`
         }
 
         const formattedDesc = `\`${desc.slice(0, typeDefs)}\`${desc.slice(typeDefs)}`
 
-        return `@param \`${name}\` — ${formattedDesc}`
+        return `*@param* \`${name}\` — ${formattedDesc}`
     })
     const {returns} = info
 
@@ -104,11 +104,11 @@ ${info.syntax}
             : []),
         `${info.syntax ? "" : `${item}\n\n`}${info.description}
 
-@see {@link [${info.docUrl}](${info.docUrl})}
+*@see* — [${info.docUrl}](${info.docUrl})
 
 ${params.join("\n\n")}
 
-${returns ? `@returns ${returns === "void" ? "`void`" : returns}` : ""}
+${returns ? `*@returns* \`${returns}\`` : ""}
 `,
     ])
 }
@@ -121,12 +121,12 @@ const documentClass = (
         const typeDefs = desc.indexOf(":")
 
         if (typeDefs === -1) {
-            return `@param \`${name}\` — ${desc}`
+            return `*@param* \`${name}\` — ${desc}`
         }
 
         const formattedDesc = `\`${desc.slice(0, typeDefs)}\`${desc.slice(typeDefs)}`
 
-        return `@param \`${name}\` — ${formattedDesc}`
+        return `*@param* \`${name}\` — ${formattedDesc}`
     })
 
     // Prepare yourself
@@ -143,7 +143,7 @@ ${info.syntax}
             : []),
         `${info.syntax ? "" : `${item}\n\n`}${info.description}
 
-@see {@link [${info.docUrl}](${info.docUrl})}
+*@see* — [${info.docUrl}](${info.docUrl})
 
 ${params.join("\n\n")}
 `,
