@@ -1,0 +1,19 @@
+{
+  "name": "rollup-plugins",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@rollup/pluginutils": "^4.1.0",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.1",
+    "rollup": "^2.53.0",
+    "typescript": "^4.3.2"
+  },
+  "types": "./lib/index.d.ts"
+}

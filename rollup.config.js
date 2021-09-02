@@ -1,4 +1,4 @@
-import yaml from "@rollup/plugin-yaml"
+import {yaml} from "./rollup/plugins/lib/index.js"
 import progress from "rollup-plugin-progress"
 import resolve from "@rollup/plugin-node-resolve"
 import {terser} from "rollup-plugin-terser"

@@ -16,6 +16,9 @@ jobs:
       - name: install deps
         run: yarn install --frozen-lockfile
 
+      - name: build plugins
+        run: yarn workspace rollup-plugins run build
+
       - name: build
         run: yarn vsce package
 

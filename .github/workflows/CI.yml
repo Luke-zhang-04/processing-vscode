@@ -18,7 +18,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: build
-        run: yarn tsc
+        run: yarn workspaces run tsc
 
       - name: lint
         run: yarn lint
