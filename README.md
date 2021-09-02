@@ -11,6 +11,8 @@
 ![Maintained?](https://img.shields.io/maintenance/yes/2021?style=flat-square)
 [![Vulnerabilities](https://snyk.io/test/github/Luke-zhang-04/processing-vscode/badge.svg?style=flat-square)](https://snyk.io/test/github/Luke-zhang-04/processing-vscode)
 
+Note on Processing 4: I'm not sure how this extension will handle Processing 4. I will wait for it to be out of beta and fix the extension if needed.
+
 ## Contents
 
 -   [What this extension is](#what-this-extension-is)
