@@ -116,3 +116,8 @@ This extension attempts to make Processing with Python easier to use. Follow the
 -   Snippets are based on the [Processing Sublime Text plugin](https://github.com/b-g/processing-sublime).
 -   Syntax highlighting is based on the [Red Hat VSCode-Java extension grammar](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json)
 -   Thanks to [Tobiah Zarlez](https://github.com/TobiahZ) for making the [original extension](https://github.com/TobiahZ/processing-vscode)
+
+## Development
+
+- Run `yarn vsce package`
+- Run `code --install-extension processing-vscode-<VERSION>.vsix`
