@@ -34,8 +34,8 @@ This is a [fork of a Visual Studio Code extension created by Tobiah Zarlez](http
 ## What this extension isn't
 
 -   This extension does not allow you to debug Java or Processing projects.
--   This is **NOT a language server**, and hence cannot provide the features a language server can. There simply is not enough demand for a Processing language server, and that type of thing is definetly out of the scope of my abilities. Langauge servers take entire teams from big companies such as Microsoft to make.
-    -   This extension cannot provide intellesence, for example
+-   This is **NOT a language server**, and hence cannot provide the features a language server can. There simply is not enough demand for a Processing language server, and that type of thing is definitely out of the scope of my abilities. Language servers take entire teams from big companies such as Microsoft to make.
+    -   This extension cannot provide IntelliSense, for example
 
 ## Why the fork?
 
