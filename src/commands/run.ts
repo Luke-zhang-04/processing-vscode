@@ -4,7 +4,13 @@
  * @copyright (C) 2021 Luke Zhang
  */
 
-import {jarPath, javaCommand, processingCommand, shouldAlwaysQuotePath} from "../config"
+import {
+    jarPath,
+    javaCommand,
+    processingCommand,
+    shouldAlwaysQuotePath,
+    shouldSendSigint,
+} from "../config"
 import path, {dirname} from "path"
 import {isValidProcessingProject} from "../utils"
 import vscode from "vscode"
@@ -76,7 +82,10 @@ class RunManager {
      * @param editor - Vscode text editor
      */
     private _runJavaMode = (editor: vscode.TextEditor): void => {
-        const currentTerminal = this._getTerminal("_terminal", "Processing")
+        const terminalName = "_terminal"
+        const hasTerminal =
+            this[terminalName] !== undefined && this[terminalName]?.exitStatus === undefined
+        const currentTerminal = this._getTerminal(terminalName, "Processing")
 
         let sketchName = dirname(editor.document.fileName)
         const isValidProjectName = isValidProcessingProject(sketchName.split(path.sep).pop())
@@ -95,7 +104,9 @@ class RunManager {
         }
 
         // If file is a processing project file
-        const cmd = `${processingCommand} --sketch=${sketchName} --run`
+        const cmd = `${
+            hasTerminal && shouldSendSigint ? "\x03" : ""
+        }${processingCommand} --sketch=${sketchName} --run`
 
         currentTerminal.sendText(cmd)
     }
@@ -106,12 +117,17 @@ class RunManager {
      * @param editor - Vscode text editor
      */
     private _runPythonMode = (editor: vscode.TextEditor): void => {
-        const currentTerminal = this._getTerminal("_pythonTerminal", "Processing-py")
+        const terminalName = "_terminal"
+        const hasTerminal =
+            this[terminalName] !== undefined && this[terminalName]?.exitStatus === undefined
+        const currentTerminal = this._getTerminal(terminalName, "Processing-py")
 
         currentTerminal.show()
 
         // If file is a processing project file
-        const cmd = `${javaCommand} -jar ${pythonUtils.getJarFilename()} ${pythonUtils.getProjectFilename(
+        const cmd = `${
+            hasTerminal && shouldSendSigint ? "\x03" : ""
+        }${javaCommand} -jar ${pythonUtils.getJarFilename()} ${pythonUtils.getProjectFilename(
             editor.document,
         )}`
 

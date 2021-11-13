@@ -34,8 +34,8 @@ This is a [fork of a Visual Studio Code extension created by Tobiah Zarlez](http
 ## What this extension isn't
 
 -   This extension does not allow you to debug Java or Processing projects.
--   This is **NOT a language server**, and hence cannot provide the features a language server can. There simply is not enough demand for a Processing language server, and that type of thing is definetly out of the scope of my abilities. Langauge servers take entire teams from big companies such as Microsoft to make.
-    -   This extension cannot provide intellesence, for example
+-   This is **NOT a language server**, and hence cannot provide the features a language server can. There simply is not enough demand for a Processing language server, and that type of thing is definitely out of the scope of my abilities. Language servers take entire teams from big companies such as Microsoft to make.
+    -   This extension cannot provide IntelliSense, for example
 
 ## Why the fork?
 
@@ -85,7 +85,8 @@ Installing this extension will add the following commands to your command pallet
     -   Use the pallet command "Processing: Open Documentation for Selection" to open the processing documentation for the current selection.
     -   By default uses processing.org's documentation. Can change to p5js's if preferred using the `processing.docs` setting.
 -   Run
-    -   Runs the current Processing project (from current working directory). Will automatically detect if the project is Processing Java or Python
+    -   Runs the current Processing project (from current working directory). Will automatically detect if the project is Processing Java or Python.
+    -   If the setting `processing.shouldSendSigint` is set to `true`, run will interrupt the current running processing program before running the new one.
 -   RunJava
     -   Runs the current Processing Java project (from CWD)
 -   RunPy
@@ -116,3 +117,8 @@ This extension attempts to make Processing with Python easier to use. Follow the
 -   Snippets are based on the [Processing Sublime Text plugin](https://github.com/b-g/processing-sublime).
 -   Syntax highlighting is based on the [Red Hat VSCode-Java extension grammar](https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json)
 -   Thanks to [Tobiah Zarlez](https://github.com/TobiahZ) for making the [original extension](https://github.com/TobiahZ/processing-vscode)
+
+## Development
+
+-   Run `yarn vsce package`
+-   Run `code --install-extension processing-vscode-<VERSION>.vsix`
