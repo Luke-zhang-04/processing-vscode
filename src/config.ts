@@ -54,7 +54,7 @@ const getJarPath = (): string => {
     return config
 }
 
-const getPythonEnablement = (): boolean => {
+const getShouldEnablePython = (): boolean => {
     const isEnabled = vscode.workspace
         .getConfiguration()
         .get<boolean>("processing.py.isEnabled", true)
@@ -105,7 +105,7 @@ const getshouldEnableDiagnostics = (): boolean => {
         .get<boolean>("processing.shouldGiveDiagnostics", true)
 
     if (typeof shouldGiveDiagnostics !== "boolean") {
-        const msg = "Config option processing.shouldGiveDiagnostics must be of type string"
+        const msg = "Config option processing.shouldGiveDiagnostics must be of type boolean"
 
         vscode.window.showErrorMessage(msg)
 
@@ -131,6 +131,22 @@ const getQuoteEnablement = (): boolean => {
     return shouldQuotePath === "always"
 }
 
+const getShouldSendSigint = (): boolean => {
+    const isEnabled = vscode.workspace
+        .getConfiguration()
+        .get<boolean>("processing.shouldSendSigint", false)
+
+    if (typeof isEnabled !== "boolean") {
+        const msg = "Config option processing.shouldSendSigint must be of type boolean"
+
+        vscode.window.showErrorMessage(msg)
+
+        throw new Error(msg)
+    }
+
+    return isEnabled
+}
+
 export let processingCommand = getProcessingCommand()
 export let javaCommand = getJavaCommand()
 export let jarPath = getJarPath()
@@ -138,6 +154,7 @@ export let shouldEnablePython = getPythonEnablement()
 export let searchConfig = getSearchConfig()
 export let shouldEnableDiagnostics = getshouldEnableDiagnostics()
 export let shouldAlwaysQuotePath = getQuoteEnablement()
+export let shouldSendSigint = getShouldSendSigint()
 
 vscode.workspace.onDidChangeConfiguration(() => {
     processingCommand = getProcessingCommand()
@@ -147,4 +164,5 @@ vscode.workspace.onDidChangeConfiguration(() => {
     searchConfig = getSearchConfig()
     shouldEnableDiagnostics = getshouldEnableDiagnostics()
     shouldAlwaysQuotePath = getQuoteEnablement()
+    shouldSendSigint = getShouldSendSigint()
 })
