@@ -119,5 +119,5 @@ This extension attempts to make Processing with Python easier to use. Follow the
 
 ## Development
 
-- Run `yarn vsce package`
-- Run `code --install-extension processing-vscode-<VERSION>.vsix`
+-   Run `yarn vsce package`
+-   Run `code --install-extension processing-vscode-<VERSION>.vsix`
