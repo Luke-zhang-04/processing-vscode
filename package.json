@@ -24,7 +24,7 @@
   "keywords": [
     "processing",
     "pde",
-    "procesing.py",
+    "processing.py",
     "processing-python",
     "language",
     "snippets",
@@ -205,7 +205,12 @@
         "processing.shouldGiveDiagnostics": {
           "type": "boolean",
           "default": false,
-          "description": "If the extension should provide diagnostics (via processing-java)"
+          "description": "If the extension should provide diagnostics (via processing-java). Note that this feature is quite slow."
+        },
+        "processing.shouldSendSigint": {
+          "type": "boolean",
+          "default": false,
+          "description": "If the extension should send sigint to the terminal stop the current running processing program before running the new one by sending \"\\x03\" (^C). If true, it essentially presses ctrl+c for you."
         },
         "processing.runPathQuotes": {
           "type": "string",
@@ -224,7 +229,7 @@
         "processing.py.javaPath": {
           "type": "string",
           "default": "java",
-          "description": "Path to Java. Leave default if you've added java to your path, otherwise enter the path to `java` here. Example: `/usr/bin/java` for Unix, or `C:\\Program Files\\Java\\jdk1.8.0_202\\bin\\javac.exe` for Windows."
+          "description": "Path to Java. Leave default if you've added java to your path, otherwise enter the path to `java` here. Example: `/usr/bin/java` for Unix, or potentially `C:\\Program Files\\Java\\jdk1.8.0_202\\bin\\javac.exe` for Windows."
         },
         "processing.py.isEnabled": {
           "type": "boolean",

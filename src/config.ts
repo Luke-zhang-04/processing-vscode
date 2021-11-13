@@ -54,7 +54,7 @@ const getJarPath = (): string => {
     return config
 }
 
-const getPythonEnablement = (): boolean => {
+const getShouldEnablePython = (): boolean => {
     const isEnabled = vscode.workspace
         .getConfiguration()
         .get<boolean>("processing.py.isEnabled", true)
@@ -105,7 +105,7 @@ const getshouldEnableDiagnostics = (): boolean => {
         .get<boolean>("processing.shouldGiveDiagnostics", true)
 
     if (typeof shouldGiveDiagnostics !== "boolean") {
-        const msg = "Config option processing.shouldGiveDiagnostics must be of type string"
+        const msg = "Config option processing.shouldGiveDiagnostics must be of type boolean"
 
         vscode.window.showErrorMessage(msg)
 
@@ -131,13 +131,30 @@ const getQuoteEnablement = (): boolean => {
     return shouldQuotePath === "always"
 }
 
+const getShouldSendSigint = (): boolean => {
+    const isEnabled = vscode.workspace
+        .getConfiguration()
+        .get<boolean>("processing.shouldSendSigint", false)
+
+    if (typeof isEnabled !== "boolean") {
+        const msg = "Config option processing.shouldSendSigint must be of type boolean"
+
+        vscode.window.showErrorMessage(msg)
+
+        throw new Error(msg)
+    }
+
+    return isEnabled
+}
+
 export const processingCommand = getProcessingCommand()
 export const javaCommand = getJavaCommand()
 export const jarPath = getJarPath()
-export const shouldEnablePython = getPythonEnablement()
+export const shouldEnablePython = getShouldEnablePython()
 export const searchConfig = getSearchConfig()
 export const shouldEnableDiagnostics = getshouldEnableDiagnostics()
 export const shouldAlwaysQuotePath = getQuoteEnablement()
+export const shouldSendSigint = getShouldSendSigint()
 
 export default {
     processingCommand,
@@ -147,4 +164,5 @@ export default {
     searchConfig,
     shouldEnableDiagnostics,
     shouldAlwaysQuotePath,
+    shouldSendSigint,
 }
