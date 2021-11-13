@@ -131,20 +131,20 @@ const getQuoteEnablement = (): boolean => {
     return shouldQuotePath === "always"
 }
 
-export const processingCommand = getProcessingCommand()
-export const javaCommand = getJavaCommand()
-export const jarPath = getJarPath()
-export const shouldEnablePython = getPythonEnablement()
-export const searchConfig = getSearchConfig()
-export const shouldEnableDiagnostics = getshouldEnableDiagnostics()
-export const shouldAlwaysQuotePath = getQuoteEnablement()
+export let processingCommand = getProcessingCommand()
+export let javaCommand = getJavaCommand()
+export let jarPath = getJarPath()
+export let shouldEnablePython = getPythonEnablement()
+export let searchConfig = getSearchConfig()
+export let shouldEnableDiagnostics = getshouldEnableDiagnostics()
+export let shouldAlwaysQuotePath = getQuoteEnablement()
 
-export default {
-    processingCommand,
-    javaCommand,
-    jarPath,
-    shouldEnablePython,
-    searchConfig,
-    shouldEnableDiagnostics,
-    shouldAlwaysQuotePath,
-}
+vscode.workspace.onDidChangeConfiguration(() => {
+    processingCommand = getProcessingCommand()
+    javaCommand = getJavaCommand()
+    jarPath = getJarPath()
+    shouldEnablePython = getPythonEnablement()
+    searchConfig = getSearchConfig()
+    shouldEnableDiagnostics = getshouldEnableDiagnostics()
+    shouldAlwaysQuotePath = getQuoteEnablement()
+})
