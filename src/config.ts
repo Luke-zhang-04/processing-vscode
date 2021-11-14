@@ -16,7 +16,7 @@ const getProcessingCommand = (): string => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return "processing-java"
     }
 
     return config
@@ -32,7 +32,7 @@ const getJavaCommand = (): string => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return "java"
     }
 
     return config
@@ -48,7 +48,7 @@ const getJarPath = (): string => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return "processing-py.jar"
     }
 
     return config
@@ -64,14 +64,14 @@ const getShouldEnablePython = (): boolean => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return true
     }
 
     return isEnabled
 }
 
-type DocOptions = "processing.org" | "p5js.org" | "py.processing.org" | "auto"
 type SearchEngines = "Google" | "DuckDuckGo"
+type DocOptions = "processing.org" | "p5js.org" | "py.processing.org" | "auto"
 
 const getSearchConfig = (): {searchEngine: SearchEngines; processingDocs: DocOptions} => {
     const config = vscode.workspace.getConfiguration("processing")
@@ -84,13 +84,13 @@ const getSearchConfig = (): {searchEngine: SearchEngines; processingDocs: DocOpt
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return {searchEngine: "Google", processingDocs: "auto"}
     } else if (!["Google", "DuckDuckGo"].includes(searchEngine)) {
         const msg = 'Config option processing.search must be "Google" | "DuckDuckGo"'
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return {searchEngine: "Google", processingDocs: "auto"}
     }
 
     return {
@@ -109,7 +109,7 @@ const getshouldEnableDiagnostics = (): boolean => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return true
     }
 
     return shouldGiveDiagnostics
@@ -125,7 +125,7 @@ const getQuoteEnablement = (): boolean => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return false
     }
 
     return shouldQuotePath === "always"
@@ -147,22 +147,22 @@ const getShouldSendSigint = (): boolean => {
     return isEnabled
 }
 
-export const processingCommand = getProcessingCommand()
-export const javaCommand = getJavaCommand()
-export const jarPath = getJarPath()
-export const shouldEnablePython = getShouldEnablePython()
-export const searchConfig = getSearchConfig()
-export const shouldEnableDiagnostics = getshouldEnableDiagnostics()
-export const shouldAlwaysQuotePath = getQuoteEnablement()
-export const shouldSendSigint = getShouldSendSigint()
+export let processingCommand = getProcessingCommand()
+export let javaCommand = getJavaCommand()
+export let jarPath = getJarPath()
+export let shouldEnablePython = getShouldEnablePython()
+export let searchConfig = getSearchConfig()
+export let shouldEnableDiagnostics = getshouldEnableDiagnostics()
+export let shouldAlwaysQuotePath = getQuoteEnablement()
+export let shouldSendSigint = getShouldSendSigint()
 
-export default {
-    processingCommand,
-    javaCommand,
-    jarPath,
-    shouldEnablePython,
-    searchConfig,
-    shouldEnableDiagnostics,
-    shouldAlwaysQuotePath,
-    shouldSendSigint,
-}
+vscode.workspace.onDidChangeConfiguration(() => {
+    processingCommand = getProcessingCommand()
+    javaCommand = getJavaCommand()
+    jarPath = getJarPath()
+    shouldEnablePython = getShouldEnablePython()
+    searchConfig = getSearchConfig()
+    shouldEnableDiagnostics = getshouldEnableDiagnostics()
+    shouldAlwaysQuotePath = getQuoteEnablement()
+    shouldSendSigint = getShouldSendSigint()
+})
