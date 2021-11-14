@@ -85,7 +85,8 @@ Installing this extension will add the following commands to your command pallet
     -   Use the pallet command "Processing: Open Documentation for Selection" to open the processing documentation for the current selection.
     -   By default uses processing.org's documentation. Can change to p5js's if preferred using the `processing.docs` setting.
 -   Run
-    -   Runs the current Processing project (from current working directory). Will automatically detect if the project is Processing Java or Python
+    -   Runs the current Processing project (from current working directory). Will automatically detect if the project is Processing Java or Python.
+    -   If the setting `processing.shouldSendSigint` is set to `true`, run will interrupt the current running processing program before running the new one.
 -   RunJava
     -   Runs the current Processing Java project (from CWD)
 -   RunPy
@@ -119,5 +120,5 @@ This extension attempts to make Processing with Python easier to use. Follow the
 
 ## Development
 
-- Run `yarn vsce package`
-- Run `code --install-extension processing-vscode-<VERSION>.vsix`
+-   Run `yarn vsce package`
+-   Run `code --install-extension processing-vscode-<VERSION>.vsix`

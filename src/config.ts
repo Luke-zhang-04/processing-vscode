@@ -16,7 +16,7 @@ const getProcessingCommand = (): string => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return "processing-java"
     }
 
     return config
@@ -32,7 +32,7 @@ const getJavaCommand = (): string => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return "java"
     }
 
     return config
@@ -48,13 +48,13 @@ const getJarPath = (): string => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return "processing-py.jar"
     }
 
     return config
 }
 
-const getPythonEnablement = (): boolean => {
+const getShouldEnablePython = (): boolean => {
     const isEnabled = vscode.workspace
         .getConfiguration()
         .get<boolean>("processing.py.isEnabled", true)
@@ -64,14 +64,14 @@ const getPythonEnablement = (): boolean => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return true
     }
 
     return isEnabled
 }
 
-type DocOptions = "processing.org" | "p5js.org" | "py.processing.org" | "auto"
 type SearchEngines = "Google" | "DuckDuckGo"
+type DocOptions = "processing.org" | "p5js.org" | "py.processing.org" | "auto"
 
 const getSearchConfig = (): {searchEngine: SearchEngines; processingDocs: DocOptions} => {
     const config = vscode.workspace.getConfiguration("processing")
@@ -84,13 +84,13 @@ const getSearchConfig = (): {searchEngine: SearchEngines; processingDocs: DocOpt
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return {searchEngine: "Google", processingDocs: "auto"}
     } else if (!["Google", "DuckDuckGo"].includes(searchEngine)) {
         const msg = 'Config option processing.search must be "Google" | "DuckDuckGo"'
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return {searchEngine: "Google", processingDocs: "auto"}
     }
 
     return {
@@ -105,11 +105,11 @@ const getshouldEnableDiagnostics = (): boolean => {
         .get<boolean>("processing.shouldGiveDiagnostics", true)
 
     if (typeof shouldGiveDiagnostics !== "boolean") {
-        const msg = "Config option processing.shouldGiveDiagnostics must be of type string"
+        const msg = "Config option processing.shouldGiveDiagnostics must be of type boolean"
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return true
     }
 
     return shouldGiveDiagnostics
@@ -125,26 +125,44 @@ const getQuoteEnablement = (): boolean => {
 
         vscode.window.showErrorMessage(msg)
 
-        throw new Error(msg)
+        return false
     }
 
     return shouldQuotePath === "always"
 }
 
-export const processingCommand = getProcessingCommand()
-export const javaCommand = getJavaCommand()
-export const jarPath = getJarPath()
-export const shouldEnablePython = getPythonEnablement()
-export const searchConfig = getSearchConfig()
-export const shouldEnableDiagnostics = getshouldEnableDiagnostics()
-export const shouldAlwaysQuotePath = getQuoteEnablement()
+const getShouldSendSigint = (): boolean => {
+    const isEnabled = vscode.workspace
+        .getConfiguration()
+        .get<boolean>("processing.shouldSendSigint", false)
 
-export default {
-    processingCommand,
-    javaCommand,
-    jarPath,
-    shouldEnablePython,
-    searchConfig,
-    shouldEnableDiagnostics,
-    shouldAlwaysQuotePath,
+    if (typeof isEnabled !== "boolean") {
+        const msg = "Config option processing.shouldSendSigint must be of type boolean"
+
+        vscode.window.showErrorMessage(msg)
+
+        throw new Error(msg)
+    }
+
+    return isEnabled
 }
+
+export let processingCommand = getProcessingCommand()
+export let javaCommand = getJavaCommand()
+export let jarPath = getJarPath()
+export let shouldEnablePython = getShouldEnablePython()
+export let searchConfig = getSearchConfig()
+export let shouldEnableDiagnostics = getshouldEnableDiagnostics()
+export let shouldAlwaysQuotePath = getQuoteEnablement()
+export let shouldSendSigint = getShouldSendSigint()
+
+vscode.workspace.onDidChangeConfiguration(() => {
+    processingCommand = getProcessingCommand()
+    javaCommand = getJavaCommand()
+    jarPath = getJarPath()
+    shouldEnablePython = getShouldEnablePython()
+    searchConfig = getSearchConfig()
+    shouldEnableDiagnostics = getshouldEnableDiagnostics()
+    shouldAlwaysQuotePath = getQuoteEnablement()
+    shouldSendSigint = getShouldSendSigint()
+})
