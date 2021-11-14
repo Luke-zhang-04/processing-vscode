@@ -1,7 +1,7 @@
 /**
  * Processing-vscode - Processing Language Support for VSCode
  *
- * @version 2.4.0
+ * @version 2.5.0
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  */
 
