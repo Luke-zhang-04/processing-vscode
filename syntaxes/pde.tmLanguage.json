@@ -1,6 +1,6 @@
 {
   "information_for_contributors": [
-    "This file has is based off https://github.com/redhat-developer/vscode-java/blob/master/syntaxes/java.tmLanguage.json"
+    "This file has is based off https://github.com/microsoft/vscode/blob/main/extensions/java/syntaxes/java.tmLanguage.json"
   ],
   "scopeName": "source.pde",
   "uuid": "fa3cf963-f9b4-4e28-949d-af2b8d279f97",
