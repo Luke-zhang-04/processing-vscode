@@ -7,9 +7,13 @@
 import vscode from "vscode"
 
 const getProcessingCommand = (): string => {
+    // Look for processing.processingPath, then processing.path, then default to processing-java
     const config = vscode.workspace
         .getConfiguration()
-        .get<unknown>("processing.processingPath", "processing-java")
+        .get<unknown>(
+            "processing.processingPath",
+            vscode.workspace.getConfiguration().get<unknown>("processing.path", "processing-java"),
+        )
 
     if (typeof config !== "string") {
         const msg = "Config option processing.processingPath must be of type string"

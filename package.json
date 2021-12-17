@@ -172,6 +172,12 @@
           "default": "processing-java",
           "description": "Path to Processing. Leave default if you've added processing to your path, otherwise enter the path to `processing-java` here. Example: `/usr/bin/processing-java` for Unix, or `C:\\Program Files\\processing-3.0.1\\processing-java` for Windows."
         },
+        "processing.path": {
+          "type": "string",
+          "default": "processing-java",
+          "description": "Legacy path to Processing. Use processing.processingPath instead. If processing.processingPath is available, it will be used",
+          "deprecationMessage": "Legacy path to Processing. Use processing.processingPath instead. If processing.processingPath is available, it will be used"
+        },
         "processing.docs": {
           "type": "string",
           "default": "auto",

@@ -24,6 +24,7 @@ Note on Processing 4: I'm not sure how this extension will handle Processing 4. 
     -   [Snippets](#snippets)
     -   [Documentation on Hover](#documentation-on-hover)
     -   [Commands](#commands)
+-   [Using task files](#using-task-files)
 -   [Processing Python](#processing-python)
 -   [Credits](#credits)
 
@@ -94,6 +95,12 @@ Installing this extension will add the following commands to your command pallet
 -   Search Processing Website
     -   Use the pallet command "Processing: Search Processing Website" to quickly search whatever you want on the processing website.
     -   By default uses Google for search. Can change to DuckDuckGo if preferred using the `processing.search` setting.
+
+## Using Task Files
+
+The [original extension](https://github.com/TobiahZ/processing-vscode) made use of a [tasks.json](https://github.com/TobiahZ/processing-vscode/blob/b98d44b095b303f7f66017c632b17e47fa00dfcd/ProcessingTasks.json) file to run processing projects. This has been replaced with the run command and run button (processing.Run). You can bind this command to a keybinding.
+
+Alternatively, if you prefer the `tasks.json` file, you can continue to use it, but the `command` field should be changed to `"${config:processing.path}"`.
 
 ## Processing Python
 
