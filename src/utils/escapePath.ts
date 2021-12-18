@@ -9,7 +9,7 @@ export const escapeExecutablePath = (pathName: string): string => {
         return pathName
     }
 
-    let isWindowsPath = /[a-zA-Z]:[\\\/](?:[a-zA-Z0-9]+[\\\/])*([a-zA-Z0-9]+)/gu.test(pathName)
+    let isWindowsPath = /[a-zA-Z]:[\\/](?:[a-zA-Z0-9]+[\\/])*([a-zA-Z0-9]+)/gu.test(pathName)
 
     if (!/[\\/]/gu.test(pathName)) {
         isWindowsPath = process.platform === "win32"

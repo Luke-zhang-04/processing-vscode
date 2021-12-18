@@ -4,8 +4,8 @@
  * @copyright (C) 2021 Luke Zhang
  */
 
-import vscode from "vscode"
 import {escapeExecutablePath} from "./utils"
+import vscode from "vscode"
 
 const getProcessingCommand = (): string => {
     // Look for processing.processingPath, then processing.path, then default to processing-java
