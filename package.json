@@ -1,6 +1,6 @@
 {
   "name": "processing-vscode",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "private": true,
   "description": "Processing Language Support for VSCode",
   "license": "MIT",
@@ -15,11 +15,11 @@
     "vscode": "^1.48.0"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules --experimental-specifier-resolution=node node_modules/.bin/jest",
     "build": "rollup -c rollup.config.js",
     "deploy": "vsce publish",
     "format": "prettier . --write && eslint --ext ts --fix --cache",
     "lint": "eslint --ext ts src --max-warnings 0 --cache",
+    "test": "node --experimental-vm-modules --experimental-specifier-resolution=node node_modules/.bin/jest",
     "vscode:prepublish": "rollup -c rollup.config.js"
   },
   "keywords": [

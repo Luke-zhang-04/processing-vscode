@@ -9,7 +9,7 @@ const banner = `/**
  * https://github.com/Luke-zhang-04/processing-vscode
  *
  * @license MIT
- * @version 2.5.0
+ * @version 2.5.1
  * @preserve
  * @copyright (C) 2016 - 2020 Tobiah Zarlez, 2021 Luke Zhang
  *
