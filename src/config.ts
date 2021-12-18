@@ -5,6 +5,7 @@
  */
 
 import vscode from "vscode"
+import {escapeExecutablePath} from "./utils"
 
 const getProcessingCommand = (): string => {
     // Look for processing.processingPath, then processing.path, then default to processing-java
@@ -23,7 +24,7 @@ const getProcessingCommand = (): string => {
         return "processing-java"
     }
 
-    return config
+    return escapeExecutablePath(config)
 }
 
 const getJavaCommand = (): string => {

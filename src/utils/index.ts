@@ -5,6 +5,7 @@
  */
 
 export * as search from "./search"
+export {escapeExecutablePath} from "./escapePath"
 
 export const isValidProcessingProject = (path?: string): boolean =>
     path !== undefined && /^[/_$a-z][/\w$]*$/iu.test(path)
