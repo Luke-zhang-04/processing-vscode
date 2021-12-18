@@ -4,12 +4,17 @@
  * @copyright (C) 2021 Luke Zhang
  */
 
+import {escapeExecutablePath} from "./utils"
 import vscode from "vscode"
 
 const getProcessingCommand = (): string => {
+    // Look for processing.processingPath, then processing.path, then default to processing-java
     const config = vscode.workspace
         .getConfiguration()
-        .get<unknown>("processing.processingPath", "processing-java")
+        .get<unknown>(
+            "processing.processingPath",
+            vscode.workspace.getConfiguration().get<unknown>("processing.path", "processing-java"),
+        )
 
     if (typeof config !== "string") {
         const msg = "Config option processing.processingPath must be of type string"
@@ -19,7 +24,7 @@ const getProcessingCommand = (): string => {
         return "processing-java"
     }
 
-    return config
+    return escapeExecutablePath(config)
 }
 
 const getJavaCommand = (): string => {

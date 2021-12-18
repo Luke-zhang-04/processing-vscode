@@ -1,6 +1,6 @@
 {
   "name": "processing-vscode",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "private": true,
   "description": "Processing Language Support for VSCode",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "deploy": "vsce publish",
     "format": "prettier . --write && eslint --ext ts --fix --cache",
     "lint": "eslint --ext ts src --max-warnings 0 --cache",
+    "test": "node --experimental-vm-modules --experimental-specifier-resolution=node node_modules/.bin/jest",
     "vscode:prepublish": "rollup -c rollup.config.js"
   },
   "keywords": [
@@ -35,6 +36,7 @@
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-typescript": "^8.2.1",
     "@types/glob": "^7.1.4",
+    "@types/jest": "^27.0.3",
     "@types/jsdom": "^16.2.13",
     "@types/node": "^16.3.1",
     "@types/node-fetch": "^2.5.11",
@@ -44,6 +46,7 @@
     "eslint": "^7.30.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "glob": "^7.1.7",
+    "jest": "^27.4.5",
     "jsdom": "^16.6.0",
     "node-fetch": "^2.6.1",
     "prettier": "^2.3.2",
@@ -52,6 +55,7 @@
     "rollup": "^2.53.0",
     "rollup-plugin-progress": "^1.1.2",
     "rollup-plugin-terser": "^7.0.2",
+    "ts-jest": "^27.1.2",
     "tslib": "^2.3.0",
     "typescript": "~4.3.5",
     "vsce": "^1.95.1",
@@ -171,6 +175,12 @@
           "type": "string",
           "default": "processing-java",
           "description": "Path to Processing. Leave default if you've added processing to your path, otherwise enter the path to `processing-java` here. Example: `/usr/bin/processing-java` for Unix, or `C:\\Program Files\\processing-3.0.1\\processing-java` for Windows."
+        },
+        "processing.path": {
+          "type": "string",
+          "default": "processing-java",
+          "description": "Legacy path to Processing. Use processing.processingPath instead. If processing.processingPath is available, it will be used",
+          "deprecationMessage": "Legacy path to Processing. Use processing.processingPath instead. If processing.processingPath is available, it will be used"
         },
         "processing.docs": {
           "type": "string",
