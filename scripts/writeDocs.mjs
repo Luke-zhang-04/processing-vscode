@@ -1,7 +1,7 @@
 #!/bin/node
 
 /**
- * @file gets Documentation from https://processing.org/reference and dumps it into
+ * @file Gets Documentation from https://processing.org/reference and dumps it into
  *   `src/documentation-data.json` with some bootleg webscraping
  */
 

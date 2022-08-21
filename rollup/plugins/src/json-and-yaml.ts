@@ -1,6 +1,6 @@
 /**
  * @license MIT
- * @file improved Version of @rollup/plugin-json and @rollup/plugin-yaml that combines the two and
+ * @file Improved Version of @rollup/plugin-json and @rollup/plugin-yaml that combines the two and
  *   provides the option for JSON.stringify()
  * @copyright (c) 2019 RollupJS Plugin Contributors
  *  (https://github.com/rollup/plugins/graphs/contributors), 2021 Luke Zhang
@@ -77,7 +77,7 @@ type RollupJsonOptions = {
      * - If more than one [document stream](https://yaml.org/spec/1.2/spec.html#id2801681) exists in
      *   the target YAML file(s), set `documentMode: 'multi'`.
      *
-     * @default 'single'
+     * @default "single"
      */
     documentMode?: "single" | "multi"
 }
