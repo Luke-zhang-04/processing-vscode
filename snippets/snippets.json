@@ -67,7 +67,7 @@
   },
   "Array": {
     "prefix": "Array",
-    "body": "${1:int}[] ${2:numbers} ${6:= new $1[${3:length}]};",
+    "body": "var${2:numbers} ${6:= new ${1:int}[${3:length}]};",
     "description": "Array",
     "scope": "source.pde"
   },
@@ -79,7 +79,7 @@
   },
   "ArrayList": {
     "prefix": "ArrayList",
-    "body": "ArrayList<${1:String}> ${2:arraylist} = new ArrayList<$1>();",
+    "body": "var ${1:arraylist} = new ArrayList<${1:String}>();",
     "description": "ArrayList",
     "scope": "source.pde"
   },
@@ -233,6 +233,12 @@
     "description": "brightness",
     "scope": "source.pde"
   },
+  "BufferedReader": {
+    "prefix": "BufferedReader",
+    "body": "BufferedReader ${1:bufferedReader} = createReader(${2:fileName});",
+    "description": "BufferedReader",
+    "scope": "source.pde"
+  },
   "byte": {
     "prefix": "byte",
     "body": "byte ${1:b} ${6:= ${3:127}};",
@@ -317,9 +323,15 @@
     "description": "cos",
     "scope": "source.pde"
   },
+  "createInput": {
+    "prefix": "createInput",
+    "body": "createInput(${2:\"${1:filename}\"});",
+    "description": "createInput",
+    "scope": "source.pde"
+  },
   "createReader": {
     "prefix": "createReader",
-    "body": "createReader(${1:filename});",
+    "body": "createReader(${2:\"${1:filename}\"});",
     "description": "createReader",
     "scope": "source.pde"
   },
@@ -331,8 +343,26 @@
   },
   "createWriter": {
     "prefix": "createWriter",
-    "body": "createWriter(${1:filename});",
+    "body": "createWriter(${2:\"${1:filename}\"});",
     "description": "createWriter",
+    "scope": "source.pde"
+  },
+  "cursor_img_xy": {
+    "prefix": "cursor_img_xy",
+    "body": "cursor(${1:PImageInstance}, ${2:x}, ${3:y});",
+    "description": "cursor_img_xy",
+    "scope": "source.pde"
+  },
+  "cursor_img": {
+    "prefix": "cursor_img",
+    "body": "cursor(${1:PImageInstance});",
+    "description": "cursor_img",
+    "scope": "source.pde"
+  },
+  "cursor": {
+    "prefix": "cursor",
+    "body": "cursor(${1|ARROW,CROSS,HAND,MOVE,TEXT,WAIT|});",
+    "description": "cursor",
     "scope": "source.pde"
   },
   "curve_3D": {
@@ -377,6 +407,12 @@
     "description": "curveVertex",
     "scope": "source.pde"
   },
+  "day": {
+    "prefix": "day",
+    "body": "day();",
+    "description": "day",
+    "scope": "source.pde"
+  },
   "default": {
     "prefix": "default",
     "body": "default :\n\t$0\nbreak;\t",
@@ -387,6 +423,12 @@
     "prefix": "degrees",
     "body": "degrees(${1:rad});",
     "description": "degrees",
+    "scope": "source.pde"
+  },
+  "delay": {
+    "prefix": "delay",
+    "body": "delay(${1:timeMs});",
+    "description": "delay",
     "scope": "source.pde"
   },
   "directionalLight": {
@@ -417,6 +459,12 @@
     "prefix": "doc_-_comment",
     "body": "/**\n *\t${1:@private}$0\n */",
     "description": "doc - comment",
+    "scope": "source.pde"
+  },
+  "draw": {
+    "prefix": "draw",
+    "body": "draw() {}",
+    "description": "draw",
     "scope": "source.pde"
   },
   "ellipse": {
@@ -467,6 +515,12 @@
     "description": "endShape",
     "scope": "source.pde"
   },
+  "exit": {
+    "prefix": "exit",
+    "body": "exit();",
+    "description": "exit",
+    "scope": "source.pde"
+  },
   "exp": {
     "prefix": "exp",
     "body": "exp(${1:value});",
@@ -477,6 +531,18 @@
     "prefix": "expand",
     "body": "expand(${1:array}${3:, ${2:newSize}});",
     "description": "expand",
+    "scope": "source.pde"
+  },
+  "fileSelected": {
+    "prefix": "fileSelected",
+    "body": "void fileSelected(File file) {}",
+    "description": "fileSelected",
+    "scope": "source.pde"
+  },
+  "folderSelected": {
+    "prefix": "folderSelected",
+    "body": "void folderSelected(File folder) {};",
+    "description": "folderSelected",
     "scope": "source.pde"
   },
   "fill_grey_alpha": {
@@ -507,6 +573,18 @@
     "prefix": "fill",
     "body": "fill(${8:${3:value1}, ${4:value2}, ${5:value3}${7:, ${6:alpha}}});",
     "description": "fill",
+    "scope": "source.pde"
+  },
+  "FloatDict": {
+    "prefix": "FloatDict",
+    "body": "var ${1:floatDict} = new FloatDict();",
+    "description": "FloatDict",
+    "scope": "source.pde"
+  },
+  "FloatList": {
+    "prefix": "FloatList",
+    "body": "var ${1:floatList} = new FloatList();",
+    "description": "FloatList",
     "scope": "source.pde"
   },
   "float": {
@@ -553,7 +631,7 @@
   },
   "frameRate_(set)": {
     "prefix": "frameRate_(set)",
-    "body": "frameRate($0);",
+    "body": "frameRate(${1:amount});",
     "description": "frameRate (set)",
     "scope": "source.pde"
   },
@@ -561,6 +639,24 @@
     "prefix": "frustum",
     "body": "frustrum(${7:${1:left}, ${2:right}, ${3:bottom}, ${4:top}, ${5:near}, ${6:far}});",
     "description": "frustum",
+    "scope": "source.pde"
+  },
+  "fullScreen_display": {
+    "prefix": "fullScreen_display",
+    "body": "fullScreen(${1:display});",
+    "description": "fullScreen_display",
+    "scope": "source.pde"
+  },
+  "fullScreen_renderer": {
+    "prefix": "fullScreen_renderer",
+    "body": "fullScreen(${1:renderer}, ${2:optionalDisplay});",
+    "description": "fullScreen_renderer",
+    "scope": "source.pde"
+  },
+  "fullScreen": {
+    "prefix": "fullScreen",
+    "body": "fullScreen();",
+    "description": "fullScreen",
     "scope": "source.pde"
   },
   "function": {
@@ -643,7 +739,7 @@
   },
   "glGenLists": {
     "prefix": "glGenLists",
-    "body": "gl.glGenLists(${1:1})",
+    "body": "gl.glGenLists(${1:1})${2:;}",
     "description": "glGenLists",
     "scope": "source.pde"
   },
@@ -713,21 +809,27 @@
     "description": "HALF PI",
     "scope": "source.pde"
   },
+  "HashMap": {
+    "prefix": "HashMap",
+    "body": "var ${1:hashmap} = new HashMap<${2:String}, ${3:string}>();",
+    "description": "HashMap",
+    "scope": "source.pde"
+  },
   "hex": {
     "prefix": "hex",
-    "body": "hex(${3:c});",
+    "body": "hex(${1:c})${2:;}",
     "description": "hex",
     "scope": "source.pde"
   },
   "hour": {
     "prefix": "hour",
-    "body": "hour()",
+    "body": "hour()${1:;}",
     "description": "hour",
     "scope": "source.pde"
   },
   "hue": {
     "prefix": "hue",
-    "body": "hue(${1:color});",
+    "body": "hue(${1:color})${2:;}",
     "description": "hue",
     "scope": "source.pde"
   },
@@ -749,6 +851,24 @@
     "description": "image",
     "scope": "source.pde"
   },
+  "InputStream": {
+    "prefix": "InputStream",
+    "body": "InputStream ${1:inputStream} = createInput(${3:\"${2:filename}\"});",
+    "description": "InputStream",
+    "scope": "source.pde"
+  },
+  "IntDict": {
+    "prefix": "IntDict",
+    "body": "var ${1:intDict} = new IntDict();",
+    "description": "IntDict",
+    "scope": "source.pde"
+  },
+  "IntList": {
+    "prefix": "IntList",
+    "body": "var ${1:intDict} = new IntList();",
+    "description": "IntList",
+    "scope": "source.pde"
+  },
   "int": {
     "prefix": "int",
     "body": "int ${1:i} ${6:= ${3:0}};",
@@ -757,8 +877,44 @@
   },
   "join": {
     "prefix": "join",
-    "body": "join(${3:strgArray}, ${4:seperator});",
+    "body": "join(${1:strgArray}, ${2:seperator})${3:;}",
     "description": "join",
+    "scope": "source.pde"
+  },
+  "JSONArray_load": {
+    "prefix": "JSONArray_load",
+    "body": "JSONArray ${1:jsonArray} = loadJSONArray(${3:\"${2:filename}\"});",
+    "description": "JSONArray_load",
+    "scope": "source.pde"
+  },
+  "JSONArray_parse": {
+    "prefix": "JSONArray_load",
+    "body": "JSONArray ${1:jsonArray} = parseJSONArray(${2:data});",
+    "description": "JSONArray_parse",
+    "scope": "source.pde"
+  },
+  "JSONArray": {
+    "prefix": "JSONArray",
+    "body": "var ${1:jsonArray} = new JSONArray();",
+    "description": "JSONArray",
+    "scope": "source.pde"
+  },
+  "JSONObject_load": {
+    "prefix": "JSONObject",
+    "body": "JSONObject ${1:jsonObject} = loadJSONObject(${3:\"${2:filename}\"});",
+    "description": "JSONObject",
+    "scope": "source.pde"
+  },
+  "JSONObject_parse": {
+    "prefix": "JSONObject_parse",
+    "body": "JSONObject ${1:jsonObject} = parseJSONObject(${2:data});",
+    "description": "JSONObject_parse",
+    "scope": "source.pde"
+  },
+  "JSONObject": {
+    "prefix": "JSONObject",
+    "body": "var ${1:jsonObject} = new JSONObject();",
+    "description": "JSONObject",
     "scope": "source.pde"
   },
   "key": {
@@ -797,15 +953,21 @@
     "description": "keyTyped",
     "scope": "source.pde"
   },
+  "launch": {
+    "prefix": "launch",
+    "body": "launch(${1:args});",
+    "description": "launch",
+    "scope": "source.pde"
+  },
   "lerp": {
     "prefix": "lerp",
-    "body": "lerp(${1:value1}, ${2:value2}, ${3:amt});",
+    "body": "lerp(${1:value1}, ${2:value2}, ${3:amt})${4:;}",
     "description": "lerp",
     "scope": "source.pde"
   },
   "lerpColor": {
     "prefix": "lerpColor",
-    "body": "lerpColor(${1:c1}, ${2:c2}, ${3:amt});",
+    "body": "lerpColor(${1:c1}, ${2:c2}, ${3:amt})${4:;}",
     "description": "lerpColor",
     "scope": "source.pde"
   },
@@ -859,8 +1021,20 @@
   },
   "loadImage": {
     "prefix": "loadImage",
-    "body": "loadImage(${1:filename});",
+    "body": "loadImage(${2:\"${1:filename}\"});",
     "description": "loadImage",
+    "scope": "source.pde"
+  },
+  "loadJSONArray": {
+    "prefix": "loadJSONArray",
+    "body": "loadJSONArray(${2:\"${1:filename}\"});",
+    "description": "loadJSONArray",
+    "scope": "source.pde"
+  },
+  "loadJSONObject": {
+    "prefix": "loadJSONObject",
+    "body": "loadJSONObject(${2:\"${1:filename}\"});",
+    "description": "loadJSONObject",
     "scope": "source.pde"
   },
   "loadPixels": {
@@ -871,7 +1045,7 @@
   },
   "loadShape": {
     "prefix": "loadShape",
-    "body": "loadShape(${1:filename});",
+    "body": "loadShape(${2:\"${1:filename}\"});",
     "description": "loadShape",
     "scope": "source.pde"
   },
@@ -879,6 +1053,12 @@
     "prefix": "loadStrings",
     "body": "loadStrings(${2:\"${1:filename}\"});",
     "description": "loadStrings",
+    "scope": "source.pde"
+  },
+  "loadTable": {
+    "prefix": "loadTable",
+    "body": "loadTable(${2:\"${1:filename}\"});",
+    "description": "loadTable",
     "scope": "source.pde"
   },
   "loadXML": {
@@ -893,6 +1073,12 @@
     "description": "log",
     "scope": "source.pde"
   },
+  "loop": {
+    "prefix": "loop",
+    "body": "loop();",
+    "description": "loop",
+    "scope": "source.pde"
+  },
   "mag": {
     "prefix": "mag",
     "body": "mag(${1:a}, ${2:b}${4:, ${3:c}});",
@@ -903,6 +1089,12 @@
     "prefix": "map",
     "body": "map(${1:value}, ${2:low1}, ${4:high1}, ${5:low2}, ${6:high2});",
     "description": "map",
+    "scope": "source.pde"
+  },
+  "matchAll": {
+    "prefix": "matchAll",
+    "body": "matchAll(${3:str}, ${4:regexp});",
+    "description": "matchAll",
     "scope": "source.pde"
   },
   "match": {
@@ -925,7 +1117,7 @@
   },
   "millis": {
     "prefix": "millis",
-    "body": "millis()",
+    "body": "millis()$0",
     "description": "millis",
     "scope": "source.pde"
   },
@@ -943,7 +1135,7 @@
   },
   "minute": {
     "prefix": "minute",
-    "body": "minute()",
+    "body": "minute()${1:;}",
     "description": "minute",
     "scope": "source.pde"
   },
@@ -967,7 +1159,7 @@
   },
   "month": {
     "prefix": "month",
-    "body": "month()",
+    "body": "month()${1:;}",
     "description": "month",
     "scope": "source.pde"
   },
@@ -1139,6 +1331,18 @@
     "description": "param",
     "scope": "source.pde"
   },
+  "parseJSONArray": {
+    "prefix": "parseJSONArray",
+    "body": "parseJSONArray(${1:data});",
+    "description": "parseJSONArray",
+    "scope": "source.pde"
+  },
+  "parseJSONObject": {
+    "prefix": "parseJSONObject",
+    "body": "parseJSONObject(${1:data});",
+    "description": "parseJSONObject",
+    "scope": "source.pde"
+  },
   "parseXML": {
     "prefix": "parseXML",
     "body": "parseXML(${1:rawString});",
@@ -1175,6 +1379,12 @@
     "description": "PImage",
     "scope": "source.pde"
   },
+  "pixelDensity": {
+    "prefix": "pixelDensity",
+    "body": "pixelDensity(${1:displayDensity()});",
+    "description": "pixelDensity",
+    "scope": "source.pde"
+  },
   "pixels": {
     "prefix": "pixels",
     "body": "pixels[${1:index}]",
@@ -1205,6 +1415,18 @@
     "description": "pointLight",
     "scope": "source.pde"
   },
+  "popStyle": {
+    "prefix": "popStyle",
+    "body": "popStyle();",
+    "description": "popStyle",
+    "scope": "source.pde"
+  },
+  "pop": {
+    "prefix": "pop",
+    "body": "pop();",
+    "description": "pop",
+    "scope": "source.pde"
+  },
   "pow": {
     "prefix": "pow",
     "body": "pow(${1:num}, ${2:exponent});",
@@ -1219,13 +1441,13 @@
   },
   "println_var": {
     "prefix": "println_var",
-    "body": "println(\"${1:var}: \"+${1:var});$0",
+    "body": "println(\"${1:var}: \"+${1:var});",
     "description": "println var",
     "scope": "source.pde"
   },
   "println_text": {
     "prefix": "println_text",
-    "body": "println(\"$1\");$0",
+    "body": "println(\"$1\");",
     "description": "println text",
     "scope": "source.pde"
   },
@@ -1325,6 +1547,18 @@
     "description": "pushMatrix/popMatrix",
     "scope": "source.pde"
   },
+  "pushStyle": {
+    "prefix": "pushStyle",
+    "body": "pushStyle();",
+    "description": "pushStyle",
+    "scope": "source.pde"
+  },
+  "push": {
+    "prefix": "push",
+    "body": "push();",
+    "description": "push",
+    "scope": "source.pde"
+  },
   "quad": {
     "prefix": "quad",
     "body": "quad(${1:x1}, ${2:y1}, ${3:x2}, ${4:y2}, ${5:x3}, ${6:y3}, ${7:x4}, ${8:y4});",
@@ -1365,6 +1599,12 @@
     "prefix": "rectMode",
     "body": "rectMode(${1:CENTER});",
     "description": "rectMode",
+    "scope": "source.pde"
+  },
+  "redraw": {
+    "prefix": "redraw",
+    "body": "redraw();",
+    "description": "redraw",
     "scope": "source.pde"
   },
   "red": {
@@ -1447,8 +1687,20 @@
   },
   "saveXML": {
     "prefix": "saveXML",
-    "body": "saveXML(${1:xml}, ${2:filename});",
+    "body": "saveXML(${1:xml}, ${3:\"${2:filename}\"});",
     "description": "saveXML",
+    "scope": "source.pde"
+  },
+  "selectFolder": {
+    "prefix": "selectFolder",
+    "body": "selectFolder(\"${1:Select a folder to process:}\", ${2:functionName});",
+    "description": "selectFolder",
+    "scope": "source.pde"
+  },
+  "selectInput": {
+    "prefix": "selectInput",
+    "body": "selectInput(\"${1:Select a file to process:}\", ${2:functionName});",
+    "description": "selectInput",
     "scope": "source.pde"
   },
   "scale_SIZE": {
@@ -1495,7 +1747,7 @@
   },
   "second": {
     "prefix": "second",
-    "body": "second()",
+    "body": "second()$1",
     "description": "second",
     "scope": "source.pde"
   },
@@ -1511,10 +1763,34 @@
     "description": "set",
     "scope": "source.pde"
   },
+  "setLocation": {
+    "prefix": "setLocation",
+    "body": "setLocation(${1:x}, ${2:y});",
+    "description": "setLocation",
+    "scope": "source.pde"
+  },
+  "setResizable": {
+    "prefix": "setResizable",
+    "body": "setResizable(${1:isResizable});",
+    "description": "setResizable",
+    "scope": "source.pde"
+  },
   "setSwapInterval": {
     "prefix": "setSwapInterval",
     "body": "// specify the minimum swap interval for buffer swaps.\ngl.setSwapInterval(${1:interval});",
     "description": "setSwapInterval",
+    "scope": "source.pde"
+  },
+  "settings": {
+    "prefix": "settings",
+    "body": "settings() {}",
+    "description": "settings",
+    "scope": "source.pde"
+  },
+  "setTitle": {
+    "prefix": "setTitle",
+    "body": "setTitle(${1:title});",
+    "description": "setTitle",
     "scope": "source.pde"
   },
   "setup_OpenGL": {
@@ -1655,9 +1931,21 @@
     "description": "str",
     "scope": "source.pde"
   },
+  "StringDict": {
+    "prefix": "StringDict",
+    "body": "var ${1:stringDict} = new StringDict();",
+    "description": "StringDict",
+    "scope": "source.pde"
+  },
+  "StringList": {
+    "prefix": "StringList",
+    "body": "var ${1:stringList} = new StringList();",
+    "description": "StringList",
+    "scope": "source.pde"
+  },
   "String": {
     "prefix": "String",
-    "body": "String ${1:str} ${6:= \"${3:CCCP}\"};",
+    "body": "var ${1:str} ${6:= \"$3\"};",
     "description": "String",
     "scope": "source.pde"
   },
@@ -1707,6 +1995,18 @@
     "prefix": "switch",
     "body": "switch ($1) {\n\t$0\n}",
     "description": "switch",
+    "scope": "source.pde"
+  },
+  "TableRow": {
+    "prefix": "TableRow",
+    "body": "TableRow ${1:row} = ${2:table}.addRow();",
+    "description": "TableRow",
+    "scope": "source.pde"
+  },
+  "Table": {
+    "prefix": "Table",
+    "body": "var ${1:table} = new Table();",
+    "description": "Table",
     "scope": "source.pde"
   },
   "tan": {
@@ -1779,6 +2079,12 @@
     "prefix": "translate",
     "body": "translate(${1:x}, ${2:y}${4:, ${3:z}});",
     "description": "translate",
+    "scope": "source.pde"
+  },
+  "thread": {
+    "prefix": "thread",
+    "body": "thread(${1:functionName});",
+    "description": "thread",
     "scope": "source.pde"
   },
   "triangle": {
@@ -1883,9 +2189,45 @@
     "description": "while",
     "scope": "source.pde"
   },
+  "windowMove": {
+    "prefix": "windowMove",
+    "body": "windowMove(${1:x}, ${2:y});",
+    "description": "windowMove",
+    "scope": "source.pde"
+  },
+  "windowRatio": {
+    "prefix": "windowRatio",
+    "body": "windowRatio(${1:width}, ${2:height});",
+    "description": "windowRatio",
+    "scope": "source.pde"
+  },
+  "windowResize": {
+    "prefix": "windowResize",
+    "body": "windowResize(${1:width}, ${2:height});",
+    "description": "windowResize",
+    "scope": "source.pde"
+  },
+  "windowResizable": {
+    "prefix": "windowResizable",
+    "body": "windowResizable(${1:isResizable});",
+    "desc": "windowResizable",
+    "scope": "source.pde"
+  },
+  "windowTitle": {
+    "prefix": "windowTitle",
+    "body": "windowTitle(${1:title});",
+    "desc": "windowTitle",
+    "scope": "source.pde"
+  },
+  "XML": {
+    "prefix": "XML",
+    "body": "XML ${1:xml} = loadXML(${2:fileName});",
+    "description": "XML",
+    "scope": "source.pde"
+  },
   "year": {
     "prefix": "year",
-    "body": "year()",
+    "body": "year()${1:;}",
     "description": "year",
     "scope": "source.pde"
   }
